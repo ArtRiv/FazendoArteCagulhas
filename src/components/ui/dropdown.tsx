@@ -1,0 +1,133 @@
+"use client"
+
+import { FiChevronDown } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { AnchorClientSide } from "./anchor-client-side";
+
+type DropdownProps = {
+    children: React.ReactNode;
+    text: string;
+};
+
+export const StaggeredDropDown = ({ children, text }: DropdownProps) => {
+    const [open, setOpen] = useState(false);
+
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    function onBodyClick(event: Event) {
+        const targetElement = event.target as Element;
+        if (!(modalRef.current?.contains(targetElement))) {
+            setOpen(false);
+        }
+    }
+
+    useEffect(() => {
+        if (open) {
+            document.body.addEventListener('click', (event: Event) => onBodyClick(event))
+            window.addEventListener('scroll', () => setOpen(false));
+            return () => {
+                window.removeEventListener('scroll', () => {});
+                document.body.removeEventListener('click', onBodyClick)
+            }
+        }
+        return;
+    }, [open]);
+
+    return (
+        <motion.div ref={modalRef} animate={open ? "open" : "closed"} className="relative">
+            <button
+                onClick={() => setOpen((pv) => !pv)}
+                className="flex items-center gap-2 rounded-md text-font-color transition-colors"
+            >
+                <span className="relative font-harmonia text-normal text-font-color
+                        leading-line-height-small tracking-letter-space-small
+                        select-none underline [text-decoration-color:transparent]
+                        hover:transition-all animateBorderBottom changeTextColor">{text}</span>
+                <motion.span variants={iconVariants}>
+                    <FiChevronDown />
+                </motion.span>
+            </button>
+
+            <motion.ul
+                initial={wrapperVariants.closed}
+                variants={wrapperVariants}
+                style={{ originY: "top", translateX: "-30%" }}
+                className="flex flex-col gap-2 p-2 z-[5] rounded-lg bg-background shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
+            >
+                {children}
+            </motion.ul>
+        </motion.div>
+    );
+};
+
+
+type OptionProps = {
+    text: string,
+    setOpen: Dispatch<SetStateAction<boolean>>;
+    navigateLink: string;
+};
+
+export const Option = ({ text, setOpen, navigateLink }: OptionProps) => {
+
+    return (
+        <motion.li
+            variants={itemVariants}
+            className="flex items-center gap-2 w-full text-small whitespace-nowrap rounded-md hover:bg-decoration/20 text-font-color transition-colors cursor-pointer"
+        >
+            <AnchorClientSide 
+            twStyles="flex items-center no-underline cursor-pointer w-full px-2 py-1"
+            navigateLink={navigateLink} 
+            setOpen={setOpen}>
+                <span>
+                    {text}
+                </span>
+            </AnchorClientSide>
+        </motion.li>
+
+    );
+};
+
+const wrapperVariants = {
+    open: {
+        scaleY: 1,
+        transition: {
+            when: "beforeChildren",
+            staggerChildren: 0.1,
+        },
+    },
+    closed: {
+        scaleY: 0,
+        transition: {
+            when: "afterChildren",
+            staggerChildren: 0.1,
+        },
+    },
+};
+
+const iconVariants = {
+    open: { rotate: 180 },
+    closed: { rotate: 0 },
+};
+
+const itemVariants = {
+    open: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            when: "beforeChildren",
+        },
+    },
+    closed: {
+        opacity: 0,
+        y: -15,
+        transition: {
+            when: "afterChildren",
+        },
+    },
+};
+
+const actionIconVariants = {
+    open: { scale: 1, y: 0 },
+    closed: { scale: 0, y: -7 },
+};
