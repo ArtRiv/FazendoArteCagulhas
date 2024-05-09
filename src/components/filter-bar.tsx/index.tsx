@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { StaggeredDropDown, Option } from "../ui/dropdown"
-import { useAllSettings } from "@/hooks/useClientSettings";
+import { useAllSettings } from "@/utils/settings/getClientSettings";
 import { usePathname } from "next/navigation";
 import { SortByTypes } from "@/types/productParams";
 

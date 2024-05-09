@@ -4,7 +4,7 @@ import { FormEvent, useDeferredValue, useEffect, useRef, useState } from "react"
 import { SearchIcon } from "@/components/icons/searchIcon";
 import { CloseIcon } from "@/components/icons/closeIcon";
 import { usePathname, useRouter } from "next/navigation";
-import { useAllSettings } from "@/hooks/useClientSettings";
+import { useAllSettings } from "@/utils/settings/getClientSettings";
 import PredictiveSearchModal from "./modal";
 
 type SearchInputProps = {

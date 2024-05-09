@@ -1,14 +1,14 @@
-import { getAllProducts, getTotalProductsCount } from "@/hooks/useProducts";
 import { ProductTypes, getProductsParams } from "@/types/productParams";
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { ProductsPagination } from "@/components/ui/pagination";
 import { ProductsList } from "@/components/products-list";
 import { FilterBar } from "@/components/filter-bar.tsx";
-import useQueryParams from "@/hooks/useServerSettings";
+import useQueryParams from "@/utils/settings/getServerSettings";
 import { Hero } from "@/components/ui/hero";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { CardVariants } from "@/types/cardVariants";
+import { getFilteredProducts, getTotalProductsCount } from "@/db";
 
 export default async function ProductsPage() {
     const { productType, sortBy, page, pageSize } = useQueryParams();
@@ -22,7 +22,7 @@ export default async function ProductsPage() {
         sortBy,
     };
 
-    const productsData = await getAllProducts(params);
+    const productsData = await getFilteredProducts(params);
     const totalProductsCount = await getTotalProductsCount(productType);
 
     console.log(params);

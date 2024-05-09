@@ -1,10 +1,9 @@
-import { getProductById, getSimilarProducts } from "@/hooks/useProducts";
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { getSimilarProductsParams } from "@/types/productParams";
 import { ProductsList } from "@/components/products-list";
 import { SwipeCarousel } from "@/components/ui/image-carousel";
-import useQueryParams from "@/hooks/useServerSettings";
+import useQueryParams from "@/utils/settings/getServerSettings";
 import { formatPrice } from "@/utils/formatPrice";
 import Wrapper from "@/components/ui/media-modal";
 import { redirect } from "next/navigation";
@@ -12,9 +11,9 @@ import { Suspense } from "react";
 import Image from "next/image";
 import { Product } from "@/types/product";
 import { CardVariants } from "@/types/cardVariants";
-import { getProductReviews } from "@/hooks/useProductReviews";
 import { ProductReviews } from "@/components/product-reviews";
 import { StarsRating } from "@/components/ui/stars-rating";
+import { getProductById, getProductReviews, getSimilarProducts } from "@/db";
 
 export default async function ProductPage() {
     const { productId } = useQueryParams();

@@ -1,9 +1,10 @@
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { SearchInput } from "@/components/predictive-search";
 import { ProductsList } from "@/components/products-list";
-import { getProductsBySearch } from "@/hooks/useProducts";
-import useQueryParams from "@/hooks/useServerSettings";
-import { useProductsBySearchParams } from "@/types/productParams";
+import { getProductsBySearch } from "@/db";
+import { CardVariants } from "@/types/cardVariants";
+import { getProductsBySearchParams } from "@/types/productParams";
+import useQueryParams from "@/utils/settings/getServerSettings";
 import { redirect } from "next/navigation";
 
 export default async function ResultsComponent() {
@@ -11,7 +12,7 @@ export default async function ResultsComponent() {
 
     if(searchQuery == '') redirect('/');
 
-    const params: useProductsBySearchParams = {
+    const params: getProductsBySearchParams = {
         page,
         pageSize,
         searchQuery,
@@ -30,10 +31,10 @@ export default async function ResultsComponent() {
                     <SearchInput />
                 </div>
             </div>
-            {(productsData.length > 0) &&
-                <ProductsList productsData={productsData} />
+            {productsData &&
+                <ProductsList productsData={productsData} cardVariant={CardVariants.NORMAL}/>
             }
-            {(productsData.length == 0) &&
+            {!productsData &&
                 <div className="w-auto mx-auto my-0 p-12 "> 
                     &quot;{searchQuery}&quot;... own, parece que não temos isso (╥﹏╥) 
                 </div>

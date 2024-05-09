@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAllSettings } from "@/hooks/useClientSettings";
+import { useAllSettings } from "@/utils/settings/getClientSettings";
 import { ProductCard } from "./mini-card";
 import { Product } from "@/types/product";
 import { PredictiveSearchOptionSearchKeyword } from "./keyword-link";
-import { getProductsPredictiveSearchTypes } from "@/types/productParams";
-import { getProductsPredictiveSearch } from "@/hooks/useProducts";
+import { getProductsPredictiveSearch } from "@/db";
+import { getProductsByPredictiveSearch } from "@/types/productParams";
 
 interface PredictiveSearchProps {
     inputValue: string;
@@ -28,12 +28,12 @@ export default function PredictiveSearchModal({ inputValue }: PredictiveSearchPr
     useEffect(() => {
         const fetchProductData = async () => {
             setProductsData([]);
-            const params: getProductsPredictiveSearchTypes = {
+            const params: getProductsByPredictiveSearch = {
                 inputValue: debouncedInputValue,
                 sortBy: currentSortBy
             }
             if (debouncedInputValue) {
-                const products: Product[] = await getProductsPredictiveSearch(params);
+                const products: Product[] | null = await getProductsPredictiveSearch(params);
                 if (products) {
                     setProductsData(products);
                 }

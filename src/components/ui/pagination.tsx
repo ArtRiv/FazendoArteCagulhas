@@ -1,6 +1,6 @@
 "use client"
 
-import { useAllSettings } from '@/hooks/useClientSettings';
+import { useAllSettings } from '@/utils/settings/getClientSettings';
 import Pagination from '@mui/material/Pagination';
 import { usePathname } from 'next/navigation';
 import { PaginationItem } from '@mui/material';

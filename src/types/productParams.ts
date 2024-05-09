@@ -3,7 +3,7 @@ import { Product } from "./product";
 export interface getProductsParams {
     page: number;
     pageSize: number;
-    productType?: ProductTypes;
+    productType: ProductTypes;
     sortBy: SortByTypes;
 }
 
