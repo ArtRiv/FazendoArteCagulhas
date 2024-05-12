@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCotUQ-TC3C5E88yZJFeOgfqTR5-qdXUAk",
-  authDomain: "databasecloud-crochet.firebaseapp.com",
-  projectId: "databasecloud-crochet",
-  storageBucket: "databasecloud-crochet.appspot.com",
-  messagingSenderId: "599047374442",
-  appId: "1:599047374442:web:3ca4066ef3cc8b8093ac13",
-  measurementId: "G-FSJY6TLQKN"
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
