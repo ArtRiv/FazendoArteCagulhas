@@ -1,6 +1,7 @@
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
-import { StaggeredDropDown, Option } from "../ui/dropdown";
+import { StaggeredDropDown, OptionWithLink } from "../ui/dropdown";
 import { useState } from "react";
+import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 
 export const HeaderNavigationMenu = () => {
 
@@ -25,14 +26,14 @@ export const HeaderNavigationMenu = () => {
 
                 <li>
                     <div className="inline-flex justify-self-end p-3">
-                        <StaggeredDropDown text="Produtos">
-                            <Option setOpen={setOpen} text="Todos" navigateLink="/products/all" />
-                            <Option setOpen={setOpen} text="Animes" navigateLink="/products/animes" />
-                            <Option setOpen={setOpen} text="Games" navigateLink="/products/games" />
-                            <Option setOpen={setOpen} text="Geek" navigateLink="/products/geek" />
-                            <Option setOpen={setOpen} text="Fofo" navigateLink="/products/cute" />
-                            <Option setOpen={setOpen} text="Religioso" navigateLink="/products/religious" />
-                            <Option setOpen={setOpen} text="Pelúcias" navigateLink="/products/plushies" />
+                        <StaggeredDropDown variant={DropdownVariants.LINK} text="Produtos">
+                            <OptionWithLink setOpen={setOpen} text="Todos" navigateLink="/products/all" />
+                            <OptionWithLink setOpen={setOpen} text="Animes" navigateLink="/products/animes" />
+                            <OptionWithLink setOpen={setOpen} text="Games" navigateLink="/products/games" />
+                            <OptionWithLink setOpen={setOpen} text="Geek" navigateLink="/products/geek" />
+                            <OptionWithLink setOpen={setOpen} text="Fofo" navigateLink="/products/cute" />
+                            <OptionWithLink setOpen={setOpen} text="Religioso" navigateLink="/products/religious" />
+                            <OptionWithLink setOpen={setOpen} text="Pelúcias" navigateLink="/products/plushies" />
                         </StaggeredDropDown>
                     </div>
                 </li>

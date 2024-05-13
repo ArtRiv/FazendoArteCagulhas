@@ -3,8 +3,11 @@
 import { useEffect } from "react";
 import { Logo } from "./logo";
 import { HeaderNavigationMenu } from "./nav-menu";
-import StaggeredDropDown from "./menu-dropdown";
 import { SearchDragModal } from "./search-modal";
+import ThemeSwitcher from "../ui/theme-switcher";
+import { Option, StaggeredDropDown } from "../ui/dropdown";
+import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
+import { UserMenu } from "../user-menu";
 
 export const Header = (): React.ReactNode => {
     let headerBounds: DOMRect | DOMRectReadOnly | null = null;
@@ -75,14 +78,23 @@ export const Header = (): React.ReactNode => {
 
     return (
         <div className='section-header header-section'>
-          <div className='header-wrapper'>
-            <StaggeredDropDown/>
-            <header className='header flex justify-center'>
-                <Logo/>
-                <SearchDragModal/>
-                <HeaderNavigationMenu/>
-            </header>
-          </div>
+            <div className='header-wrapper'>
+                <div className="absolute top-4 right-4">
+                    <StaggeredDropDown variant={DropdownVariants.NORMAL}>
+                        <Option>
+                            <UserMenu />
+                        </Option>
+                        <Option>
+                            <ThemeSwitcher/>
+                        </Option>
+                    </StaggeredDropDown>
+                </div>
+                <header className='header flex justify-center'>
+                    <Logo />
+                    <SearchDragModal />
+                    <HeaderNavigationMenu />
+                </header>
+            </div>
         </div>
-      );
+    );
 }
