@@ -7,10 +7,11 @@ import useQueryParams from "@/utils/settings/getServerSettings";
 import { Hero } from "@/components/ui/hero";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { CardVariants } from "@/types/cardVariants";
+import { CardVariants } from "@/types/component-variants/card-variants";
 import { getFilteredProducts, getTotalProductsCount } from "@/db";
 
 export default async function ProductsPage() {
+
     const { productType, sortBy, page, pageSize } = useQueryParams();
 
     if (productType == ProductTypes.NOT_FOUND) redirect("/products/all");
@@ -25,17 +26,13 @@ export default async function ProductsPage() {
     const productsData = await getFilteredProducts(params);
     const totalProductsCount = await getTotalProductsCount(productType);
 
-    console.log(params);
-
     return (
         <DefaultPageLayout>
             {(productsData) &&
                 <>
                     <Hero />
                     <FilterBar />
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <ProductsList productsData={productsData} cardVariant={CardVariants.NORMAL}/>
-                    </Suspense>
+                    <ProductsList productsData={productsData} cardVariant={CardVariants.NORMAL}/>
                     <ProductsPagination
                     productsCount={totalProductsCount}
                     pageSize={pageSize} />
