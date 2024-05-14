@@ -1,3 +1,5 @@
+"use client"
+
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { BigArrowIconRight } from "@/components/icons/bigArrowIconRight";
 

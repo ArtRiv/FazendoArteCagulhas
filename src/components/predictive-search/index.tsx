@@ -107,7 +107,8 @@ export const SearchInput = ({ close }: SearchInputProps) => {
                             <CloseIcon />
                         </button>
                     }
-                    {((inputValue.length > 0) && isOpen) &&
+                    
+                    {(inputValue && isOpen) &&
                         <PredictiveSearchModal inputValue={deferredInputValue} />
                     }
 

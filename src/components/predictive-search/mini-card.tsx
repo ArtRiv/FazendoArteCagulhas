@@ -1,7 +1,8 @@
+"use client"
+
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 interface ProductCardProps {
     key: string,
@@ -13,11 +14,6 @@ interface ProductCardProps {
 
 export const ProductCard = (props: ProductCardProps) => {
     const price = formatPrice(props.price);
-    const router = useRouter();
-
-    const handleNavigate = () => {
-        router.push("/product?id=" + props.id) 
-    }
 
     return (
         <li className="w-full px-4 py-1 z-[11]">
