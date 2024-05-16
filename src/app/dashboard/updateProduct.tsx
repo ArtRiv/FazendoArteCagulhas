@@ -1,9 +1,9 @@
 "use client"
 
-import { ChangeEvent, FormEvent, useDeferredValue, useState } from "react";
+import { ChangeEvent, useDeferredValue, useState } from "react";
 import PredictiveSearchModal from "./ui/predictivesearch";
-import { updateProduct } from "./crudFunctions/updateProduct";
-import { db } from "@/firebase-config";
+import { updateProduct } from "./actions";
+import { useFormState } from "react-dom";
 
 export const UpdateProductForm = () => {
 
@@ -29,19 +29,6 @@ export const UpdateProductForm = () => {
         description: [''],
         secondary_images: [''],
     });
-
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        window.alert('Produto adicionado');
-        await updateProduct(
-            db,
-            productID,
-            {
-                ...productData,
-                description: [description1, description2],
-                secondary_images: secondaryImages
-            });
-    };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setProductData({
@@ -69,6 +56,12 @@ export const UpdateProductForm = () => {
         setSecondaryImages([...secondaryImages, '']);
     };
 
+    const initialState = {
+        message: "",
+    }
+
+    const [state, formAction] = useFormState(updateProduct, initialState);
+
     return (
         <div className="w-1/2 m-5 flex flex-col gap-5 mt-10">
 
@@ -77,13 +70,14 @@ export const UpdateProductForm = () => {
                 Atualizar produto
             </h1>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2 justify-between text-normal text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+            <form 
+            action={formAction}
+            className="flex flex-col gap-2 justify-between text-normal text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
 
                 <label className="flex gap-4 justify-between">
                     qual produto:
                     <input
                         className="border-2 border-decoration rounded-md"
-                        name="created_at"
                         value={productTitle}
                         onClick={() => setIsPredictiveSearchOpen(true)}
                         onChange={(e) => setProductTitle(e.target.value)} />
@@ -100,6 +94,10 @@ export const UpdateProductForm = () => {
                             setIsPredictiveSearchOpen={setIsPredictiveSearchOpen} />
                     </div>
                 }
+
+                <label className="hidden">
+                    <input value={productID} name="productID"></input>
+                </label>
 
                 {productData &&
                     <>

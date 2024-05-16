@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { StarsRating } from "@/components/ui/stars-rating";
-import { ProductTeste } from "../crudFunctions/addProduct";
+import { ProductTeste } from "../../../db/crud/addProduct";
 
 export const SimulatedCard = ({
     productData,
@@ -16,16 +16,18 @@ export const SimulatedCard = ({
             <div className="flex flex-col justify-center items-center gap-5 h-[445px] cursor-pointer grid--item mx-0 my-auto">
             <h1 className="text-2xl">Card simulado</h1>
                 <div className="w-60 h-full slide-in slideInEffect rounded-radius-normal bg-transparent relative no-underline animateCard shadow-xl">
-                    <Image
-                        className={`shape--blob image`}
-                        alt={'a'}
-                        src={productData.image}
-                        width={300}
-                        height={300}
-                        quality={100}
-                        loading="lazy"
-                        draggable={false}
-                    />
+                    {productData.image && (
+                        <Image
+                            className={`shape--blob image`}
+                            alt={'a'}
+                            src={productData.image}
+                            width={300}
+                            height={300}
+                            quality={100}
+                            loading="lazy"
+                            draggable={false}
+                        />
+                    )}
                     <div className={`flex flex-col 'h-52' pt-0 pr-2 pb-2 pl-2`}>
                         <div className="flex flex-col flex-1 h-36 px-2 py-3">
                             <h3 className="h-11 w-full text-big text-font-color font-harmonia leading-line-height-normal tracking-letter-space-normal break-words text-ellipsis antialiased">

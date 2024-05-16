@@ -1,13 +1,14 @@
 import { DefaultPageLayout } from "@/components/default-page-layout";
-import { AddProduct } from "./addProduct";
 import { UpdateProductForm } from "./updateProduct";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
+import { AddProductReviewForm } from "./addProductReviewForm";
+import { AddProductForm } from "./addProductForm";
 
 export default async function Dashboard() {
   const { isAuthenticated, getPermission } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
 
+  const isLoggedIn = await isAuthenticated();
   if (!isLoggedIn) {
     redirect('/api/auth/login');
   }
@@ -16,11 +17,14 @@ export default async function Dashboard() {
   if (!isAdmin?.isGranted) {
     redirect('/');
   }
-  
+
   return (
     <DefaultPageLayout>
-      <AddProduct/>
-      <UpdateProductForm/>
+      <div className="flex">
+        <AddProductForm />
+        <AddProductReviewForm />
+      </div>
+      <UpdateProductForm />
     </DefaultPageLayout>
   );
 }
