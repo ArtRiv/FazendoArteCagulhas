@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { StarsRating } from "@/components/ui/stars-rating";
-import { ProductTeste } from "../../../db/crud/addProduct";
+import { Product } from "@/types/product";
 
 export const SimulatedCard = ({
     productData,
 }: {
-    productData: ProductTeste
+    productData: Product
 }) => {
 
     return (

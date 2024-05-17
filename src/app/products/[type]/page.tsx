@@ -1,12 +1,11 @@
 import { ProductTypes, getProductsParams } from "@/types/productParams";
 import { DefaultPageLayout } from "@/components/default-page-layout";
-import { ProductsPagination } from "@/components/ui/pagination";
+import { ProductsPagination } from "@/app/products/_components/pagination";
 import { ProductsList } from "@/components/products-list";
 import { FilterBar } from "@/components/filter-bar.tsx";
 import useQueryParams from "@/utils/settings/getServerSettings";
-import { Hero } from "@/components/ui/hero";
+import { Hero } from "@/app/products/_components/hero";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { getFilteredProducts, getTotalProductsCount } from "@/db";
 

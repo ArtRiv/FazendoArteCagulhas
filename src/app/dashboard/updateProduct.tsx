@@ -1,7 +1,7 @@
 "use client"
 
 import { ChangeEvent, useDeferredValue, useState } from "react";
-import PredictiveSearchModal from "./ui/predictivesearch";
+import PredictiveSearchModal from "./_components/predictivesearch";
 import { updateProduct } from "./actions";
 import { useFormState } from "react-dom";
 
@@ -77,6 +77,7 @@ export const UpdateProductForm = () => {
                 <label className="flex gap-4 justify-between">
                     qual produto:
                     <input
+                        autoComplete="off"
                         className="border-2 border-decoration rounded-md"
                         value={productTitle}
                         onClick={() => setIsPredictiveSearchOpen(true)}
@@ -96,70 +97,70 @@ export const UpdateProductForm = () => {
                 }
 
                 <label className="hidden">
-                    <input value={productID} name="productID"></input>
+                    <input autoComplete="off" value={productID} name="productID"></input>
                 </label>
 
                 {productData &&
                     <>
                         <label className="flex gap-4 justify-between">
                             Titulo:
-                            <input className="border-2 border-decoration rounded-md" name="title" value={productData.title} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="title" value={productData.title} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             Tag:
-                            <input className="border-2 border-decoration rounded-md" name="tag" value={productData.tag} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="tag" value={productData.tag} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             Tipo:
-                            <input className="border-2 border-decoration rounded-md" name="type" value={productData.type} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="type" value={productData.type} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             image link:
-                            <input className="border-2 border-decoration rounded-md" name="image" value={productData.image} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="image" value={productData.image} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             link da shopee:
-                            <input className="border-2 border-decoration rounded-md" name="link" value={productData.link} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="link" value={productData.link} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             preço:
-                            <input className="border-2 border-decoration rounded-md" name="price" value={productData.price} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="price" value={productData.price} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             criado em:
-                            <input className="border-2 border-decoration rounded-md" name="created_at" value={productData.created_at} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="created_at" value={productData.created_at} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             numero de compras:
-                            <input className="border-2 border-decoration rounded-md" name="purchase_count" value={productData.purchase_count} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="purchase_count" value={productData.purchase_count} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             grupo do produto:
-                            <input className="border-2 border-decoration rounded-md" name="product_group" value={productData.product_group} onChange={handleChange} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="product_group" value={productData.product_group} onChange={handleChange} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             descrição 1:
-                            <input className="border-2 border-decoration rounded-md" name="description1" value={description1} onChange={handleDescriptionChange1} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="description1" value={description1} onChange={handleDescriptionChange1} />
                         </label>
 
                         <label className="flex gap-4 justify-between">
                             descrição 2:
-                            <input className="border-2 border-decoration rounded-md" name="description2" value={description2} onChange={handleDescriptionChange2} />
+                            <input autoComplete="off" className="border-2 border-decoration rounded-md" name="description2" value={description2} onChange={handleDescriptionChange2} />
                         </label>
 
                         {secondaryImages.map((secondaryImage: string, index: number) => (
                             <label key={index} className="flex gap-4 justify-between">
                                 Imagem secundária {index + 1}:
-                                <input className="border-2 border-decoration rounded-md" name={`secondaryImage${index}`} value={secondaryImage} onChange={(e) => handleSecondaryImageChange(e, index)} />
+                                <input autoComplete="off" className="border-2 border-decoration rounded-md" name={`secondaryImage${index}`} value={secondaryImage} onChange={(e) => handleSecondaryImageChange(e, index)} />
                             </label>
                         ))}
 

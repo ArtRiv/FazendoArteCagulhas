@@ -4,7 +4,7 @@ import { ChangeEvent, useDeferredValue, useState } from "react";
 import { Product } from "@/types/product";
 import { addProductReview } from "./actions";
 import { useFormState } from "react-dom";
-import PredictiveSearchModal from "./ui/predictivesearch";
+import PredictiveSearchModal from "./_components/predictivesearch";
 
 export const AddProductReviewForm = () => {
 
@@ -26,15 +26,6 @@ export const AddProductReviewForm = () => {
     const [isPredictiveSearchOpen, setIsPredictiveSearchOpen] = useState(false);
     const [productID, setProductID] = useState('');
     const deferredInputValue = useDeferredValue(productTitle);
-
-    // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     await addProductReview(db, {
-    //         ...review,
-    //         product_id: productID,
-    //         media: reviewMedia
-    //     });
-    // };
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setReview({
@@ -71,6 +62,7 @@ export const AddProductReviewForm = () => {
                     <input
                         className="border-2 border-decoration rounded-md"
                         name="productTitle"
+                        autoComplete="off"
                         value={productTitle}
                         onClick={() => setIsPredictiveSearchOpen(true)}
                         onChange={(e) => setProductTitle(e.target.value)} />
@@ -98,38 +90,38 @@ export const AddProductReviewForm = () => {
 
                 <label className="flex gap-4 justify-between">
                     criado em:
-                    <input className="border-2 border-decoration rounded-md" name="created_at" value={review.created_at} onChange={handleChange} />
+                    <input autoComplete="off" className="border-2 border-decoration rounded-md" name="created_at" value={review.created_at} onChange={handleChange} />
                 </label>
 
                 <label className="flex gap-4 justify-between">
                     número de estrelas
-                    <input className="border-2 border-decoration rounded-md" name="rating" value={review.rating} onChange={handleChange} />
+                    <input autoComplete="off" className="border-2 border-decoration rounded-md" name="rating" value={review.rating} onChange={handleChange} />
                 </label>
 
                 <label className="flex gap-4 justify-between">
                     titulo da review
-                    <input className="border-2 border-decoration rounded-md" name="title" value={review.title} onChange={handleChange} />
+                    <input autoComplete="off" className="border-2 border-decoration rounded-md" name="title" value={review.title} onChange={handleChange} />
                 </label>
 
                 <label className="flex gap-4 justify-between">
                     texto da review
-                    <input className="border-2 border-decoration rounded-md" name="text" value={review.text} onChange={handleChange} />
+                    <input autoComplete="off" className="border-2 border-decoration rounded-md" name="text" value={review.text} onChange={handleChange} />
                 </label>
 
                 <label className="flex gap-4 justify-between">
                     review de onde
-                    <input className="border-2 border-decoration rounded-md" name="from" value={review.from} onChange={handleChange} />
+                    <input autoComplete="off" className="border-2 border-decoration rounded-md" name="from" value={review.from} onChange={handleChange} />
                 </label>
 
                 <label className="flex gap-4 justify-between">
                     usuário da review
-                    <input className="border-2 border-decoration rounded-md" name="user" value={review.user} onChange={handleChange} />
+                    <input autoComplete="off" className="border-2 border-decoration rounded-md" name="user" value={review.user} onChange={handleChange} />
                 </label>
 
                 {reviewMedia.map((reviewMedia: string, index: number) => (
                     <label key={index} className="flex gap-4 justify-between">
                         Conteúdos da review {index + 1}:
-                        <input className="border-2 border-decoration rounded-md" name={`reviewMedia${index}`} value={reviewMedia} onChange={(e) => handleReviewMediaChange(e, index)} />
+                        <input autoComplete="off" className="border-2 border-decoration rounded-md" name={`reviewMedia${index}`} value={reviewMedia} onChange={(e) => handleReviewMediaChange(e, index)} />
                     </label>
                 ))}
 

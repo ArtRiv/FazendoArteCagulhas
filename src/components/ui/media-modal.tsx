@@ -6,12 +6,12 @@ import { IoIosCloseCircle } from "react-icons/io";
 import Image from "next/image";
 import ReactPlayer from "react-player";
 
-type WrapperProps = {
+type MediaWrapperProps = {
     children: React.ReactNode;
     media: Array<string>;
 };
 
-const Wrapper = ({ children, media }: WrapperProps) => {
+const MediaWrapper = ({ children, media }: MediaWrapperProps) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div>
@@ -141,4 +141,4 @@ const SpringModal = ({
     );
 };
 
-export default Wrapper;
+export default MediaWrapper;

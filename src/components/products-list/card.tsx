@@ -18,7 +18,7 @@ export const ProductCard = ({
     return (
         <>
             <li className="flex flex-grow h-auto cursor-pointer grid--item">
-                <div className="w-60 h-full rounded-radius-normal bg-transparent relative no-underline animateCard shadow-xl">
+                <div className="w-60 h-full rounded-radius-normal bg-decoration/20 relative no-underline animateCard shadow-2xl shadow-decoration/80">
                     <Link href={`/product?id=${productData.id}`} className="slide-in slideInEffect">
                         <Image
                             className={`${variant === CardVariants.NORMAL ? 'shape--blob' : 'rounded-t-xl'}`}

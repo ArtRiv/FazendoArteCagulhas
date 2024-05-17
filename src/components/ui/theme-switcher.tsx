@@ -1,18 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";;
-import { Dispatch, SetStateAction } from "react";
+import { useTheme } from "next-themes";
 import { FiMoon, FiSun } from "react-icons/fi";
 
 const TOGGLE_CLASSES = "text-sm font-medium flex items-center gap-2 px-3 md:pl-3 md:pr-3.5 py-3 md:py-1.5 relative z-10";
 
-const ThemeSwitcher = ({
-    theme,
-    setTheme,
-}: {
-    theme: string | undefined;
-    setTheme: Dispatch<SetStateAction<string>>;
-}) => {
+const ThemeSwitcher = () => {
+
+    const { setTheme, theme } = useTheme();
 
     return (
         <div className="relative flex items-center rounded-full">

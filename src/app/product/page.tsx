@@ -2,7 +2,7 @@ import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { getSimilarProductsParams } from "@/types/productParams";
 import { ProductsList } from "@/components/products-list";
-import { SwipeCarousel } from "@/components/ui/image-carousel";
+import { SwipeCarousel } from "@/app/product/_components/image-carousel";
 import useQueryParams from "@/utils/settings/getServerSettings";
 import { formatPrice } from "@/utils/formatPrice";
 import Wrapper from "@/components/ui/media-modal";
@@ -10,8 +10,8 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import Image from "next/image";
 import { Product } from "@/types/product";
-import { CardVariants } from "@/types/cardVariants";
-import { ProductReviews } from "@/components/product-reviews";
+import { CardVariants } from "@/types/component-variants/card-variants";
+import { ProductReviews } from "@/app/product/_components/product-reviews";
 import { StarsRating } from "@/components/ui/stars-rating";
 import { getProductById, getProductReviews, getSimilarProducts } from "@/db";
 
@@ -130,6 +130,9 @@ export default async function ProductPage() {
                             </div>
                         </div>
                     </section>
+                    {(productReviews) &&
+                        <ProductReviews productReviews={productReviews} />
+                    }
                     {(similarProducts) &&
                         <section className="w-full flex mt-16">
                             <div className="w-full max-w-[120rem] mx-auto my-0 flex flex-col justify-start">
@@ -141,9 +144,6 @@ export default async function ProductPage() {
                                 </Suspense>
                             </div>
                         </section>
-                    }
-                    {(productReviews) &&
-                        <ProductReviews productReviews={productReviews} />
                     }
                 </>
             }

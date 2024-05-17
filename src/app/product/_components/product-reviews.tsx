@@ -2,10 +2,9 @@
 
 import { ProductReview } from "@/types/product"
 import Image from "next/image";
-import ReactPlayer from 'react-player'
-import { StarsRating } from "../ui/stars-rating";
+import { StarsRating } from "../../../components/ui/stars-rating";
 import { FaUserAlt } from "react-icons/fa";
-import Wrapper from "../ui/media-modal";
+import Wrapper from "../../../components/ui/media-modal";
 
 const Review = ({ productReview }: { productReview: ProductReview }) => {
 
@@ -24,14 +23,14 @@ const Review = ({ productReview }: { productReview: ProductReview }) => {
 
             <div className="flex flex-col gap-3">
                 <span className="font-harmonia text-normal text-font-color antialiased items-center">
-                    {productReview.review_title}
+                    {productReview.title}
                 </span>
                 <p className="font-harmonia text-small text-font-color/80 antialiased items-center">
-                    {productReview.review_text}
+                    {productReview.text}
                 </p>
                 <div className="flex gap-4 relative z-0">
-                    <Wrapper media={productReview.review_media}>
-                        {productReview.review_media.map((mediaSrc, idx) => {
+                    <Wrapper media={productReview.media}>
+                        {productReview.media.map((mediaSrc, idx) => {
                             const isVideo = ['.mp4', '.webm', '.ogg'].some(extension => mediaSrc.endsWith(extension));
                             if (!isVideo) {
                                 return (
@@ -50,12 +49,12 @@ const Review = ({ productReview }: { productReview: ProductReview }) => {
                             } else {
                                 return (
                                     <iframe
-                                        key={idx}  
+                                        key={idx}
                                         src={mediaSrc}
                                         width={100}
                                         height={133}
                                         loading="lazy"
-                                        
+
                                     />
                                 )
                             }
@@ -78,11 +77,13 @@ export const ProductReviews = ({ productReviews }: { productReviews: ProductRevi
                     </h2>
                 </div>
                 <div className="w-full mt-10 p-4 border-2 border-decoration/40 rounded-xl">
-                    {productReviews && productReviews.map(productReview => {
-                        return (
-                            <Review key={productReview.review_id} productReview={productReview}/>
-                        );
-                    })}
+                    {productReviews &&
+                        productReviews.map(productReview => {
+                            return (
+                                <Review key={productReview.review_id} productReview={productReview} />
+                            );
+                        })
+                    }
                 </div>
             </div>
         </section>

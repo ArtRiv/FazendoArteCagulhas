@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { useAllSettings } from "@/utils/settings/getClientSettings";
 import { ProductCard } from "./mini-card";
 import { Product } from "@/types/product";
 import { PredictiveSearchOptionSearchKeyword } from "./keyword-link";
-import { getProductsByPredictiveSearch } from "@/types/productParams";
 
 interface PredictiveSearchProps {
     inputValue: string;
@@ -28,11 +26,9 @@ export default function PredictiveSearchModal({ inputValue }: PredictiveSearchPr
             setProductsData([]);
             if (debouncedInputValue) {
                 const response: Response = await fetch(`http://localhost:3000/api/predictive-search?q=${debouncedInputValue}`);
-                console.log(response);
                 if (response.ok) {
                     const products: Product[] = await response.json();
                     setProductsData(products);
-                    console.log(products);
                 } else {
                     console.error('HTTP-Error ' + response.status)
                 }

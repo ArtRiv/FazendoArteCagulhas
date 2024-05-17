@@ -4,13 +4,16 @@ import { FiChevronDown } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { AnchorClientSide } from "./anchor-client-side";
+import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
+import { IoMenuSharp } from "react-icons/io5";
 
 type DropdownProps = {
     children: React.ReactNode;
-    text: string;
+    variant: DropdownVariants;
+    text?: string;
 };
 
-export const StaggeredDropDown = ({ children, text }: DropdownProps) => {
+export const StaggeredDropDown = ({ children, variant, text }: DropdownProps) => {
     const [open, setOpen] = useState(false);
 
     const modalRef = useRef<HTMLDivElement>(null);
@@ -27,7 +30,7 @@ export const StaggeredDropDown = ({ children, text }: DropdownProps) => {
             document.body.addEventListener('click', (event: Event) => onBodyClick(event))
             window.addEventListener('scroll', () => setOpen(false));
             return () => {
-                window.removeEventListener('scroll', () => {});
+                window.removeEventListener('scroll', () => { });
                 document.body.removeEventListener('click', onBodyClick)
             }
         }
@@ -40,19 +43,28 @@ export const StaggeredDropDown = ({ children, text }: DropdownProps) => {
                 onClick={() => setOpen((pv) => !pv)}
                 className="flex items-center gap-2 rounded-md text-font-color transition-colors"
             >
-                <span className="relative font-harmonia text-normal text-font-color
-                        leading-line-height-small tracking-letter-space-small
-                        select-none underline [text-decoration-color:transparent]
-                        hover:transition-all animateBorderBottom changeTextColor">{text}</span>
+                {text &&
+                    <span className="relative font-harmonia text-normal text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
+                        {text}
+                    </span>
+                }
                 <motion.span variants={iconVariants}>
-                    <FiChevronDown />
+                    {variant === DropdownVariants.NORMAL &&
+                        <IoMenuSharp size={25} />
+                    }
+                    {variant === DropdownVariants.LINK &&
+                        <FiChevronDown />
+                    }
                 </motion.span>
             </button>
 
             <motion.ul
                 initial={wrapperVariants.closed}
                 variants={wrapperVariants}
-                style={{ originY: "top", translateX: "-30%" }}
+                style={{
+                    originY: "top",
+                    translateX: variant === DropdownVariants.NORMAL ? '-93%' : '-30%'
+                }}
                 className="flex flex-col gap-2 p-2 z-[5] rounded-lg bg-background shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
             >
                 {children}
@@ -61,24 +73,39 @@ export const StaggeredDropDown = ({ children, text }: DropdownProps) => {
     );
 };
 
-
 type OptionProps = {
+    children: React.ReactNode;
+}
+
+export const Option = ({ children }: OptionProps) => {
+    return (
+        <motion.li
+            variants={itemVariants}
+            className="relative grid gap-2 z-[6] w-full p-2 text-xs font-medium whitespace-nowrap rounded-mdtransition-colors"
+        >
+            <motion.span variants={actionIconVariants}>
+                {children}
+            </motion.span>
+        </motion.li>
+    );
+};
+
+type OptionWithLinkProps = {
     text: string,
     setOpen: Dispatch<SetStateAction<boolean>>;
     navigateLink: string;
 };
 
-export const Option = ({ text, setOpen, navigateLink }: OptionProps) => {
-
+export const OptionWithLink = ({ text, setOpen, navigateLink }: OptionWithLinkProps) => {
     return (
         <motion.li
             variants={itemVariants}
             className="flex items-center gap-2 w-full text-small whitespace-nowrap rounded-md hover:bg-decoration/20 text-font-color transition-colors cursor-pointer"
         >
-            <AnchorClientSide 
-            twStyles="flex items-center no-underline cursor-pointer w-full px-2 py-1"
-            navigateLink={navigateLink} 
-            setOpen={setOpen}>
+            <AnchorClientSide
+                twStyles="flex items-center no-underline cursor-pointer w-full px-2 py-1"
+                navigateLink={navigateLink}
+                setOpen={setOpen}>
                 <span>
                     {text}
                 </span>
@@ -87,6 +114,7 @@ export const Option = ({ text, setOpen, navigateLink }: OptionProps) => {
 
     );
 };
+
 
 const wrapperVariants = {
     open: {

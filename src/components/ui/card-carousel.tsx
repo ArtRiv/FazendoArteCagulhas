@@ -1,12 +1,19 @@
 "use client"
 
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { motion, useMotionValue } from "framer-motion";
-import { Product } from "@/types/product";
-import { ProductCard } from "../products-list/card";
-import { CardVariants } from "@/types/cardVariants";
 
-const DRAG_BUFFER = 30;
+const imgs = [
+    "https://i.ibb.co/vBws4pN/nahida-1.jpg",
+    "https://i.ibb.co/vBws4pN/nahida-1.jpg",
+    "https://i.ibb.co/vBws4pN/nahida-1.jpg",
+    "https://i.ibb.co/vBws4pN/nahida-1.jpg",
+];
+
+const ONE_SECOND = 1000;
+const AUTO_DELAY = ONE_SECOND * 10;
+const DRAG_BUFFER = 50;
+
 const SPRING_OPTIONS = {
     type: "spring",
     mass: 3,
@@ -14,32 +21,51 @@ const SPRING_OPTIONS = {
     damping: 50,
 };
 
-type Props = {
-    cards: Product[];
-}
+const useWidth = () => {
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [width, setWidth] = useState(0);
 
-export const SwipeCardCarousel = ({ cards }: Props) => {
-    const [cardIndex, setCardIndex] = useState(0);
+    useEffect(() => {
+        setWidth(ref.current?.offsetWidth || 0);
+    }, []);
 
+    return {ref, width};
+};
+
+
+export const SwipeCarousel = () => {
+    const [imgIndex, setImgIndex] = useState(0);
     const dragX = useMotionValue(0);
+
+    const {ref, width: carouselWidth} = useWidth();
+
+    //   useEffect(() => {
+    //     const intervalRef = setInterval(() => {
+    //       const x = dragX.get();
+    //       if (x === 0) {
+    //         setImgIndex((pv) => {
+    //           if (pv === imgs.length - 1) {
+    //             return 0;
+    //           }
+    //           return pv + 1;
+    //         });
+    //       }
+    //     }, AUTO_DELAY);
+    //     return () => clearInterval(intervalRef);
+    //   }, []);
 
     const onDragEnd = () => {
         const x = dragX.get();
-    
-        if (x <= -DRAG_BUFFER && cardIndex < cards.length - 1) {
-            setCardIndex((pv) => pv + 1);
-        } else if (x <= -DRAG_BUFFER && cardIndex === cards.length - 1) {
-            setCardIndex(0); // loop back to the first card
-        } else if (x >= DRAG_BUFFER && cardIndex > 0) {
-            setCardIndex((pv) => pv - 1);
-        } else if (x >= DRAG_BUFFER && cardIndex === 0) {
-            setCardIndex(cards.length - 1); // loop back to the last card
+
+        if (x <= -DRAG_BUFFER) {
+            setImgIndex((pv) => (pv + 1) % imgs.length);
+        } else if (x >= DRAG_BUFFER) {
+            setImgIndex((pv) => (pv - 1 + imgs.length) % imgs.length);
         }
     };
-    
 
     return (
-        <div className="relative py-8 w-80">
+        <div ref={ref} className="relative overflow-hidden py-8 w-[400px]">
             <motion.div
                 drag="x"
                 dragConstraints={{
@@ -50,61 +76,73 @@ export const SwipeCardCarousel = ({ cards }: Props) => {
                     x: dragX,
                 }}
                 animate={{
-                    translateX: `calc(-${cardIndex} * 235px)`,
+                    translateX: `-${imgIndex * (carouselWidth)}px`,
                 }}
                 transition={SPRING_OPTIONS}
                 onDragEnd={onDragEnd}
-                className="flex cursor-grab items-center active:cursor-grabbing"
+                className="flex items-center cursor-grab active:cursor-grabbing"
             >
-                <ul className="flex">
-                    {cards.map((card, idx) => {
-                        return (
-                            <motion.div
-                                key={idx}
-                                animate={{
-                                    scale: cardIndex === idx ? 0.95 : 0.85,
-                                }}
-                                transition={SPRING_OPTIONS}
-                                className=""
-                            >
-                                <ProductCard
-                                    key={card.id}
-                                    productData={card}
-                                    variant={CardVariants.SQUARE}
-                                />
-                            </motion.div>
-                        );
-                    })}
-                </ul>
-
+                <Images imgIndex={imgIndex} />
             </motion.div>
 
-            {/* <Dots imagesLinks={imagesLinks} imageIndex={imageIndex} setImageIndex={setImageIndex} /> */}
+            <Dots imgIndex={imgIndex} setImgIndex={setImgIndex} />
+            {/* <GradientEdges /> */}
         </div>
     );
 };
 
+const Images = ({ imgIndex }: { imgIndex: number }) => {
+    return (
+        <>
+            {imgs.map((imgSrc, idx) => {
+                return (
+                    <motion.div
+                        key={idx}
+                        style={{
+                            backgroundImage: `url(${imgSrc})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}
+                        animate={{
+                            scale: imgIndex === idx ? 1 : 0.85,
+                        }}
+                        transition={SPRING_OPTIONS}
+                        className="size-full shrink-0 aspect-square rounded-xl object-cover"
+                    />
+                );
+            })}
+        </>
+    );
+};
+
 const Dots = ({
-    imagesLinks,
-    imageIndex,
-    setImageIndex,
+    imgIndex,
+    setImgIndex,
 }: {
-    imagesLinks: Array<string>,
-    imageIndex: number,
-    setImageIndex: Dispatch<SetStateAction<number>>,
+    imgIndex: number;
+    setImgIndex: Dispatch<SetStateAction<number>>;
 }) => {
     return (
         <div className="mt-4 flex w-full justify-center gap-2">
-            {imagesLinks.map((_, idx) => {
+            {imgs.map((_, idx) => {
                 return (
                     <button
                         key={idx}
-                        onClick={() => setImageIndex(idx)}
-                        className={`h-3 w-3 rounded-full transition-colors ${idx === imageIndex ? "bg-decoration" : "bg-decoration/60"
+                        onClick={() => setImgIndex(idx)}
+                        className={`h-3 w-3 rounded-full transition-colors ${idx === imgIndex ? "bg-decoration" : "bg-decoration/60"
                             }`}
                     />
                 );
             })}
         </div>
+    );
+};
+
+const GradientEdges = () => {
+    return (
+        <>
+            <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-r from-neutral-950/50 to-neutral-950/0" />
+            <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-l from-neutral-950/50 to-neutral-950/0" />
+        </>
     );
 };

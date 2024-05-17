@@ -9,7 +9,6 @@ export const UserMenu = () => {
 
     const { user, isAuthenticated, isLoading, getPermission } = useKindeBrowserClient();
     const isAdmin = getPermission('enter:admin');
-    console.log(isAdmin?.isGranted);
 
     return (
         <div className="flex flex-col gap-4">
@@ -21,7 +20,12 @@ export const UserMenu = () => {
 
             {!isAuthenticated && (
                 <div className="w-full h-full flex justify-center items-center">
-                    <LoginLink className="flex gap-3" postLoginRedirectURL="/">
+                    <LoginLink
+                        className="flex gap-3"
+                        postLoginRedirectURL="/"
+                        authUrlParams={{
+                            lang: "pt-br"
+                        }}>
                         <span className="relative font-harmonia text-normal text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
                             Entrar
                         </span>
@@ -55,7 +59,6 @@ export const UserMenu = () => {
                     </span>
                 </div>
             )}
-
 
             {isAuthenticated && (
                 <div className="w-full h-full flex justify-center items-center">

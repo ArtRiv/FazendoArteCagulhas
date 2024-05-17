@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 import { ProductCard } from "./card";
-import { CardVariants } from "@/types/cardVariants";
+import { CardVariants } from "@/types/component-variants/card-variants";
 
 export const ProductsList = ({
     productsData, 

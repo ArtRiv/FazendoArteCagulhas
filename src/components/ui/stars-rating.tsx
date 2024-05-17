@@ -1,6 +1,8 @@
 import { StarIcon } from "../icons/starIcon"
 
 export const StarsRating = ({ stars, purchase_count }: { stars: number, purchase_count?: number }) => {
+
+    console.log(stars);
     return (
         <div className="flex items-center mt-1 gap-1">
             <div className="flex items-center gap-1">
