@@ -47,7 +47,6 @@ const getPageSize = () => {
     return pageSize;
 }
 
-
 export default function useQueryParams() {
     const headersList = headers();
 
@@ -56,7 +55,6 @@ export default function useQueryParams() {
     const productId = getProductId(headersList);
     const pathName = getPathname(headersList);
     const pageSize = getPageSize();
-
 
     return {
         productType,

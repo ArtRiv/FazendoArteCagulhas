@@ -25,8 +25,10 @@ export const getFilteredProducts = async (params: getProductsParams) => {
                 id: doc.id
             }));
 
-        const productsWithAvarageRating = getProductsRating(productsData);
+        const productsWithAvarageRating = await getProductsRating(productsData);
 
+        console.log(productsWithAvarageRating);
+    
         return productsWithAvarageRating;
 
     } catch (error) {
@@ -34,5 +36,3 @@ export const getFilteredProducts = async (params: getProductsParams) => {
         return null;
     }
 };
-
-

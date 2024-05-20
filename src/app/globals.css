@@ -78,7 +78,7 @@
   }
 
   .light {
-    --background: 255, 235, 246;
+    --background: 240, 245, 249;
     --foreground: 255, 255, 255;
 
     --font-color: 46, 42, 57;
@@ -363,7 +363,6 @@ details[open] .modal-overlay {
       box-shadow: 0 0 0 1.5px var(--decoration-indigo), 0 0 0 1px rgba(255, 255, 255, 1);
     }
   }
-
 
 }
 

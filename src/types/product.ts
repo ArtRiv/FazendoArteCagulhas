@@ -19,8 +19,9 @@ export interface ProductReview {
     product_id: string,
     rating: number,
     created_at: number,
-    review_media: Array<string>,
-    review_text: string,
-    review_title: string,
+    media: Array<string>,
+    text: string,
+    title: string,
+    from: string,
     user: string
 }

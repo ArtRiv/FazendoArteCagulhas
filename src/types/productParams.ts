@@ -16,7 +16,6 @@ export interface getProductsBySearchParams {
 
 export interface getProductsByPredictiveSearch {
     inputValue: string,
-    sortBy: SortByTypes
 }
 
 export interface getSimilarProductsParams {

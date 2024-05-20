@@ -10,7 +10,6 @@ export const getSimilarProducts = async (params: getSimilarProductsParams) => {
 
         let productsQuery: Query<DocumentData, DocumentData> = query(
             productsCollectionRef,
-            limit(8)
         )
 
         const productsSnapshot = await getDocs(productsQuery);

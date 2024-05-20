@@ -2,7 +2,7 @@ import { DefaultPageLayout } from "@/components/default-page-layout";
 import { SearchInput } from "@/components/predictive-search";
 import { ProductsList } from "@/components/products-list";
 import { getProductsBySearch } from "@/db";
-import { CardVariants } from "@/types/cardVariants";
+import { CardVariants } from "@/types/component-variants/card-variants";
 import { getProductsBySearchParams } from "@/types/productParams";
 import useQueryParams from "@/utils/settings/getServerSettings";
 import { redirect } from "next/navigation";
