@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export function middleware(request: Request) {
+export function middleware(request: NextRequest) {
 
     const url = new URL(request.url);
     const sort_by = url.searchParams.get('sort_by');
