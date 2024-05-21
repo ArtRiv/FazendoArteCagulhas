@@ -16,8 +16,17 @@ const Review = ({ productReview }: { productReview: ProductReview }) => {
                     <span className="font-harmonia text-normal text-font-color/80 antialiased items-center">
                         {productReview.user}
                     </span>
+                    <span className="font-harmonia text-normal text-font-color/60 antialiased items-center">
+                        {productReview.from}
+                    </span>
                 </div>
-                <StarsRating stars={5} />
+                <div className="flex gap-3 items-center">
+                    <StarsRating stars={productReview.rating} />
+                    <span className="font-harmonia text-normal text-font-color/60 antialiased">
+                        {productReview.rating}/5 estrelas
+                    </span>
+                </div>
+
             </div>
 
 
@@ -29,37 +38,40 @@ const Review = ({ productReview }: { productReview: ProductReview }) => {
                     {productReview.text}
                 </p>
                 <div className="flex gap-4 relative z-0">
-                    <Wrapper media={productReview.media}>
-                        {productReview.media.map((mediaSrc, idx) => {
-                            const isVideo = ['.mp4', '.webm', '.ogg'].some(extension => mediaSrc.endsWith(extension));
-                            if (!isVideo) {
-                                return (
-                                    <Image
-                                        className={`rounded-sm`}
-                                        key={idx}
-                                        alt={'imagem'}
-                                        src={mediaSrc}
-                                        width={100}
-                                        height={100}
-                                        quality={100}
-                                        loading="lazy"
-                                        draggable={false}
-                                    />
-                                );
-                            } else {
-                                return (
-                                    <iframe
-                                        key={idx}
-                                        src={mediaSrc}
-                                        width={100}
-                                        height={133}
-                                        loading="lazy"
+                    {productReview.media && productReview.media.some(mediaSrc => mediaSrc.trim() !== '') && (
+                        <Wrapper media={productReview.media}>
+                            {productReview.media.map((mediaSrc, idx) => {
+                                const isVideo = ['.mp4', '.webm', '.ogg'].some(extension => mediaSrc.endsWith(extension));
+                                if (!isVideo && mediaSrc.trim() !== '') {
+                                    return (
+                                        <Image
+                                            className={`rounded-sm`}
+                                            key={idx}
+                                            alt={'imagem'}
+                                            src={mediaSrc}
+                                            width={100}
+                                            height={100}
+                                            quality={100}
+                                            loading="lazy"
+                                            draggable={false}
+                                        />
+                                    );
+                                } else if (isVideo && mediaSrc.trim() !== '') {
+                                    return (
+                                        <iframe
+                                            key={idx}
+                                            src={mediaSrc}
+                                            width={100}
+                                            height={133}
+                                            loading="lazy"
+                                        />
+                                    );
+                                }
+                                return null;
+                            })}
+                        </Wrapper>
+                    )}
 
-                                    />
-                                )
-                            }
-                        })}
-                    </Wrapper>
                 </div>
             </div>
         </>
@@ -69,23 +81,23 @@ const Review = ({ productReview }: { productReview: ProductReview }) => {
 export const ProductReviews = ({ productReviews }: { productReviews: ProductReview[] }) => {
 
     return (
-        <section className="w-full flex mt-16">
-            <div className="w-full max-w-[120rem] mx-auto my-0 flex flex-col">
-                <div className="w-full flex justify-center">
-                    <h2 className="font-harmonia text-2xl text-font-color antialiased items-center">
-                        Avaliações de clientes
-                    </h2>
-                </div>
-                <div className="w-full mt-10 p-4 border-2 border-decoration/40 rounded-xl">
-                    {productReviews &&
-                        productReviews.map(productReview => {
+        <>
+            <section className="w-full flex mt-16">
+                <div className="w-full max-w-[120rem] mx-auto my-0 flex flex-col">
+                    <div className="w-full flex justify-center">
+                        <h2 className="font-harmonia text-2xl text-font-color antialiased items-center">
+                            Avaliações de clientes
+                        </h2>
+                    </div>
+                    <div className="w-full mt-10 p-4 border-2 border-decoration/40 rounded-xl">
+                        {productReviews.map(productReview => {
                             return (
                                 <Review key={productReview.review_id} productReview={productReview} />
                             );
-                        })
-                    }
+                        })}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     )
 }

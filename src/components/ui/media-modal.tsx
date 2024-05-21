@@ -1,7 +1,7 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IoIosCloseCircle } from "react-icons/io";
 import Image from "next/image";
 import ReactPlayer from "react-player";
@@ -13,6 +13,17 @@ type MediaWrapperProps = {
 
 const MediaWrapper = ({ children, media }: MediaWrapperProps) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            window.addEventListener('scroll', () => setIsOpen(false));
+            return () => {
+                window.removeEventListener('scroll', () => { });
+            }
+        }
+        return;
+    }, [isOpen]);
+    
     return (
         <div>
             <button onClick={() => setIsOpen(true)} className="flex gap-5 relative">
@@ -47,14 +58,14 @@ const SpringModal = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={() => setIsOpen(false)}
-                    className="bg-slate-900/20 backdrop-blur p-8 fixed inset-0 z-50 grid place-items-center overflow-y-scroll cursor-pointer"
+                    className="backdrop-blur p-8 fixed inset-0 z-50 grid place-items-center overflow-y-scroll cursor-pointer"
                 >
                     <motion.div
                         initial={{ scale: 0, rotate: "12.5deg" }}
                         animate={{ scale: 1, rotate: "0deg" }}
                         exit={{ scale: 0, rotate: "0deg" }}
                         onClick={(e) => e.stopPropagation()}
-                        className="bg-gradient-to-br h-auto w-auto from-purple-100 to-purple-200 text-font-color p-6 rounded-lg shadow-xl cursor-default relative overflow-hidden"
+                        className="bg-background h-auto w-auto text-font-color p-6 rounded-lg shadow-xl cursor-default relative overflow-hidden"
                     >
                         <button
                             onClick={() => setIsOpen(false)}
@@ -69,8 +80,8 @@ const SpringModal = ({
                                     <ReactPlayer
                                         className={`custom-react-player cursor-pointer`}
                                         url={currentMedia}
-                                        width={400}
-                                        height={550}
+                                        width={500}
+                                        height={650}
                                         controls
                                         muted
                                     />
@@ -81,8 +92,8 @@ const SpringModal = ({
                                         className="rounded-xl shadow-xl"
                                         alt={`Imagem do produto`}
                                         src={currentMedia}
-                                        width={400}
-                                        height={550}
+                                        width={500}
+                                        height={650}
                                         quality={100}
                                         loading="lazy"
                                         draggable={false}

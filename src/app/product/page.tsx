@@ -5,7 +5,7 @@ import { ProductsList } from "@/components/products-list";
 import { SwipeCarousel } from "@/app/product/_components/image-carousel";
 import useQueryParams from "@/utils/settings/getServerSettings";
 import { formatPrice } from "@/utils/formatPrice";
-import Wrapper from "@/components/ui/media-modal";
+import MediaWrapper from "@/components/ui/media-modal";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import Image from "next/image";
@@ -14,6 +14,7 @@ import { CardVariants } from "@/types/component-variants/card-variants";
 import { ProductReviews } from "@/app/product/_components/product-reviews";
 import { StarsRating } from "@/components/ui/stars-rating";
 import { getProductById, getProductReviews, getSimilarProducts } from "@/db";
+import { LiaSearchPlusSolid } from "react-icons/lia";
 
 export default async function ProductPage() {
     const { productId } = useQueryParams();
@@ -30,7 +31,6 @@ export default async function ProductPage() {
         };
         similarProducts = await getSimilarProducts(params);
     }
-
     const price = formatPrice(productData?.price);
 
     return (
@@ -42,18 +42,21 @@ export default async function ProductPage() {
                             {productData.secondary_images &&
                                 <>
                                     <div>
-                                        <Wrapper media={productData.secondary_images}>
-                                            <Image
-                                                className="rounded-xl shadow-xl"
-                                                alt={`Imagem de ${productData.title}`}
-                                                src={productData.image}
-                                                width={550}
-                                                height={550}
-                                                quality={100}
-                                                loading="lazy"
-                                                draggable={false}
-                                            />
-                                        </Wrapper>
+                                        <MediaWrapper media={productData.secondary_images}>
+                                            <div className="size-full relative overflow-hidden rounded-xl">
+                                                <LiaSearchPlusSolid color={`var(--background)`} size={35} className="p-2 bg-foreground rounded-full shadow-2xl absolute top-5 left-5 z-10 transition-all duration-300 ease-in-out hover:scale-105"/>
+                                                <Image
+                                                    className="rounded-xl shadow-xl transition-all duration-300 hover:scale-105 ease-in-out"
+                                                    alt={`Imagem de ${productData.title}`}
+                                                    src={productData.image}
+                                                    width={550}
+                                                    height={550}
+                                                    quality={100}
+                                                    loading="lazy"
+                                                    draggable={false}
+                                                />
+                                            </div>
+                                        </MediaWrapper>
                                     </div>
                                     <div>
                                         <SwipeCarousel imagesLinks={productData.secondary_images} />
@@ -130,7 +133,7 @@ export default async function ProductPage() {
                             </div>
                         </div>
                     </section>
-                    {(productReviews) &&
+                    {(productReviews && productReviews.length >= 1) &&
                         <ProductReviews productReviews={productReviews} />
                     }
                     {(similarProducts) &&
