@@ -27,7 +27,7 @@ export const AnchorClientSide = ({
     }
 
     return (
-        <Link href={navigateLink} onClick={handleNavigate} target={target} className={twStyles} prefetch={false}>
+        <Link href={navigateLink} onClick={handleNavigate} scroll={false} target={target} className={twStyles} prefetch={false}>
             {children}
         </Link>
     )

@@ -1,7 +1,6 @@
 import { formatPrice } from "@/utils/formatPrice";
 import { Product } from "@/types/product";
 import Image from "next/image";
-import { AnchorClientSide } from "../ui/anchor-client-side";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { StarsRating } from "../ui/stars-rating";
 import Link from "next/link";
@@ -19,7 +18,7 @@ export const ProductCard = ({
         <>
             <li className="flex flex-grow h-auto cursor-pointer grid--item">
                 <div className="w-60 h-full rounded-radius-normal relative no-underline animateCard">
-                    <Link href={`/product?id=${productData.id}`} className="slide-in slideInEffect">
+                    <Link scroll={false} href={`/product?id=${productData.id}`} className="slide-in slideInEffect">
                         <Image
                             className={`${variant === CardVariants.NORMAL ? 'shape--blob' : 'rounded-t-xl'}`}
                             alt={productData.title}
