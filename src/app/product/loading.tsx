@@ -1,4 +1,6 @@
 import { DefaultPageLayout } from '@/components/default-page-layout'
+import { ProductsCardsListSkeleton } from '@/components/skeletons/cards-list';
+import { CardVariants } from '@/types/component-variants/card-variants';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -36,10 +38,10 @@ export default function Loading() {
                                 </span>
                             </div>
                             <div className="w-full flex items-center justify-center my-5">
-                                <Skeleton width={440} height={44}/>
+                                <Skeleton width={440} height={44} />
                             </div>
                             <div className="my-5">
-                                <Skeleton width={440} height={28} count={5} className='my-2'/>
+                                <Skeleton width={440} height={28} count={5} className='my-2' />
                             </div>
                         </SkeletonTheme>
                     </div>
@@ -50,14 +52,10 @@ export default function Loading() {
                             Produtos similares
                         </h1>
                         <div className='flex mx-12 my-8 gap-16'>
-                            <div className='my-5 w-[240px] h-[394px] bg-foreground rounded-xl shadow-xl'/>
-                            <div className='my-5 w-[240px] h-[394px] bg-foreground rounded-xl shadow-xl'/>
-                            <div className='my-5 w-[240px] h-[394px] bg-foreground rounded-xl shadow-xl'/>
+                            <ProductsCardsListSkeleton variant={CardVariants.NORMAL} count={4}/>
                         </div>
-
                     </div>
                 </section>
-
             </>
         </DefaultPageLayout>
     );
