@@ -1,4 +1,4 @@
-import { ProductTypes, SortByTypes } from "@/types/productParams";
+import { Categories, SortByTypes } from "@/types/productParams";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const useCurrentPage = () => {
@@ -23,7 +23,7 @@ const useCurrentType = () => {
     const parts = pathname.split("/");
     let productType;
     if(parts[2]) productType = parts[2].toUpperCase();
-    const currentType = Object.values(ProductTypes).includes(productType as ProductTypes) ? productType as ProductTypes : undefined;
+    const currentType = Object.values(Categories).includes(productType as Categories) ? productType as Categories : undefined;
     return currentType;
 }
 

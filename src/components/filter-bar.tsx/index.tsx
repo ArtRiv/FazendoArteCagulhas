@@ -23,9 +23,9 @@ export const FilterBar = () => {
             <div className="mx-12 flex gap-2">
                 <StaggeredDropDown variant={DropdownVariants.LINK} text="Organizar por">
                     <OptionWithLink setOpen={setOpen} text="Novidades" navigateLink={`${url}news`} />
-                    <OptionWithLink setOpen={setOpen} text="Preço: Menor - Maior" navigateLink={`${url}price-ascending`} />
-                    <OptionWithLink setOpen={setOpen} text="Preço: Maior - Menor" navigateLink={`${url}price-descending`} />
-                    <OptionWithLink setOpen={setOpen} text="Mais vendidos" navigateLink={`${url}best-selling`} />
+                    <OptionWithLink setOpen={setOpen} text="Preço: Menor - Maior" navigateLink={`${url}price_ascending`} />
+                    <OptionWithLink setOpen={setOpen} text="Preço: Maior - Menor" navigateLink={`${url}price_descending`} />
+                    <OptionWithLink setOpen={setOpen} text="Mais vendidos" navigateLink={`${url}best_selling`} />
                 </StaggeredDropDown>
             </div>
         </div>
