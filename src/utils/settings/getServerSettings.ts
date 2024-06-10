@@ -1,18 +1,10 @@
-import { ProductTypes, SortByTypes } from "@/types/productParams";
+import { SortByTypes } from "@/types/productParams";
 import { ReadonlyHeaders } from "next/dist/server/web/spec-extension/adapters/headers";
 import { headers } from "next/headers";
 
-const getProductsType = (headersList: ReadonlyHeaders) => {
-    const pathname = headersList.get('x-pathname');
-    const parts = pathname?.split("/");
-    const productTypeFromURL = parts?.[parts.length - 1]?.toUpperCase();
-    const validatedProductType = Object.values(ProductTypes).includes(productTypeFromURL as ProductTypes)
-        ? productTypeFromURL as ProductTypes
-        : ProductTypes.NOT_FOUND
-
-    return {
-        productType: validatedProductType
-    }
+const getCategoryID = (headersList: ReadonlyHeaders) => {
+    const category_id = Number(headersList.get('x-searchParams-category_id')) || 1;
+    return category_id;
 }
 
 const getProductId = (headersList: ReadonlyHeaders) => {
@@ -23,7 +15,7 @@ const getProductId = (headersList: ReadonlyHeaders) => {
 
 const getProductsSearchParams = (headersList: ReadonlyHeaders) => {
     const SearchParamsSortBy = headersList.get('x-searchParams-sortBy');
-    const sortBy = Object.values(SortByTypes).includes(SearchParamsSortBy?.toUpperCase() as SortByTypes)
+    const sort_by = Object.values(SortByTypes).includes(SearchParamsSortBy?.toUpperCase() as SortByTypes)
         ? SearchParamsSortBy?.toUpperCase() as SortByTypes
         : SortByTypes.NEWS
 
@@ -31,7 +23,7 @@ const getProductsSearchParams = (headersList: ReadonlyHeaders) => {
     const searchQuery = headersList.get('x-searchParams-searchQuery') || '';
 
     return {
-        sortBy,
+        sort_by,
         searchQuery,
         page,
     }
@@ -50,19 +42,19 @@ const getPageSize = () => {
 export default function useQueryParams() {
     const headersList = headers();
 
-    const { sortBy, searchQuery, page } = getProductsSearchParams(headersList);
-    const { productType } = getProductsType(headersList);
+    const { sort_by, searchQuery, page } = getProductsSearchParams(headersList);
+    const category_id = getCategoryID(headersList);
     const productId = getProductId(headersList);
     const pathName = getPathname(headersList);
     const pageSize = getPageSize();
 
     return {
-        productType,
+        category_id,
         searchQuery,
         productId,
         pageSize,
         pathName,
-        sortBy,
+        sort_by,
         page,
     }
 }
