@@ -8,12 +8,12 @@ import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 
 export const FilterBar = () => {
     const [open, setOpen] = useState(false);
-    const { currentPage, searchQuery } = useAllSettings();
+    const { currentPage, currentCategory, searchQuery } = useAllSettings();
     const pathname = usePathname();
 
     const handleUpdatePriority = () => {
         if (searchQuery) return `${pathname}?search_query=${searchQuery}&page=${currentPage}`;
-        return `${pathname}?sort_by=`
+        return `${pathname}?category_id=${currentCategory}&sort_by=`
     }
 
     const url = handleUpdatePriority()

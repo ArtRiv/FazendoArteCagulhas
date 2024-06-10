@@ -18,13 +18,10 @@ const usePageSize = () => {
     return pageSize;
 }
 
-const useCurrentType = () => {
-    const pathname = usePathname();
-    const parts = pathname.split("/");
-    let productType;
-    if(parts[2]) productType = parts[2].toUpperCase();
-    const currentType = Object.values(Categories).includes(productType as Categories) ? productType as Categories : undefined;
-    return currentType;
+const useCurrentCategory = () => {
+    const searchParams = useSearchParams();
+    const currentCategory = Number(searchParams.get('category_id'));
+    return currentCategory;
 }
 
 
@@ -44,7 +41,7 @@ const useProductId = () => {
 export const useAllSettings = () => {
     const currentPage = useCurrentPage();
     const currentSortBy = useCurrentSortBy();
-    const currentType = useCurrentType();
+    const currentCategory = useCurrentCategory();
     const pageSize = usePageSize();
     const searchQuery = useSearchQuery();
     const productId = useProductId();
@@ -52,7 +49,7 @@ export const useAllSettings = () => {
     return {
         currentPage,
         currentSortBy,
-        currentType,
+        currentCategory,
         pageSize,
         searchQuery,
         productId
