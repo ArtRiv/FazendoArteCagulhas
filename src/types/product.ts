@@ -1,17 +1,16 @@
 export interface Product {
     created_at: number,
+    category_id: number,
     description: Array<string>,
     id: string,
-    image: string,
     link: string,
-    product_group: string,
+    media: Array<string>,
     price: number,
+    product_group: string,
     purchase_count: number,
     rating: number,
-    secondary_images: Array<string> | undefined, 
     tag: string,
     title: string,
-    type: string,
 }
 
 export interface ProductReview {
