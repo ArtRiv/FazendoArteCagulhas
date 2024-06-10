@@ -1,10 +1,9 @@
 import { Product } from "./product";
 
-export interface getProductsParams {
+export interface getCollectionParams {
     page: number;
-    pageSize: number;
-    productType: ProductTypes;
-    sortBy: SortByTypes;
+    category_id: number;
+    sort_by: SortByTypes;
 }
 
 export interface getProductsBySearchParams {
@@ -23,7 +22,7 @@ export interface getSimilarProductsParams {
     currentProduct: Product,
 }
 
-export enum ProductTypes {
+export enum Categories {
     ALL = 'ALL',
     ANIMES = 'ANIMES',
     GAMES = 'GAMES',
