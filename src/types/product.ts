@@ -14,13 +14,14 @@ export interface Product {
 }
 
 export interface ProductReview {
-    review_id: string,
+    created_at: number,
+    from: string,
+    id: string,
+    media: Array<string>,
     product_id: string,
     rating: number,
-    created_at: number,
-    media: Array<string>,
+    review_id: string,
     text: string,
     title: string,
-    from: string,
     user: string
 }
