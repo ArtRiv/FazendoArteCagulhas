@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
     const pathname = url.pathname;
     const category = url.searchParams.get('category_id');
     const sort_by = url.searchParams.get('sort_by');
-    const searchQuery = url.searchParams.get('search_query') || "";
+    const search_query = url.searchParams.get('search_query') || "";
     const page = url.searchParams.get('page');
     const productID = url.searchParams.get('id') || undefined;
 
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
     if (page) requestHeaders.set('x-searchParams-page', page);
     if (productID) requestHeaders.set('x-searchParams-id', productID);
     if (category) requestHeaders.set('x-searchParams-category_id', category);
-    requestHeaders.set('x-searchParams-searchQuery', searchQuery);
+    requestHeaders.set('x-searchParams-search_query', search_query);
     requestHeaders.set('x-pathname', pathname);
 
     return NextResponse.next({

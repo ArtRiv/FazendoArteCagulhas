@@ -20,11 +20,11 @@ const getProductsSearchParams = (headersList: ReadonlyHeaders) => {
         : SortByTypes.NEWS
 
     const page = Number(headersList.get('x-searchParams-page')) || 1;
-    const searchQuery = headersList.get('x-searchParams-searchQuery') || '';
+    const search_query = headersList.get('x-searchParams-search_query') || '';
 
     return {
         sort_by,
-        searchQuery,
+        search_query,
         page,
     }
 }
@@ -42,7 +42,7 @@ const getPageSize = () => {
 export default function useQueryParams() {
     const headersList = headers();
 
-    const { sort_by, searchQuery, page } = getProductsSearchParams(headersList);
+    const { sort_by, search_query, page } = getProductsSearchParams(headersList);
     const category_id = getCategoryID(headersList);
     const productId = getProductId(headersList);
     const pathName = getPathname(headersList);
@@ -50,7 +50,7 @@ export default function useQueryParams() {
 
     return {
         category_id,
-        searchQuery,
+        search_query,
         productId,
         pageSize,
         pathName,

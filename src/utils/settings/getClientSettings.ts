@@ -27,9 +27,8 @@ const useCurrentCategory = () => {
 
 const useSearchQuery = () => {
     const searchParams = useSearchParams();
-    const searchQuery = searchParams.get('search_query') ;
-    if (searchQuery) return searchQuery;
-    return;
+    const searchQuery = searchParams.get('search_query') || "";
+    return searchQuery;
 }
 
 const useProductId = () => {

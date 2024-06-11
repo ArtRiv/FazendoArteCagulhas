@@ -8,9 +8,8 @@ export interface getCollectionParams {
 
 export interface getProductsBySearchParams {
     page: number;
-    pageSize: number;
-    searchQuery: string;
-    sortBy: SortByTypes;
+    search_query: string;
+    sort_by: SortByTypes;
 }
 
 export interface getProductsByPredictiveSearch {
