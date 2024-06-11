@@ -9,28 +9,21 @@ import MediaWrapper from "@/components/ui/media-modal";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import Image from "next/image";
-import { Product } from "@/types/product";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { ProductReviews } from "@/app/product/_components/product-reviews";
 import { StarsRating } from "@/components/ui/stars-rating";
-import { getProductById, getProductReviews, getSimilarProducts } from "@/db";
 import { LiaSearchPlusSolid } from "react-icons/lia";
+import { getReviewsByID } from "@/services/review";
+import { getProductByID, getSimilarProducts } from "@/services/product";
 
 export default async function ProductPage() {
     const { productId } = useQueryParams();
     if (!productId) redirect('/');
 
-    const productData = await getProductById(productId);
-    const productReviews = await getProductReviews(productId);
-    let similarProducts;
+    const productData = await getProductByID(productId);
+    const productReviews = await getReviewsByID(productId);
+    const similarProducts = await getSimilarProducts(productId);
 
-    if (productData) {
-        const params: getSimilarProductsParams = {
-            productGroup: productData?.product_group,
-            currentProduct: productData as Product,
-        };
-        similarProducts = await getSimilarProducts(params);
-    }
     const price = formatPrice(productData?.price);
 
     return (
@@ -39,16 +32,16 @@ export default async function ProductPage() {
                 <>
                     <section className="w-full flex flex-wrap justify-center gap-10">
                         <div className="w-[55%] max-w-[600px] flex flex-col items-center">
-                            {productData.secondary_images &&
+                            {(productData.media.length > 1) &&
                                 <>
                                     <div>
-                                        <MediaWrapper media={productData.secondary_images}>
+                                        <MediaWrapper media={productData.media}>
                                             <div className="size-full relative overflow-hidden rounded-xl">
                                                 <LiaSearchPlusSolid color={`var(--background)`} size={35} className="p-2 bg-foreground rounded-full shadow-2xl absolute top-5 left-5 z-10 transition-all duration-300 ease-in-out hover:scale-105"/>
                                                 <Image
                                                     className="rounded-xl shadow-xl transition-all duration-300 hover:scale-105 ease-in-out"
                                                     alt={`Imagem de ${productData.title}`}
-                                                    src={productData.image}
+                                                    src={productData.media[0]}
                                                     width={550}
                                                     height={550}
                                                     quality={100}
@@ -59,15 +52,15 @@ export default async function ProductPage() {
                                         </MediaWrapper>
                                     </div>
                                     <div>
-                                        <SwipeCarousel imagesLinks={productData.secondary_images} />
+                                        <SwipeCarousel imagesLinks={productData.media} />
                                     </div>
                                 </>
                             }
-                            {!productData.secondary_images &&
+                            {!(productData.media.length > 1) &&
                                 <Image
                                     className="rounded-xl shadow-xl"
                                     alt={`Imagem de ${productData.title}`}
-                                    src={productData.image}
+                                    src={productData.media[0]}
                                     width={550}
                                     height={550}
                                     quality={100}
