@@ -6,20 +6,26 @@ import { CloseIcon } from "@/components/icons/closeIcon";
 import { usePathname, useRouter } from "next/navigation";
 import { useAllSettings } from "@/utils/settings/getClientSettings";
 import PredictiveSearchModal from "./modal";
+import { getProductsBySearchParams } from "@/types/productParams";
 
 type SearchInputProps = {
     close?: () => void;
 }
 
 export const SearchInput = ({ close }: SearchInputProps) => {
-    const { searchQuery } = useAllSettings();
+    const { searchQuery, currentSortBy, currentPage } = useAllSettings();
+    const [inputValue, setInputValue] = useState(searchQuery || "");
+    const deferredInputValue = useDeferredValue(inputValue);
+    const params: getProductsBySearchParams = {
+        page: currentPage,
+        search_query: deferredInputValue,
+        sort_by: currentSortBy,
+    };
     const modalRef = useRef<HTMLFormElement>(null);
     const router = useRouter()
     const pathname = usePathname();
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState(searchQuery || "");
-    const deferredInputValue = useDeferredValue(inputValue);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -109,7 +115,7 @@ export const SearchInput = ({ close }: SearchInputProps) => {
                     }
                     
                     {(inputValue && isOpen) &&
-                        <PredictiveSearchModal inputValue={deferredInputValue} />
+                        <PredictiveSearchModal {...params} />
                     }
 
                 </>

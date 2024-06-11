@@ -2,40 +2,35 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "./mini-card";
 import { Product } from "@/types/product";
 import { PredictiveSearchOptionSearchKeyword } from "./keyword-link";
+import { getProductsBySearchParams } from "@/types/productParams";
+import { getResults } from "@/services/results";
 
-interface PredictiveSearchProps {
-    inputValue: string;
-}
-
-export default function PredictiveSearchModal({ inputValue }: PredictiveSearchProps) {
+export default function PredictiveSearchModal(params: getProductsBySearchParams) {
     const [productsData, setProductsData] = useState<Product[]>([]);
-    const [debouncedInputValue, setDebouncedInputValue] = useState(inputValue);
+    const [debouncedInputValue, setDebouncedInputValue] = useState(params.search_query);
 
     useEffect(() => {
         const handler = setTimeout(() => {
-            setDebouncedInputValue(inputValue);
+            setDebouncedInputValue(params.search_query);
         }, 300); // 300ms delay
 
         return () => {
             clearTimeout(handler);
         };
-    }, [inputValue]);
+    }, [params.search_query]);
 
     useEffect(() => {
-        const fetchProductData = async () => {
-            setProductsData([]);
-            if (debouncedInputValue) {
-                const response: Response = await fetch(`http://localhost:3000/api/predictive-search?q=${debouncedInputValue}`);
-                if (response.ok) {
-                    const products: Product[] = await response.json();
-                    setProductsData(products);
-                } else {
-                    console.error('HTTP-Error ' + response.status)
-                }
+        const fetchData = async () => {
+            try {
+                const response = await getResults(params);
+                setProductsData(response);
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
         };
-        fetchProductData();
-    }, [debouncedInputValue]);
+
+        fetchData();
+    }, [debouncedInputValue, params]);
 
     return (
         <div className="absolute top-12 max-h-60 w-full pt-3 z-[10] bg-background border-solid border-[1px] border-shapes-dark-10 rounded-bl-radius-big shadow-xl border-t-0">
@@ -53,14 +48,14 @@ export default function PredictiveSearchModal({ inputValue }: PredictiveSearchPr
                                         id={product.id}
                                         title={product.title}
                                         price={product.price}
-                                        image={product.image}
+                                        image={product.media[0]}
                                     />
                                 );
                             })}
                         </ul>
                     </>
                 }
-                <PredictiveSearchOptionSearchKeyword search={inputValue} />
+                <PredictiveSearchOptionSearchKeyword search={params.search_query} />
             </div>
         </div>
     )
