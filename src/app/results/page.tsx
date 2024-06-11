@@ -1,25 +1,24 @@
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { SearchInput } from "@/components/predictive-search";
 import { ProductsList } from "@/components/products-list";
-import { getProductsBySearch } from "@/db";
+import { getResults } from "@/services/results";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { getProductsBySearchParams } from "@/types/productParams";
 import useQueryParams from "@/utils/settings/getServerSettings";
 import { redirect } from "next/navigation";
 
 export default async function ResultsComponent() {
-    const { page, pageSize, sortBy, searchQuery } = useQueryParams();
+    const { page, sort_by, search_query } = useQueryParams();
 
-    if(searchQuery == '') redirect('/');
+    if(search_query == '') redirect('/');
 
     const params: getProductsBySearchParams = {
         page,
-        pageSize,
-        searchQuery,
-        sortBy,
+        search_query,
+        sort_by,
     };
 
-    const productsData = await getProductsBySearch(params);
+    const productsData = await getResults(params);
 
     return (
         <DefaultPageLayout>
@@ -36,7 +35,7 @@ export default async function ResultsComponent() {
             }
             {!productsData &&
                 <div className="w-auto mx-auto my-0 p-12 "> 
-                    &quot;{searchQuery}&quot;... own, parece que não temos isso (╥﹏╥) 
+                    &quot;{search_query}&quot;... own, parece que não temos isso (╥﹏╥) 
                 </div>
             }
         </DefaultPageLayout>
