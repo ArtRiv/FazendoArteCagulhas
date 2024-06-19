@@ -25,3 +25,13 @@ export interface ProductReview {
     title: string,
     user: string
 }
+
+export interface ProductCart {
+    title: string,
+    id: string,
+    image: string,
+    price: number,
+    quantity: number,
+    purchase_count: number,
+    rating: number,
+}
