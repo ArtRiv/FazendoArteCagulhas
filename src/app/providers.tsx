@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from 'next-themes';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-//import { useState } from 'react'
+import { CartContextProvider } from '@/context/cart-context';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -38,9 +38,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
     return (
         <QueryClientProvider client={queryClient}>
+          <CartContextProvider>
             <ThemeProvider attribute="class" defaultTheme='light' enableSystem>
                 {children}
             </ThemeProvider>
+          </CartContextProvider>
         </QueryClientProvider>
     )
 }
