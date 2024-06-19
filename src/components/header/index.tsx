@@ -8,6 +8,7 @@ import ThemeSwitcher from "../ui/theme-switcher";
 import { Option, StaggeredDropDown } from "../ui/dropdown";
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 import { UserMenu } from "../user-menu";
+import { HeaderCart } from "./cart";
 
 export const Header = (): React.ReactNode => {
     let headerBounds: DOMRect | DOMRectReadOnly | null = null;
@@ -91,6 +92,7 @@ export const Header = (): React.ReactNode => {
                 </div>
                 <header className='header flex justify-center'>
                     <Logo />
+                    <HeaderCart />
                     <SearchDragModal />
                     <HeaderNavigationMenu />
                 </header>
