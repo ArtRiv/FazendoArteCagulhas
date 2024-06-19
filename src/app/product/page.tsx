@@ -1,6 +1,4 @@
-import { AnchorClientSide } from "@/components/ui/anchor-client-side";
 import { DefaultPageLayout } from "@/components/default-page-layout";
-import { getSimilarProductsParams } from "@/types/productParams";
 import { ProductsList } from "@/components/products-list";
 import { SwipeCarousel } from "@/app/product/_components/image-carousel";
 import useQueryParams from "@/utils/settings/getServerSettings";
@@ -15,6 +13,7 @@ import { StarsRating } from "@/components/ui/stars-rating";
 import { LiaSearchPlusSolid } from "react-icons/lia";
 import { getReviewsByID } from "@/services/review";
 import { getProductByID, getSimilarProducts } from "@/services/product";
+import { AddToCartButton } from "./_components/add-to-cart-button";
 
 export default async function ProductPage() {
     const { productId } = useQueryParams();
@@ -89,18 +88,7 @@ export default async function ProductPage() {
                                 </span>
                             </div>
                             <div className="w-full flex items-center justify-center my-5">
-                                <AnchorClientSide
-                                    navigateLink={`${productData.link}`}
-                                    target="_blank"
-                                    twStyles="w-full inline-flex items-center justify-center relative px-3 py-2 bg-background border-2 border-solid border-decoration-indigo rounded-radius-normal cursor-pointer
-                                    [box-shadow:0_2px_14px_0_rgba(0,_0,_0,_0.183)]
-                                    [transition:transform_0.5s_ease,_box-shadow_0.5s_ease]
-                                    hover:origin-center hover:[transform:box-shadow_0.5s_ease]
-                                    cardButton">
-                                    <span className="text-small text-font-color font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
-                                        Ver produto
-                                    </span>
-                                </AnchorClientSide>
+                                <AddToCartButton productData={productData}/>
                             </div>
                             <div className="my-5">
                                 {productData.description?.map((part, index) => (
