@@ -12,7 +12,7 @@ import { SearchInput } from "../predictive-search";
 export const SearchDragModal = () => {
     const [open, setOpen] = useState(false);
     return (
-        <div className="[grid-area:right-icon] self-end flex items-center justify-end">
+        <div className="[grid-area:left-icon] self-end flex items-center">
             <button
                 onClick={() => setOpen(true)}
                 className="rounded"
@@ -66,7 +66,7 @@ const DragCloseDrawer = ({ open, setOpen, children }: Props) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     onClick={handleClose}
-                    className="fixed inset-0 z-50 bg-neutral-950/70"
+                    className="fixed inset-0 z-50 bg-decoration/30"
                 >
                     <motion.div
                         id="drawer"
@@ -79,6 +79,7 @@ const DragCloseDrawer = ({ open, setOpen, children }: Props) => {
                         }}
                         className="absolute top-0 h-44 w-full rounded-b-3xl bg-background"
                         style={{ y }}
+                        onScroll={() => { handleClose() }}
                         drag="y"
                         dragControls={controls}
                         onDragEnd={() => {
@@ -105,7 +106,7 @@ const DragCloseDrawer = ({ open, setOpen, children }: Props) => {
                                     className="h-2 w-14 cursor-grab touch-none rounded-full bg-decoration/70 active:cursor-grabbing"
                                 ></button>
                             </div>
-                            {children} 
+                            {children}
                         </div>
                     </motion.div>
                 </motion.div>
