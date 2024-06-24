@@ -1,4 +1,4 @@
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import React, { Dispatch, ReactNode, SetStateAction, useEffect } from "react";
 import useMeasure from "react-use-measure";
 import {
     useDragControls,
@@ -6,6 +6,7 @@ import {
     useAnimate,
     motion,
 } from "framer-motion";
+import { IoIosCloseCircle } from "react-icons/io";
 
 interface Props {
     open: boolean;
@@ -54,7 +55,7 @@ export const CartDrawer = ({ open, setOpen, children }: Props) => {
                         transition={{
                             ease: "easeInOut",
                         }}
-                        className="absolute flex bottom-0 right-0 h-full w-96 overflow-hidden rounded-t-3xl bg-background"
+                        className="absolute flex bottom-0 right-0 h-screen w-96 overflow-hidden rounded-l-xl bg-background"
                         style={{ x }}
                         drag="x"
                         dragControls={controls}
@@ -81,8 +82,16 @@ export const CartDrawer = ({ open, setOpen, children }: Props) => {
                                 className="h-12 w-2 cursor-grab touch-none rounded-full bg-decoration/70 active:cursor-grabbing"
                             ></button>
                         </div>
-                        <div className="relative z-0 h-full w-full">
+                        <div className="relative z-0 h-full w-full flex flex-col justify-between">
+                            <button className="absolute right-0" onClick={handleClose}>
+                                <IoIosCloseCircle className="text-decoration/70 w-8 h-8" />
+                            </button>
                             {children}
+                            <button className="w-full pb-4" onClick={handleClose}>
+                                <span className="font-harmonia underline text-small text-font-color leading-line-height-small tracking-letter-space-small">
+                                    Continuar comprando
+                                </span>
+                            </button>
                         </div>
                     </motion.div>
                 </motion.div>

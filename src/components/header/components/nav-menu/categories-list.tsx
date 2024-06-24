@@ -3,7 +3,7 @@ import { Categories } from "@/types/categories"
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 import { useCallback, useEffect, useState } from "react"
 import { FiChevronDown } from "react-icons/fi";
-import { StaggeredDropDown, OptionWithLink } from "../ui/dropdown";
+import { StaggeredDropDown, OptionWithLink } from "../../../ui/dropdown";
 
 export const CategoriesList = () => {
     const [categories, setCategories] = useState<Categories[]>([]);

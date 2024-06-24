@@ -6,8 +6,8 @@ import {
     useAnimate,
     motion,
 } from "framer-motion";
-import { SearchIcon } from "../icons/searchIcon";
-import { SearchInput } from "../predictive-search";
+import { SearchIcon } from "../../../icons/searchIcon";
+import { SearchInput } from "../../../predictive-search";
 
 export const SearchDragModal = () => {
     const [open, setOpen] = useState(false);

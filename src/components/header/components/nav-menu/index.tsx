@@ -1,5 +1,5 @@
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
-import { StaggeredDropDown, OptionWithLink } from "../ui/dropdown";
+import { StaggeredDropDown, OptionWithLink } from "../../../ui/dropdown";
 import { useEffect, useState } from "react";
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 import { Categories } from "@/types/categories";
