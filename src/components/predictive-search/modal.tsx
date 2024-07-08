@@ -33,11 +33,11 @@ export default function PredictiveSearchModal(params: getProductsBySearchParams)
     }, [debouncedInputValue, params]);
 
     return (
-        <div className="absolute top-12 max-h-60 w-full pt-3 z-[10] bg-background border-solid border-[1px] border-shapes-dark-10 rounded-bl-radius-big shadow-xl border-t-0">
-            <div className="relative max-h-52 w-full h-full z-[11] overflow-y-auto">
+        <div className="absolute top-12 max-h-80 w-full pt-3 z-10 bg-background border-solid border-[1px] border-shapes-dark-10 rounded-bl-radius-big shadow-xl border-t-0">
+            <div className="relative max-h-72 w-full h-full z-20 overflow-y-auto">
                 {productsData &&
                     <>
-                        <h2 className="z-[10] mx-5 my-0 pt-4 px-0 pb-2 font-harmonia text-small text-font-color opacity-70 tracking-letter-space-big leading-line-height-normal">
+                        <h2 className="z-10 mx-5 my-0 pt-4 px-0 pb-2 font-harmonia text-small text-font-color opacity-70 tracking-letter-space-big leading-line-height-normal">
                             Produtos
                         </h2>
                         <ul className="flex flex-col gap-1 list-none pb-2 z-[11]">

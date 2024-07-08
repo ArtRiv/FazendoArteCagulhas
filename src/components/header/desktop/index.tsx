@@ -1,16 +1,17 @@
 "use client"
 
 import { useEffect } from "react";
-import { Logo } from "./components/logo";
-import { HeaderNavigationMenu } from "./components/nav-menu";
-import { SearchDragModal } from "./components/search/search-modal";
-import ThemeSwitcher from "../ui/theme-switcher";
-import { Option, StaggeredDropDown } from "../ui/dropdown";
-import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
-import { UserMenu } from "../user-menu";
-import { HeaderCart } from "./components/cart";
 
-export const Header = (): React.ReactNode => {
+import ThemeSwitcher from "../../ui/theme-switcher";
+import { Option, StaggeredDropDown } from "../../ui/dropdown";
+import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
+import { UserMenu } from "../../user-menu";
+import { HeaderCart } from "../components/cart";
+import { Logo } from "../components/logo";
+import { HeaderNavigationMenuDesktop } from "../components/nav-menu";
+import { SearchDragModal } from "../components/search/search-modal";
+
+export const DesktopHeader = (): React.ReactNode => {
     let headerBounds: DOMRect | DOMRectReadOnly | null = null;
     let header: Element | null = null;
     let currentScrollTop = 0;
@@ -78,7 +79,7 @@ export const Header = (): React.ReactNode => {
     }
 
     return (
-        <div className='section-header header-section'>
+        <div className='section-header header-section hidden md:flex'>
             <div className='header-wrapper'>
                 <div className="absolute top-4 right-4">
                     <StaggeredDropDown variant={DropdownVariants.NORMAL}>
@@ -94,7 +95,7 @@ export const Header = (): React.ReactNode => {
                     <Logo />
                     <HeaderCart />
                     <SearchDragModal />
-                    <HeaderNavigationMenu />
+                    <HeaderNavigationMenuDesktop />
                 </header>
             </div>
         </div>

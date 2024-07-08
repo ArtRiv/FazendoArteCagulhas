@@ -11,7 +11,7 @@ export const StarsRating = ({ stars, purchase_count }: { stars: number, purchase
                     <StarIcon key={i} fill="#41414D" />
                 ))}
                 {purchase_count !== undefined &&
-                    <span className="text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased ml-1">
+                    <span className="hidden md:flex text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased ml-1">
                         {purchase_count} vendido(s)
                     </span>
                 }

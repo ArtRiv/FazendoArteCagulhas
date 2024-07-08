@@ -12,7 +12,7 @@ import { SearchInput } from "../../../predictive-search";
 export const SearchDragModal = () => {
     const [open, setOpen] = useState(false);
     return (
-        <div className="[grid-area:left-icon] self-end flex items-center">
+        <div className="flex justify-center items-center">
             <button
                 onClick={() => setOpen(true)}
                 className="rounded"
@@ -22,7 +22,7 @@ export const SearchDragModal = () => {
 
             <DragCloseDrawer open={open} setOpen={setOpen}>
                 <div className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-background bg-fixed rounded-b-3xl min-h-36 h-full animate-[animateMenuClose_0.5s_linear(0_0%,_0_1.8%,_0.01_3.6%,_0.03_6.35%,_0.07_9.1%,_0.13_11.4%,_0.19_13.4%,_0.27_15%,_0.34_16.1%,_0.54_18.35%,_0.66_20.6%,_0.72_22.4%,_0.77_24.6%,_0.81_27.3%,_0.85_30.4%,_0.88_35.1%,_0.92_40.6%,_0.94_47.2%,_0.96_55%,_0.98_64%,_0.99_74.4%,_1_86.4%,_1_100%)]">
-                    <div className="flex items-center justify-center w-full h-full relative px-16 py-0">
+                    <div className="flex items-center justify-center w-full h-full">
                         <SearchInput />
                     </div>
                 </div>
@@ -77,7 +77,7 @@ const DragCloseDrawer = ({ open, setOpen, children }: Props) => {
                         transition={{
                             ease: "easeInOut",
                         }}
-                        className="absolute top-0 h-44 w-full rounded-b-3xl bg-background"
+                        className="absolute top-0 h-1/5 w-full rounded-b-3xl bg-background"
                         style={{ y }}
                         onScroll={() => { handleClose() }}
                         drag="y"
@@ -97,8 +97,8 @@ const DragCloseDrawer = ({ open, setOpen, children }: Props) => {
                             bottom: 0,
                         }}
                     >
-                        <div className="relative z-[10] h-full p-4 pt-12 rounded-b-3xl">
-                            <div className="absolute left-0 right-0 bottom-0 flex z-[1] justify-center bg-background p-4 rounded-b-3xl">
+                        <div className="flex gap-2 relative z-[10] h-full rounded-b-3xl">
+                            <div className="absolute left-0 right-0 bottom-0 flex z-[1] justify-center bg-background rounded-b-3xl">
                                 <button
                                     onPointerDown={(e) => {
                                         controls.start(e);

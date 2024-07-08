@@ -43,7 +43,7 @@ export const CartProductsList = ({
         <div className="h-2/3 overflow-y-scroll">
             {items?.map(product => {
                 return (
-                    <div key={product.id} className="w-full h-auto flex justify-between py-1 px-2 gap-4">
+                    <div key={product.id} className="w-full h-auto flex justify-between py-1 gap-4">
                         <div className="w-1/3 h-full">
                             <Image
                                 alt={product.title}
@@ -66,7 +66,7 @@ export const CartProductsList = ({
                                 {product.rating == 0 && (
                                     <StarsRating stars={0} purchase_count={product.purchase_count} />
                                 )}
-                                <h4 className="flex justify-end text-small text-end text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <h4 className="flex text-sm md:text-base text-start md:justify-end md:text-end text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     {formatPrice(product.price * product.quantity)}
                                 </h4>
                                 <div className="w-full h-5 flex">

@@ -18,7 +18,7 @@ export const SearchInput = ({ close }: SearchInputProps) => {
     const deferredInputValue = useDeferredValue(inputValue);
     const params: getProductsBySearchParams = {
         page: currentPage,
-        search_query: deferredInputValue,
+        search_query: encodeURIComponent(deferredInputValue),
         sort_by: currentSortBy,
     };
     const modalRef = useRef<HTMLFormElement>(null);
@@ -34,8 +34,12 @@ export const SearchInput = ({ close }: SearchInputProps) => {
 
     const navigate = () => {
         if (inputValue.length > 0) {
-            pathname.includes('results') ? router.push(`${pathname}/?search_query=${inputValue.trim()}`)
-                : router.push(`/results/?search_query=${inputValue.trim()}`);
+            const encodedQuery = encodeURIComponent(inputValue.trim());
+            console.log(encodedQuery);
+            const searchUrl = pathname.includes('results')
+                ? `${pathname}?search_query=${encodedQuery}`
+                : `/results?search_query=${encodedQuery}`;
+            router.push(searchUrl);
         }
         if (close) close();
     }
@@ -76,7 +80,7 @@ export const SearchInput = ({ close }: SearchInputProps) => {
                 <>
                     <input
                         id="SearchModalInput"
-                        className="field__label relative w-[742px] p-4 pr-24 grow 
+                        className="field__label relative w-2/3 p-4 pr-24 grow 
                             border-2 border-solid border-decoration-pink-40 rounded-radius-small 
                             outline-none font-harmonia text-normal text-font-color appearance-none 
                             bg-background [transition:border_0.5s_ease] 

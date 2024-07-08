@@ -9,8 +9,10 @@ export const Logo = () => {
     }
 
     return (
-        <div className="[grid-area:heading] mx-[auto] my-[0] self-center w-[280px] h-[80px]">
-            <a href="/" onClick={handleNavigate}>
+        <div className="
+        w-full h-auto mx-[auto] self-center
+        sm:[grid-area:heading] sm:w-72 sm:h-20">
+            <a href="/" onClick={handleNavigate} className="flex justify-center">
                 <Image
                     alt={'Logo Fazendo Arte com Agulhas'}
                     src="/logo-title-nobg.png"

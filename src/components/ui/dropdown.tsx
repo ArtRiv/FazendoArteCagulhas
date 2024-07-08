@@ -2,7 +2,7 @@
 
 import { FiChevronDown } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnchorClientSide } from "./anchor-client-side";
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 import { IoMenuSharp } from "react-icons/io5";
@@ -44,7 +44,7 @@ export const StaggeredDropDown = ({ children, variant, text }: DropdownProps) =>
                 className="flex items-center gap-2 rounded-md text-font-color transition-colors"
             >
                 {text &&
-                    <span className="relative font-harmonia text-normal text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
+                    <span className="relative font-harmonia text-xl text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
                         {text}
                     </span>
                 }
@@ -92,11 +92,10 @@ export const Option = ({ children }: OptionProps) => {
 
 type OptionWithLinkProps = {
     text: string,
-    setOpen: Dispatch<SetStateAction<boolean>>;
     navigateLink: string;
 };
 
-export const OptionWithLink = ({ text, setOpen, navigateLink }: OptionWithLinkProps) => {
+export const OptionWithLink = ({ text, navigateLink }: OptionWithLinkProps) => {
     return (
         <motion.li
             variants={itemVariants}
@@ -104,8 +103,7 @@ export const OptionWithLink = ({ text, setOpen, navigateLink }: OptionWithLinkPr
         >
             <AnchorClientSide
                 twStyles="flex items-center no-underline cursor-pointer w-full px-2 py-1"
-                navigateLink={navigateLink}
-                setOpen={setOpen}>
+                navigateLink={navigateLink}>
                 <span>
                     {text}
                 </span>

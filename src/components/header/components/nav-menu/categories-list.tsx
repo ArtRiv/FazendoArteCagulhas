@@ -1,9 +1,9 @@
+import { StaggeredDropDown, OptionWithLink } from "@/components/ui/dropdown";
 import { getCategories } from "@/services/categories"
 import { Categories } from "@/types/categories"
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 import { useCallback, useEffect, useState } from "react"
 import { FiChevronDown } from "react-icons/fi";
-import { StaggeredDropDown, OptionWithLink } from "../../../ui/dropdown";
 
 export const CategoriesList = () => {
     const [categories, setCategories] = useState<Categories[]>([]);
@@ -26,7 +26,7 @@ export const CategoriesList = () => {
     }, [fetchData]);
 
     return (
-        <div className="inline-flex justify-self-end p-3">
+        <div className="inline-flex justify-self-end md:p-3">
             {(categories && !isLoading) && (
                 <StaggeredDropDown variant={DropdownVariants.LINK} text="Produtos">
                     {categories?.map(category => {
@@ -38,7 +38,7 @@ export const CategoriesList = () => {
             )}
             {isLoading && (
                 <div className="flex gap-2">
-                    <span className="relative font-harmonia text-normal text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
+                    <span className="relative text-xl text-font-color leading-line-height-small tracking-letter-space-small font-harmonia select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
                         Produtos
                     </span>
                     <FiChevronDown />
