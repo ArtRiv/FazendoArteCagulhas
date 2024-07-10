@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Header } from "@/components/header";
+import { DesktopHeader } from "@/components/header/desktop";
 import { Footer } from "@/components/footer";
 import { Suspense } from "react";
+import { MobileHeader } from "@/components/header/mobile";
+import { DefaultPageLayout } from "@/components/default-page-layout";
 
 export const metadata: Metadata = {
   title: "Fazendo Arte com Agulhas",
@@ -24,9 +26,12 @@ export default function RootLayout({
       <body className="flex flex-col justify-between">
         <Providers>
           <Suspense fallback={<div>Layout header suspense</div>}>
-            <Header />
+            <DesktopHeader />
+            <MobileHeader />
           </Suspense>
-          {children}
+          <DefaultPageLayout>
+            {children}
+          </DefaultPageLayout>
           <Footer />
         </Providers>
       </body>
