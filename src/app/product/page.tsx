@@ -26,14 +26,14 @@ export default async function ProductPage() {
     const price = formatPrice(productData?.price);
 
     return (
-        <DefaultPageLayout>
+        <>
             {(productData) &&
                 <>
                     <section className="w-full flex flex-wrap justify-center gap-10">
-                        <div className="w-[55%] max-w-[600px] flex flex-col items-center">
+                        <div className="md:w-[55%] max-w-[600px] flex flex-col items-center">
                             {(productData.media.length > 1) &&
                                 <>
-                                    <div>
+                                    <div className="hidden md:flex">
                                         <MediaWrapper media={productData.media}>
                                             <div className="size-full relative overflow-hidden rounded-xl">
                                                 <LiaSearchPlusSolid color={`var(--background)`} size={35} className="p-2 bg-foreground rounded-full shadow-2xl absolute top-5 left-5 z-10 transition-all duration-300 ease-in-out hover:scale-105"/>
@@ -68,14 +68,13 @@ export default async function ProductPage() {
                                 />
                             }
                         </div>
-                        <div className="w-[45%] max-w-[440px] flex flex-col">
+                        <div className="md:w-[45%] max-w-[440px] flex flex-col">
                             <div>
-                                <p className="text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="text-small text-font-color/70 font-harmonia leading-line-height-small md:leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Amigurumi
                                 </p>
-                            </div>
-                            <div>
-                                <h1 className="text-biggest text-font-color font-harmonia leading-[60px] tracking-letter-space-normal break-words antialiased flex items-center">
+
+                                <h1 className="text-5xl text-font-color font-harmonia md:leading-[60px] tracking-letter-space-normal break-words antialiased flex items-center">
                                     {productData.title}
                                 </h1>
                             </div>
@@ -92,23 +91,23 @@ export default async function ProductPage() {
                             </div>
                             <div className="my-5">
                                 {productData.description?.map((part, index) => (
-                                    <p key={index} className="my-2 text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                    <p key={index} className="my-2 text-center text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                         {part}
                                     </p>
                                 ))}
-                                <p className="my-2 text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Feito por técnica Amigurumi.
                                 </p>
 
-                                <p className="my-2 text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     O produto é 100% artesanal, feito a mão, por isso, é normal que haja uma diferença entre algumas peças.
                                 </p>
 
-                                <p className="my-2 text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Fique atento ao prazo de confecção informado no anúncio.
                                 </p>
 
-                                <p className="my-2 text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Se houver alguma dúvida entrar em contato pela DM do <a className="relative animateBorderBottom text-font-color font-harmonia leading-line-height-small" target="_blank" href="https://www.instagram.com/fazendoartecagulhas/">Instagram</a>!
                                 </p>
                             </div>
@@ -120,7 +119,7 @@ export default async function ProductPage() {
                     {(similarProducts) &&
                         <section className="w-full flex mt-16">
                             <div className="w-full max-w-[120rem] mx-auto my-0 flex flex-col justify-start">
-                                <h1 className="font-harmonia text-4xl text-font-color antialiased mx-12 my-2 flex items-center">
+                                <h1 className="font-harmonia text-3xl text-font-color antialiased my-4 md:mx-12 md:my-2 flex items-center">
                                     Produtos similares
                                 </h1>
                                 <Suspense fallback={<div>Loading...</div>}>
@@ -136,6 +135,6 @@ export default async function ProductPage() {
                     hmm... parece que algo deu errado (╥﹏╥)
                 </div>
             }
-        </DefaultPageLayout>
+        </>
     );
 }
