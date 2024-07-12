@@ -65,7 +65,7 @@ export const StaggeredDropDown = ({ children, variant, text }: DropdownProps) =>
                     originY: "top",
                     translateX: variant === DropdownVariants.NORMAL ? '-93%' : '-30%'
                 }}
-                className="flex flex-col gap-2 p-2 z-[5] rounded-lg bg-background shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
+                className="flex flex-col gap-2 p-2 z-30 rounded-lg bg-background shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
             >
                 {children}
             </motion.ul>
@@ -99,10 +99,10 @@ export const OptionWithLink = ({ text, navigateLink }: OptionWithLinkProps) => {
     return (
         <motion.li
             variants={itemVariants}
-            className="flex items-center gap-2 w-full text-small whitespace-nowrap rounded-md hover:bg-decoration/20 text-font-color transition-colors cursor-pointer"
+            className="flex items-center gap-2 w-full text-md whitespace-nowrap rounded-md hover:bg-decoration/20 text-font-color transition-colors cursor-pointer"
         >
             <AnchorClientSide
-                twStyles="flex items-center no-underline cursor-pointer w-full px-2 py-1"
+                twStyles="flex items-center no-underline cursor-pointer w-full px-2 py-1 border rounded-md border-decoration"
                 navigateLink={navigateLink}>
                 <span>
                     {text}
