@@ -1,5 +1,4 @@
 import { getCollectionParams } from "@/types/productParams";
-import { DefaultPageLayout } from "@/components/default-page-layout";
 import { ProductsPagination } from "@/app/products/_components/pagination";
 import { ProductsList } from "@/components/products-list";
 import { FilterBar } from "@/components/filter-bar.tsx";
@@ -20,7 +19,7 @@ export default async function ProductsPage() {
     const productsData = await getCollectionData(params);
 
     return (
-        <DefaultPageLayout>
+        <>
             {(productsData) &&
                 <>
                     <Hero />
@@ -36,6 +35,6 @@ export default async function ProductsPage() {
                     hmm... parece que algo deu errado (╥﹏╥)
                 </div>
             }
-        </DefaultPageLayout>
+        </>
     );
 }
