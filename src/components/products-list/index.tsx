@@ -11,7 +11,7 @@ export const ProductsList = ({
 }) => {
     return (
         <div className="w-full max-w-[120rem] mx-auto my-0">
-            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-8 mx-12 my-8">
+            <ul className="grid flex-wrap justify-center grid-cols-2 gap-x-4 gap-y-4 my-4">
                 {productsData.map(product => {
                     return (
                         <ProductCard

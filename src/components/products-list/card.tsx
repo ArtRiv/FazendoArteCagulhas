@@ -16,11 +16,11 @@ export const ProductCard = ({
 
     return (
         <>
-            <li className="flex flex-grow h-auto cursor-pointer grid--item">
-                <div className="w-60 h-full rounded-radius-normal relative no-underline animateCard">
+            <li className="flex self-center w-full sm:w-3/4 mx-auto h-auto cursor-pointer grid--item justify-center">
+                <div className="w-full md:w-60 h-full rounded-radius-normal relative no-underline animateCard">
                     <Link scroll={true} href={`/product?id=${productData.id}`} className="slide-in slideInEffect">
                         <Image
-                            className={`${variant === CardVariants.NORMAL ? 'shape--blob' : 'rounded-t-xl'}`}
+                            className={`${variant === CardVariants.NORMAL ? 'shape--blob' : 'rounded-t-xl'} w-full`}
                             alt={productData.title}
                             src={productData.media[0]}
                             width={240}
@@ -29,30 +29,34 @@ export const ProductCard = ({
                             loading="lazy"
                             draggable={false}
                         />
-                        <div className={`flex flex-col ${variant === CardVariants.NORMAL ? 'h-52' : ''} pt-0 pr-2 pb-2 pl-2`}>
-                            <div className="flex flex-col flex-1 h-36 px-2 py-3">
-                                <h3 className="h-11 text-big text-font-color font-harmonia leading-line-height-normal tracking-letter-space-normal break-words antialiased">
+                        <div className={`flex flex-col ${variant === CardVariants.NORMAL ? 'h-52' : ''}`}>
+                            <div className="flex flex-col justify-between flex-1 h-36 px-2 pt-3 pb-1">
+                                <h3 className="h-16 text-sm text-font-color font-harmonia leading-line-height-normal tracking-letter-space-normal break-words antialiased overflow-hidden text-ellipsis">
                                     {productData.title}
                                 </h3>
-                                <span className="text-small text-font-color/50 font-harmonia leading-line-height-small tracking-letter-space-normal break-words antialiased">
-                                    amigurumi
-                                </span>
-                                {productData.rating > 0 && (
-                                    <StarsRating stars={productData.rating} purchase_count={productData.purchase_count} />
-                                )}
-                                {productData.rating == 0 && (
-                                    <StarsRating stars={0} purchase_count={productData.purchase_count} />
-                                )}
-                                <h4 className={`flex items-end ${variant === CardVariants.NORMAL ? 'flex-1' : ''} text-normal text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased`}>
-                                    {price}
-                                </h4>
+                                <div className="h-1/2 flex flex-col gap-1">
+                                    <div>
+                                        <span className="text-small text-font-color/50 font-harmonia leading-line-height-small tracking-letter-space-normal break-words antialiased">
+                                            amigurumi
+                                        </span>
+                                        {productData.rating > 0 && (
+                                            <StarsRating stars={productData.rating} purchase_count={productData.purchase_count} />
+                                        )}
+                                        {productData.rating == 0 && (
+                                            <StarsRating stars={0} purchase_count={productData.purchase_count} />
+                                        )}
+                                    </div>
+                                    <h4 className={`flex items-end ${variant === CardVariants.NORMAL ? 'flex-1' : ''} text-normal text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased`}>
+                                        {price}
+                                    </h4>
+                                </div>
                             </div>
                             {variant === CardVariants.NORMAL &&
-                                <div className="inline-flex items-center justify-center relative z-[4] px-3 py-2 bg-background border-[1.5px] border-solid border-decoration-indigo rounded-radius-normal cursor-pointer
+                                <div className="inline-flex items-center justify-center relative z-[4] px-1 py-1 bg-background border-[1.5px] border-solid border-decoration-indigo rounded-radius-normal cursor-pointer
                                 shadow-md [transition:box-shadow_0.5s_ease]
                                 hover:shadow-xl hover:origin-center
                                 cardButton">
-                                    <span className="bg-backg text-small text-font-color font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                    <span className="bg-background text-sm text-font-color font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                         Ver produto
                                     </span>
                                 </div>
