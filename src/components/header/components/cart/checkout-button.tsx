@@ -1,18 +1,23 @@
+import { useFilter } from "@/hooks/useFilter";
 import { getCheckoutSession } from "@/services/checkout";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const CheckoutButton = () => {
+    const { items } = useFilter();
     const router = useRouter();
-    const { isAuthenticated } = useKindeBrowserClient();
+    const { isAuthenticated, getUser } = useKindeBrowserClient();
     const [generateCheckoutSession, setGenerateCheckoutSession] = useState(false);
+    const [userID, setUserID] = useState<string>('');
 
     const handleCheckout = () => {
         if (!isAuthenticated) {
             router.push('/api/auth/login?lang=pt-br&post_login_redirect_url=%2F');
             return;
         }
+        const user = getUser();
+        if(user) { setUserID(user.id) };
         setGenerateCheckoutSession(true)
     }
 
@@ -22,17 +27,16 @@ export const CheckoutButton = () => {
         }
 
         const fetchCheckoutSession = async () => {
-            const { url } = await getCheckoutSession();
+            const { url } = await getCheckoutSession( { items, userID });
             if (url) {
                 router.push(url);
             } else {
-                console.error('HTTP-Error')
+                console.error('HTTP-Error');
             }
         }
         fetchCheckoutSession();
-
         
-    },[generateCheckoutSession])
+    }, [generateCheckoutSession])
 
     return (
         <button

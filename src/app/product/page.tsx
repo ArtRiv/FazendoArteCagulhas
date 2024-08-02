@@ -30,7 +30,7 @@ export default async function ProductPage() {
             {(productData) &&
                 <>
                     <section className="w-full flex flex-wrap justify-center gap-10">
-                        <div className="md:w-[55%] max-w-[600px] flex flex-col items-center">
+                        <div className="lg:w-[55%] max-w-[600px] flex flex-col items-center">
                             {(productData.media.length > 1) &&
                                 <>
                                     <div className="hidden md:flex">
@@ -68,7 +68,7 @@ export default async function ProductPage() {
                                 />
                             }
                         </div>
-                        <div className="md:w-[45%] max-w-[440px] flex flex-col">
+                        <div className="lg:w-[45%] max-w-[440px] md:max-w-1/2 flex flex-col">
                             <div>
                                 <p className="text-small text-font-color/70 font-harmonia leading-line-height-small md:leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Amigurumi
@@ -95,19 +95,19 @@ export default async function ProductPage() {
                                         {part}
                                     </p>
                                 ))}
-                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center lg:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Feito por técnica Amigurumi.
                                 </p>
 
-                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center lg:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     O produto é 100% artesanal, feito a mão, por isso, é normal que haja uma diferença entre algumas peças.
                                 </p>
 
-                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center lg:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Fique atento ao prazo de confecção informado no anúncio.
                                 </p>
 
-                                <p className="my-2 text-center md:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
+                                <p className="my-2 text-center lg:text-left text-small text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
                                     Se houver alguma dúvida entrar em contato pela DM do <a className="relative animateBorderBottom text-font-color font-harmonia leading-line-height-small" target="_blank" href="https://www.instagram.com/fazendoartecagulhas/">Instagram</a>!
                                 </p>
                             </div>

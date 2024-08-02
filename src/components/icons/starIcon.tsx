@@ -1,6 +1,6 @@
 export const StarIcon = ({ fill }: { fill: string }) => {
     return (
-        <svg fill={fill} version="1.1" className="size-3 md:size-4"
+        <svg fill={fill} version="1.1" className="size-3 md:size-4 lg:size-5"
 	 	viewBox="0 0 47.94 47.94" >
 			<path d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
 			c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042

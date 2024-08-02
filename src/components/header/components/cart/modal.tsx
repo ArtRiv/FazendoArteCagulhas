@@ -55,7 +55,7 @@ export const CartDrawer = ({ open, setOpen, children }: Props) => {
                         transition={{
                             ease: "easeInOut",
                         }}
-                        className="absolute flex bottom-0 right-0 h-screen w-10/12 sm:w-2/5 overflow-hidden rounded-l-xl bg-background"
+                        className="absolute flex bottom-0 right-0 h-screen md:w-6/12 overflow-hidden rounded-l-xl bg-background"
                         style={{ x }}
                         drag="x"
                         dragControls={controls}

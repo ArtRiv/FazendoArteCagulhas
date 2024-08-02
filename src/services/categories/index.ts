@@ -5,7 +5,8 @@ export async function getCategories(): Promise<Categories[]>{
     const options = {
         method: 'GET',
     };
-    const url = `http://localhost:8080/category`;
+    // const url = `http://localhost:8080/category`; // desktop
+    const url = `http://192.168.3.13:8080/category`; // mobile
     const res = await fetch(url, options);
 
     if (!res.ok) {

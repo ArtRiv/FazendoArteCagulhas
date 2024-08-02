@@ -17,7 +17,7 @@ export const ProductCard = ({
     return (
         <>
             <li className="flex self-center w-full sm:w-3/4 mx-auto h-auto cursor-pointer grid--item justify-center">
-                <div className="w-full md:w-60 h-full rounded-radius-normal relative no-underline animateCard">
+                <div className="w-full md:w-60 lg:w-80 h-full rounded-radius-normal relative no-underline animateCard">
                     <Link scroll={true} href={`/product?id=${productData.id}`} className="slide-in slideInEffect">
                         <Image
                             className={`${variant === CardVariants.NORMAL ? 'shape--blob' : 'rounded-t-xl'} w-full`}
@@ -29,14 +29,14 @@ export const ProductCard = ({
                             loading="lazy"
                             draggable={false}
                         />
-                        <div className={`flex flex-col ${variant === CardVariants.NORMAL ? 'h-52' : ''}`}>
-                            <div className="flex flex-col justify-between flex-1 h-36 px-2 pt-3 pb-1">
-                                <h3 className="h-16 text-sm text-font-color font-harmonia leading-line-height-normal tracking-letter-space-normal break-words antialiased overflow-hidden text-ellipsis">
+                        <div className={`flex flex-col ${variant === CardVariants.NORMAL ? 'h-52' : ''} md:gap-2 lg:gap-4`}>
+                            <div className="flex flex-col justify-between flex-1 h-12 md:h-24 lg:ah-36 px-2 pt-3 pb-1">
+                                <h3 className="h-16 text-sm md:text-lg lg:text-xl text-font-color font-harmonia leading-line-height-normal tracking-letter-space-normal break-words antialiased overflow-hidden text-ellipsis">
                                     {productData.title}
                                 </h3>
-                                <div className="h-1/2 flex flex-col gap-1">
+                                <div className="h-1/2 flex flex-col">
                                     <div>
-                                        <span className="text-small text-font-color/50 font-harmonia leading-line-height-small tracking-letter-space-normal break-words antialiased">
+                                        <span className="text-sm lg:text-lg text-font-color/50 font-harmonia leading-line-height-small tracking-letter-space-normal break-words antialiased">
                                             amigurumi
                                         </span>
                                         {productData.rating > 0 && (
@@ -46,7 +46,7 @@ export const ProductCard = ({
                                             <StarsRating stars={0} purchase_count={productData.purchase_count} />
                                         )}
                                     </div>
-                                    <h4 className={`flex items-end ${variant === CardVariants.NORMAL ? 'flex-1' : ''} text-normal text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased`}>
+                                    <h4 className={`flex items-end ${variant === CardVariants.NORMAL ? 'flex-1' : ''} text-normal lg:text-xl text-font-color/80 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased`}>
                                         {price}
                                     </h4>
                                 </div>

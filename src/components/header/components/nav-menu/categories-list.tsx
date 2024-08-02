@@ -38,7 +38,7 @@ export const CategoriesList = () => {
             )}
             {isLoading && (
                 <div className="flex gap-2">
-                    <span className="relative text-xl text-font-color leading-line-height-small tracking-letter-space-small font-harmonia select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
+                    <span className="relative text-xl md:text-base text-font-color leading-line-height-small tracking-letter-space-small font-harmonia select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
                         Produtos
                     </span>
                     <FiChevronDown />

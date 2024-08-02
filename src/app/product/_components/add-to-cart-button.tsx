@@ -13,21 +13,24 @@ export const AddToCartButton = ({ productData }: Props) => {
 
     const addToCart = () => {
         const cartItem: ProductCart = productToCart(productData);
-        if(items.length >= 1) {
-            const updatedItems = items.map((product => {
-                if(product.id == cartItem.id) {
+        const existingProduct = items.find(product => product.id === cartItem.id);
+
+        if (existingProduct) {
+            const updatedItems = items.map((product) => {
+                if (product.id === cartItem.id && product.quantity < 5) {
                     return {
                         ...product,
                         quantity: product.quantity + 1,
-                    }
+                    };
                 }
                 return product;
-            }))
-            setItems([...updatedItems, cartItem]);
+            });
+            setItems(updatedItems);
         } else {
-            setItems([...items, cartItem])
+            setItems([...items, cartItem]);
         }
-    }
+    };
+
 
     return (
         <button

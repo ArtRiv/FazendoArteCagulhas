@@ -14,8 +14,8 @@ export const MobileHeader = () => {
         setIsOpen(!isOpen);
     }
     return (
-        <div className="md:hidden flex justify-center items-center w-full">
-            <div className="flex justify-center items-center w-full h-14 z-50 p-4 bg-background shadow-md">
+        <div className="md:hidden flex justify-center items-center w-full h-[10%] aboslute fixed top-0 left-0 z-50">
+            <div className="flex justify-center items-center w-full h-full z-50 p-4 bg-background shadow-md">
                 <div className="flex items-center justify-start w-3/12 p-2">
                     <button onClick={toggleMenu}>
                         <IoMenuSharp size={25} />

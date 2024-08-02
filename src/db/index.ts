@@ -1,6 +1,0 @@
-export { getFilteredProducts } from "@/db/fetches/getFilteredProducts"
-export { getProductById } from "@/db/fetches/getProductById"
-export { getProductReviews } from "@/db/fetches/getProductReviews"
-export { getProductsBySearch } from "@/db/fetches/getProductsBySearch"
-export { getSimilarProducts } from "@/db/fetches/getSimilarProducts"
-export { getTotalProductsCount } from "@/db/fetches/getTotalProductsCount"

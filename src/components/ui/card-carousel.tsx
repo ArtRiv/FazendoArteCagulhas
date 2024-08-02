@@ -4,7 +4,7 @@ import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from "re
 import { motion, useMotionValue } from "framer-motion";
 
 const imgs = [
-    "https://i.ibb.co/vBws4pN/nahida-1.jpg",
+    "https://i.ibb.co/nR2DD24/teste.png",
     "https://i.ibb.co/vBws4pN/nahida-1.jpg",
     "https://i.ibb.co/vBws4pN/nahida-1.jpg",
     "https://i.ibb.co/vBws4pN/nahida-1.jpg",
@@ -107,7 +107,7 @@ const Images = ({ imgIndex }: { imgIndex: number }) => {
                             scale: imgIndex === idx ? 1 : 0.85,
                         }}
                         transition={SPRING_OPTIONS}
-                        className="size-full shrink-0 aspect-square rounded-xl object-cover"
+                        className="size-full shrink-0 aspect-video rounded-xl object-cover"
                     />
                 );
             })}
@@ -135,14 +135,5 @@ const Dots = ({
                 );
             })}
         </div>
-    );
-};
-
-const GradientEdges = () => {
-    return (
-        <>
-            <div className="pointer-events-none absolute bottom-0 left-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-r from-neutral-950/50 to-neutral-950/0" />
-            <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[10vw] max-w-[100px] bg-gradient-to-l from-neutral-950/50 to-neutral-950/0" />
-        </>
     );
 };

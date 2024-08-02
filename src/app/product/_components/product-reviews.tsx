@@ -90,11 +90,11 @@ export const ProductReviews = ({ productReviews }: { productReviews: ProductRevi
                         </h2>
                     </div>
                     <div className="w-full mt-10 p-4 border-2 border-decoration/40 rounded-xl">
-                        {productReviews.map(productReview => {
+                        {/* {productReviews.map(productReview => {
                             return (
                                 <Review key={productReview.review_id} productReview={productReview} />
                             );
-                        })}
+                        })} */}
                     </div>
                 </div>
             </section>

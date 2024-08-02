@@ -16,26 +16,24 @@ export const HeaderCart = () => {
     }, [items])
 
     return (
-        <div className="sm:[grid-area:right-icon] sm:self-end sm:flex sm:items-center sm:justify-end">
+        <div className="[grid-area:right-icon] self-end flex items-center justify-end md:self-center md:justify-center">
             <div className="flex justify-center items-center relative size-8 sm:size-10">
-                <div>
-                    <button onClick={() => setOpen(true)}>
-                        <CartIcon />
-                    </button>
+                <button onClick={() => setOpen(true)}>
+                    <CartIcon />
+                </button>
 
-                    <CartDrawer open={open} setOpen={setOpen}>
-                        
-                        <CartHeader items={items} />
-                        <CartProductsList items={items} />
-                        
-                        {items.length > 0 &&
-                            <>
-                                <CartFooter totalPrice={totalPrice} />
-                            </>
-                        }
-                        
-                    </CartDrawer>
-                </div>
+                <CartDrawer open={open} setOpen={setOpen}>
+
+                    <CartHeader items={items} />
+                    <CartProductsList items={items} />
+
+                    {items.length > 0 &&
+                        <>
+                            <CartFooter totalPrice={totalPrice} />
+                        </>
+                    }
+
+                </CartDrawer>
                 {items && (
                     <div>
                         {items.length > 0 &&

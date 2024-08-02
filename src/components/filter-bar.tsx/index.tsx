@@ -17,15 +17,13 @@ export const FilterBar = () => {
     const url = handleUpdatePriority()
 
     return (
-        <div className="w-full max-w-[120rem] mx-auto my-0 flex justify-start">
-            <div className="flex gap-2">
-                <StaggeredDropDown variant={DropdownVariants.LINK} text="Organizar por">
-                    <OptionWithLink text="Novidades" navigateLink={`${url}news`} />
-                    <OptionWithLink text="Preço: Menor - Maior" navigateLink={`${url}price_ascending`} />
-                    <OptionWithLink text="Preço: Maior - Menor" navigateLink={`${url}price_descending`} />
-                    <OptionWithLink text="Mais vendidos" navigateLink={`${url}best_selling`} />
-                </StaggeredDropDown>
-            </div>
+        <div className="w-full max-w-[120rem] mx-auto my-0 flex justify-start md:justify-end md:pr-16 md:mb-8">
+            <StaggeredDropDown variant={DropdownVariants.LINK} text="Organizar por">
+                <OptionWithLink text="Novidades" navigateLink={`${url}news`} />
+                <OptionWithLink text="Preço: Menor - Maior" navigateLink={`${url}price_ascending`} />
+                <OptionWithLink text="Preço: Maior - Menor" navigateLink={`${url}price_descending`} />
+                <OptionWithLink text="Mais vendidos" navigateLink={`${url}best_selling`} />
+            </StaggeredDropDown>
         </div>
     )
 }

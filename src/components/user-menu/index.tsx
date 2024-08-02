@@ -11,7 +11,7 @@ export const UserMenu = () => {
     const isAdmin = getPermission('enter:admin');
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 z-50">
             {isLoading && (
                 <span className="text-normal text-font-color text-center tracking-letter-space-smallest">
                     Carregando...

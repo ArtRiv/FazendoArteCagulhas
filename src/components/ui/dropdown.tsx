@@ -44,7 +44,7 @@ export const StaggeredDropDown = ({ children, variant, text }: DropdownProps) =>
                 className="flex items-center gap-2 rounded-md text-font-color transition-colors"
             >
                 {text &&
-                    <span className="relative font-harmonia text-xl text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
+                    <span className="relative font-harmonia text-xl md:text-base text-font-color leading-line-height-small tracking-letter-space-small select-none underline [text-decoration-color:transparent] hover:transition-all animateBorderBottom changeTextColor">
                         {text}
                     </span>
                 }

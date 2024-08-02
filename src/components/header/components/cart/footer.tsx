@@ -37,6 +37,10 @@ export const CartFooter = ({
         }
     }, [calculateShipmentRate]);
 
+    const handleShipmentOptionChange = () => {
+
+    }
+
     return (
         <>
             <div className="flex pb-3 w-full self-end">
@@ -84,7 +88,7 @@ export const CartFooter = ({
                                 />
                                 {!isLoading &&
                                     <button onClick={() => setCalculateShipmentRate(!calculateShipmentRate)} type="button" className="w-2/5 py-2.5 px-5 mr-2 text-sm font-medium text-font-color bg-white rounded border border-gray-200 inline-flex items-center justify-center">
-                                        Calcular
+                                        Calcular fretes
                                     </button>
                                 }
                                 {isLoading &&
@@ -99,9 +103,14 @@ export const CartFooter = ({
                                     </button>
                                 }
                             </div>
+                            {data.length > 0 && (
+                                <span className="mb-2 text-sm text-font-color font-harmonia leading-line-height-small tracking-letter-space-normal break-words overflow-hidden whitespace-nowrap text-ellipsis antialiased">
+                                    Escolha a forma de entrega
+                                </span>
+                            )}
                             {data?.map(shipmentOption => {
                                 return (
-                                    <div className="w-full flex flex-col md:flex-row md:justify-between">
+                                    <button className="w-full flex flex-col md:flex-row md:justify-between">
                                         <div className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-2">
                                             <span className="text-xs text-font-color font-harmonia leading-line-height-small tracking-letter-space-normal break-words antialiased">
                                                 {shipmentOption.name} /
@@ -113,13 +122,13 @@ export const CartFooter = ({
                                         <span className="text-xs text-font-color font-harmonia leading-line-height-small tracking-letter-space-normal break-words overflow-hidden whitespace-nowrap text-ellipsis antialiased">
                                             {formatPrice(shipmentOption.price)}
                                         </span>
-                                    </div>
+                                    </button>
                                 )
                             })}
                         </>
                     }
                     <div className="w-full flex flex-col pt-2 gap-2">
-                        <CheckoutButton/>
+                        <CheckoutButton />
                     </div>
                 </div>
             </div>
