@@ -1,4 +1,4 @@
-export interface shipmentResponseInterface {
+export interface ShipmentOption {
     id: number,
     name: string,
     price: number,
@@ -7,22 +7,26 @@ export interface shipmentResponseInterface {
     delivery_time: number,
     delivery_range: {
         min: number,
-        max: number
+        max: number,
     },
-    packages: shipmentResponsePackageInterface[],
-    aditional_services: {
+    packages: Package[],
+    additional_services: {
+        receipt: boolean,
+        own_hand: boolean,
+    },
+    company: {
         id: number,
         name: string,
         picture: string,
-    }
-    has_error: boolean,
+    },
+    has_error: boolean
 }
 
-interface shipmentResponsePackageInterface {
+interface Package {
     price: number,
     discount: string,
     format: string,
-    dimesions: {
+    dimension: {
         height: string,
         width: string,
         length: string,

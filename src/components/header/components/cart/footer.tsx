@@ -1,7 +1,7 @@
 import { shipmentResponseInterface } from "@/app/api/shipment/interfaces/response";
 import { formatPrice } from "@/utils/formatPrice";
 import { useEffect, useState } from "react";
-import { CheckoutButton } from "./checkout-button";
+import { CheckoutFlow } from "./payment-flow";
 
 export const CartFooter = ({
     totalPrice,
@@ -36,10 +36,6 @@ export const CartFooter = ({
             fetchProductData();
         }
     }, [calculateShipmentRate]);
-
-    const handleShipmentOptionChange = () => {
-
-    }
 
     return (
         <>
@@ -103,11 +99,6 @@ export const CartFooter = ({
                                     </button>
                                 }
                             </div>
-                            {data.length > 0 && (
-                                <span className="mb-2 text-sm text-font-color font-harmonia leading-line-height-small tracking-letter-space-normal break-words overflow-hidden whitespace-nowrap text-ellipsis antialiased">
-                                    Escolha a forma de entrega
-                                </span>
-                            )}
                             {data?.map(shipmentOption => {
                                 return (
                                     <button className="w-full flex flex-col md:flex-row md:justify-between">
@@ -128,7 +119,7 @@ export const CartFooter = ({
                         </>
                     }
                     <div className="w-full flex flex-col pt-2 gap-2">
-                        <CheckoutButton />
+                        <CheckoutFlow/>
                     </div>
                 </div>
             </div>

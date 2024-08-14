@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CartDrawer } from "./modal";
+import { CartDrawer } from "./cart-drawer";
 import { useFilter } from "@/hooks/useFilter";
 import { CartProductsList } from "./products";
 import { CartFooter } from "./footer";
@@ -21,19 +21,6 @@ export const HeaderCart = () => {
                 <button onClick={() => setOpen(true)}>
                     <CartIcon />
                 </button>
-
-                <CartDrawer open={open} setOpen={setOpen}>
-
-                    <CartHeader items={items} />
-                    <CartProductsList items={items} />
-
-                    {items.length > 0 &&
-                        <>
-                            <CartFooter totalPrice={totalPrice} />
-                        </>
-                    }
-
-                </CartDrawer>
                 {items && (
                     <div>
                         {items.length > 0 &&
@@ -43,6 +30,20 @@ export const HeaderCart = () => {
                         }
                     </div>
                 )}
+
+                <CartDrawer open={open} setOpen={setOpen}>
+
+                    <CartHeader items={items} />
+                    
+                    <CartProductsList items={items} />
+
+                    {items.length > 0 &&
+                        <>
+                            <CartFooter totalPrice={totalPrice} />
+                        </>
+                    }
+
+                </CartDrawer>
             </div>
         </div>
     )

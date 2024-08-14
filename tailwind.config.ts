@@ -24,7 +24,16 @@ const config: Config = {
         'decoration-indigo': "var(--decoration-indigo)",
         'decoration-indigo-background-20': "var(--decoration-indigo-background-20)",
         'decoration-indigo-background-10': "var(--decoration-indigo-background-10)",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        }
       },
+
       fontSize: {
         'smallest': "var(--font-size-smallest)",
         'small': "var(--font-size-small)",

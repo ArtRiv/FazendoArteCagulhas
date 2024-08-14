@@ -1,15 +1,12 @@
 import { ProductCart } from "@/types/product";
-
-interface CheckoutResponse {
-    url: string
-}
+import Stripe from "stripe";
 
 interface CheckoutSessionParams {
     items: ProductCart[],
     userID: string,
 }
 
-export async function getCheckoutSession({ items, userID }: CheckoutSessionParams): Promise<CheckoutResponse> {
+export async function getCheckoutSession({ items, userID }: CheckoutSessionParams): Promise<Stripe.Response<Stripe.Checkout.Session>> {
     
     const options = {
         method: 'POST',
@@ -24,7 +21,6 @@ export async function getCheckoutSession({ items, userID }: CheckoutSessionParam
     if (!res.ok) {
         throw new Error(`HTTP error: Status ${res.status}`);
     }
-    const data = await res.json();
 
-    return data;
+    return await res.json();
 }
