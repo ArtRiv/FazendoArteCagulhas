@@ -6,7 +6,7 @@ import {
     useAnimate,
     motion,
 } from "framer-motion";
-import { SearchIcon } from "../../../icons/searchIcon";
+import { SearchIcon } from "../../../icons/search-icon";
 import { SearchInput } from "../../../predictive-search";
 
 export const SearchDragModal = () => {

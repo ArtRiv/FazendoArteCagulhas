@@ -1,7 +1,7 @@
 "use client"
 
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
-import { BigArrowIconRight } from "@/components/icons/bigArrowIconRight";
+import { BigArrowIconRight } from "@/components/icons/big-arrow-right-icon";
 
 interface ProductCardProps {
     search: string;

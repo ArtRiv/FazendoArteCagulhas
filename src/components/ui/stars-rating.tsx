@@ -1,4 +1,4 @@
-import { StarIcon } from "../icons/starIcon"
+import { StarIcon } from "../icons/star-icon"
 
 export const StarsRating = ({ stars, purchase_count }: { stars: number, purchase_count?: number }) => {
     return (

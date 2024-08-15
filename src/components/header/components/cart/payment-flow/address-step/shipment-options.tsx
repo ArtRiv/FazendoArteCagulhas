@@ -1,8 +1,9 @@
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useFilter } from "@/hooks/use-filter";
 import { getShipmentOptions } from "@/services/shipment";
-import { ShipmentOption } from "@/types/shipmentOption";
-import { formatPrice } from "@/utils/formatPrice";
+import { ShipmentOption } from "@/types/shipping-option";
+import { formatPrice } from "@/utils/format-price";
 import { useEffect, useState } from "react";
 
 interface ShipmentOptionsInterface {
@@ -12,7 +13,7 @@ interface ShipmentOptionsInterface {
 
 export const ShipmentOptions = ({ showShipmentOptions, zipCode }: ShipmentOptionsInterface) => {
 
-    const [shipmentOptions, setShipmentOptions] = useState<ShipmentOption[] | undefined>();
+    const {shipmentOptions, setShipmentOptions} = useFilter();
 
     useEffect(() => {
         const fetchShipmentOptions = async () => {

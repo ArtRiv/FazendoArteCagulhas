@@ -1,6 +1,6 @@
-import { InstagramIcon } from "../icons/instagramIcon";
-import { ShopeeIconWithLink } from "../icons/shopeeIcon";
-import { TiktokIcon } from "../icons/tiktokIcon";
+import { InstagramIcon } from "../icons/instagram-icon";
+import { ShopeeIconWithLink } from "../icons/shopee-icon";
+import { TiktokIcon } from "../icons/tiktok-icon";
 
 export const SocialMediaIcons = () => {
     return (

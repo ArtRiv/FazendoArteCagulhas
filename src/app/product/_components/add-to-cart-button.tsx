@@ -1,8 +1,8 @@
 'use client'
 
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "@/hooks/use-filter";
 import { Product, ProductCart } from "@/types/product";
-import { productToCart } from "@/utils/productToCart";
+import { productToCart } from "@/utils/product-to-cart";
 
 type Props = {
     productData: Product;

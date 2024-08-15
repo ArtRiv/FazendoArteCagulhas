@@ -5,7 +5,7 @@ import {
     EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { useCallback, useRef, useState } from "react";
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "@/hooks/use-filter";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useRouter } from "next/navigation";
 import { DialogDemo } from "./teste";

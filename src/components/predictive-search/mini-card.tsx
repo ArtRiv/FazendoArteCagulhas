@@ -1,7 +1,7 @@
 "use client"
 
 import { AnchorClientSide } from "@/components/ui/anchor-client-side";
-import { formatPrice } from "@/utils/formatPrice";
+import { formatPrice } from "@/utils/format-price";
 import Image from "next/image";
 
 interface ProductCardProps {
