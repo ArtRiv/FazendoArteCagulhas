@@ -1,4 +1,4 @@
-import { useZod } from '@/hooks/useZod';
+import { useZod } from '@/hooks/use-zod';
 import { Button } from '@/components/ui/button';
 import { FormProvider, SubmitHandler } from 'react-hook-form';
 import { Control } from 'react-hook-form';
@@ -7,7 +7,12 @@ import { FormProps } from "@/types/form-type-props"
 import { Input } from '@/components/ui/input';
 import { AlertDestructive } from './destructive-alert';
 
-export const AddressForm = ({ onSubmit }: { onSubmit: SubmitHandler<FormProps>}) => {
+type AddressFormProps = {
+    onSubmit: SubmitHandler<FormProps>
+    showShipmentOptions: boolean;
+}
+
+export const AddressForm = ({ onSubmit, showShipmentOptions }: AddressFormProps) => {
     const form = useZod();
 
     return (
@@ -68,7 +73,7 @@ export const AddressForm = ({ onSubmit }: { onSubmit: SubmitHandler<FormProps>})
                         />
                     </div>
                 </div>
-                <Button variant="secondary" type="submit">Escolher opção de frete</Button>
+                <Button disabled={showShipmentOptions} variant="secondary" type="submit">Escolher opção de frete</Button>
             </form>
         </FormProvider>
     )
