@@ -1,5 +1,5 @@
-import { shipmentResponseInterface } from "@/app/api/shipment/interfaces/response";
-import { formatPrice } from "@/utils/formatPrice";
+// import { shipmentResponseInterface } from "@/app/api/shipment/interfaces/response";
+import { formatPrice } from "@/utils/format-price";
 import { useEffect, useState } from "react";
 import { CheckoutFlow } from "./payment-flow";
 
@@ -13,29 +13,29 @@ export const CartFooter = ({
     const [CEP, setCEP] = useState('');
     const [calculateShipmentRate, setCalculateShipmentRate] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState<shipmentResponseInterface[]>([]);
+    // const [data, setData] = useState<shipmentResponseInterface[]>([]);
 
-    useEffect(() => {
-        const fetchProductData = async () => {
-            setData([]);
-            const options = {
-                method: 'POST',
-            }
-            const response: Response = await fetch(`http://localhost:3000/api/shipment?toCEP=${CEP}`, options);
-            if (response.ok) {
-                const data = await response.json();
-                setData(data);
-            } else {
-                console.error('HTTP-Error ' + response.status)
-            }
-            setIsLoading(false);
-        }
-        if (calculateShipmentRate) {
-            setIsLoading(true);
-            setCalculateShipmentRate(false);
-            fetchProductData();
-        }
-    }, [calculateShipmentRate]);
+    // useEffect(() => {
+    //     const fetchProductData = async () => {
+    //         setData([]);
+    //         const options = {
+    //             method: 'POST',
+    //         }
+    //         const response: Response = await fetch(`http://localhost:3000/api/shipment?toCEP=${CEP}`, options);
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setData(data);
+    //         } else {
+    //             console.error('HTTP-Error ' + response.status)
+    //         }
+    //         setIsLoading(false);
+    //     }
+    //     if (calculateShipmentRate) {
+    //         setIsLoading(true);
+    //         setCalculateShipmentRate(false);
+    //         fetchProductData();
+    //     }
+    // }, [calculateShipmentRate]);
 
     return (
         <>
@@ -99,7 +99,7 @@ export const CartFooter = ({
                                     </button>
                                 }
                             </div>
-                            {data?.map(shipmentOption => {
+                            {/* {data?.map(shipmentOption => {
                                 return (
                                     <button className="w-full flex flex-col md:flex-row md:justify-between">
                                         <div className="text-ellipsis whitespace-nowrap overflow-hidden flex gap-2">
@@ -115,7 +115,7 @@ export const CartFooter = ({
                                         </span>
                                     </button>
                                 )
-                            })}
+                            })} */}
                         </>
                     }
                     <div className="w-full flex flex-col pt-2 gap-2">
