@@ -1,4 +1,5 @@
 import { ProductCart } from "@/types/product";
+import { PartialShipmentOption } from "@/types/shipping-option";
 import Stripe from "stripe";
 
 interface CheckoutSessionParams {
