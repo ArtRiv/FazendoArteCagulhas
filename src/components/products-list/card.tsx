@@ -1,4 +1,4 @@
-import { formatPrice } from "@/utils/formatPrice";
+import { formatPrice } from "@/utils/format-price";
 import { Product } from "@/types/product";
 import Image from "next/image";
 import { CardVariants } from "@/types/component-variants/card-variants";
