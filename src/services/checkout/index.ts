@@ -3,10 +3,11 @@ import Stripe from "stripe";
 
 interface CheckoutSessionParams {
     items: ProductCart[],
+    shipmentOptions: PartialShipmentOption[],
     userID: string,
 }
 
-export async function getCheckoutSession({ items, userID }: CheckoutSessionParams): Promise<Stripe.Response<Stripe.Checkout.Session>> {
+export async function getCheckoutSession({ items, shipmentOptions, userID }: CheckoutSessionParams): Promise<Stripe.Response<Stripe.Checkout.Session>> {
     
     const options = {
         method: 'POST',
