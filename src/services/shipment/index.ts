@@ -1,5 +1,4 @@
-import { AddressProps } from '@/types/addressProps';
-import { ShipmentOption } from '@/types/shipmentOption';
+import { ShipmentOption } from '@/types/shipping-option';
 
 export async function getShipmentOptions(zipCode: string) {
     try {

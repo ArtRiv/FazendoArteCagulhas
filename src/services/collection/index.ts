@@ -1,5 +1,5 @@
 import { Product } from "@/types/product";
-import { getCollectionParams } from "@/types/productParams";
+import { getCollectionParams } from "@/types/product-params";
 
 export async function getCollectionData(params: getCollectionParams): Promise<Product[]>{
     

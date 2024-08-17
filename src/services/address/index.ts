@@ -1,4 +1,4 @@
-import { AddressProps } from '@/types/addressProps';
+import { AddressProps } from '@/types/address-props';
 
 export async function HandleCepApi(zipCode: string) {
     try {

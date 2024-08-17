@@ -1,5 +1,5 @@
 import { Product } from "@/types/product";
-import { getProductsBySearchParams } from "@/types/productParams";
+import { getProductsBySearchParams } from "@/types/product-params";
 
 export async function getResults(params: getProductsBySearchParams): Promise<Product[]>{
     const options = {
