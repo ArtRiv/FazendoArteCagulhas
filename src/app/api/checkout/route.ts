@@ -4,10 +4,9 @@ import { getCheckoutSession } from '@/services/checkout';
 
 export async function POST(request: Request) {
     try {
-        const { items, userID } = await request.json();
-        console.log(request.json());
+        const { items, shipmentOptions, userID } = await request.json();
 
-        const session = await getCheckoutSession({ items, userID })
+        const session = await getCheckoutSession({ items, shipmentOptions, userID })
 
         return NextResponse.json({ id: session.id, client_secret: session.client_secret });
     } catch (error: any) {
