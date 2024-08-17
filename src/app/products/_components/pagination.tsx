@@ -1,11 +1,11 @@
 "use client"
 
-import { useAllSettings } from '@/utils/settings/getClientSettings';
+import { useAllSettings } from '@/utils/settings/get-client-settings';
 import Pagination from '@mui/material/Pagination';
 import { usePathname } from 'next/navigation';
 import { PaginationItem } from '@mui/material';
 import { useRouter } from "next/navigation";
-import { SortByTypes } from '@/types/productParams';
+import { SortByTypes } from '@/types/product-params';
 
 type ProductsPaginationProps = {
   productsCount: number,

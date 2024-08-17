@@ -3,8 +3,8 @@ import { SearchInput } from "@/components/predictive-search";
 import { ProductsList } from "@/components/products-list";
 import { getResults } from "@/services/results";
 import { CardVariants } from "@/types/component-variants/card-variants";
-import { getProductsBySearchParams } from "@/types/productParams";
-import useQueryParams from "@/utils/settings/getServerSettings";
+import { getProductsBySearchParams } from "@/types/product-params";
+import useQueryParams from "@/utils/settings/get-server-settings";
 import { redirect } from "next/navigation";
 
 export default async function ResultsComponent() {

@@ -1,8 +1,8 @@
 import { DefaultPageLayout } from "@/components/default-page-layout";
 import { ProductsList } from "@/components/products-list";
 import { SwipeCarousel } from "@/app/product/_components/image-carousel";
-import useQueryParams from "@/utils/settings/getServerSettings";
-import { formatPrice } from "@/utils/formatPrice";
+import useQueryParams from "@/utils/settings/get-server-settings";
+import { formatPrice } from "@/utils/format-price";
 import MediaWrapper from "@/components/ui/media-modal";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";

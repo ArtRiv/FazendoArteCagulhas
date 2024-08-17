@@ -1,8 +1,8 @@
-import { getCollectionParams } from "@/types/productParams";
+import { getCollectionParams } from "@/types/product-params";
 import { ProductsPagination } from "@/app/products/_components/pagination";
 import { ProductsList } from "@/components/products-list";
 import { FilterBar } from "@/components/filter-bar.tsx";
-import useQueryParams from "@/utils/settings/getServerSettings";
+import useQueryParams from "@/utils/settings/get-server-settings";
 import { Hero } from "@/app/products/_components/hero";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { getCollectionData } from "@/services/collection";

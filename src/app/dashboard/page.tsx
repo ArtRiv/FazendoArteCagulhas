@@ -1,9 +1,9 @@
 import { DefaultPageLayout } from "@/components/default-page-layout";
-import { UpdateProductForm } from "./updateProduct";
+import { UpdateProductForm } from "./update-product";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { AddProductReviewForm } from "./addProductReviewForm";
-import { AddProductForm } from "./addProductForm";
+import { AddProductReviewForm } from "./add-product-review";
+import { AddProductForm } from "./add-product-form";
 
 export default async function Dashboard() {
   const { isAuthenticated, getPermission } = getKindeServerSession();
