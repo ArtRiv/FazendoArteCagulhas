@@ -1,7 +1,7 @@
 "use client"
 
 import { StaggeredDropDown, OptionWithLink } from "../ui/dropdown"
-import { useAllSettings } from "@/utils/settings/getClientSettings";
+import { useAllSettings } from "@/utils/settings/get-client-settings";
 import { usePathname } from "next/navigation";
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
 

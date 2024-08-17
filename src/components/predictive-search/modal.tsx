@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "./mini-card";
 import { Product } from "@/types/product";
 import { PredictiveSearchOptionSearchKeyword } from "./keyword-link";
-import { getProductsBySearchParams } from "@/types/productParams";
+import { getProductsBySearchParams } from "@/types/product-params";
 import { getResults } from "@/services/results";
 
 export default function PredictiveSearchModal(params: getProductsBySearchParams) {

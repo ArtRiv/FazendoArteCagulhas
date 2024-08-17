@@ -1,12 +1,12 @@
 "use client"
 
 import { FormEvent, useDeferredValue, useEffect, useRef, useState } from "react";
-import { SearchIcon } from "@/components/icons/searchIcon";
-import { CloseIcon } from "@/components/icons/closeIcon";
+import { SearchIcon } from "@/components/icons/search-icon";
+import { CloseIcon } from "@/components/icons/close-icon";
 import { usePathname, useRouter } from "next/navigation";
-import { useAllSettings } from "@/utils/settings/getClientSettings";
+import { useAllSettings } from "@/utils/settings/get-client-settings";
 import PredictiveSearchModal from "./modal";
-import { getProductsBySearchParams } from "@/types/productParams";
+import { getProductsBySearchParams } from "@/types/product-params";
 
 type SearchInputProps = {
     close?: () => void;
