@@ -12,7 +12,7 @@ type AlertDestructiveProps = {
 
 export function AlertDestructive({ message }: AlertDestructiveProps) {
   return (
-    <Alert variant="destructive" className="w-1/2 border-destructive bg-white z-10">
+    <Alert variant="destructive" className="border-destructive bg-white z-10">
       <AlertCircle className="h-4 w-4" />
       <AlertTitle>Erro</AlertTitle>
       <AlertDescription>
