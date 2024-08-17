@@ -5,7 +5,6 @@ import { DesktopHeader } from "@/components/header/desktop";
 import { Footer } from "@/components/footer";
 import { Suspense } from "react";
 import { MobileHeader } from "@/components/header/mobile";
-import { DefaultPageLayout } from "@/components/default-page-layout";
 
 export const metadata: Metadata = {
   title: "Fazendo Arte com Agulhas",
@@ -29,9 +28,7 @@ export default function RootLayout({
             <DesktopHeader />
             <MobileHeader />
           </Suspense>
-          <DefaultPageLayout>
             {children}
-          </DefaultPageLayout>
           <Footer />
         </Providers>
       </body>
