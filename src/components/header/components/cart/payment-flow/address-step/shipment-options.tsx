@@ -2,7 +2,6 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useFilter } from "@/hooks/use-filter";
 import { getShipmentOptions } from "@/services/shipment";
-import { ShipmentOption } from "@/types/shipping-option";
 import { formatPrice } from "@/utils/format-price";
 import { useEffect, useState } from "react";
 
@@ -30,7 +29,7 @@ export const ShipmentOptions = ({ showShipmentOptions, zipCode }: ShipmentOption
     return (
         <>
             {showShipmentOptions && (
-                <div className="px-3 py-2">
+                <div className="px-3 py-2 h-2/5">
                     <RadioGroup defaultValue="option-one" className="flex flex-col gap-2">
                         {shipmentOptions?.map((shipmentOption, index) => {
                             return (
