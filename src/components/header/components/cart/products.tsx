@@ -1,7 +1,7 @@
 import { StarsRating } from "@/components/ui/stars-rating";
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "@/hooks/use-filter";
 import { ProductCart } from "@/types/product";
-import { formatPrice } from "@/utils/formatPrice";
+import { formatPrice } from "@/utils/format-price";
 import { FaChevronLeft, FaChevronRight, FaRegTrashAlt } from "react-icons/fa";
 import Image from "next/image";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CartDrawer } from "./cart-drawer";
-import { useFilter } from "@/hooks/useFilter";
+import { useFilter } from "@/hooks/use-filter";
 import { CartProductsList } from "./products";
 import { CartFooter } from "./footer";
 import { CartHeader } from "./header";
