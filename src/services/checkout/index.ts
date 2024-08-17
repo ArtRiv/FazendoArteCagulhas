@@ -13,7 +13,7 @@ export async function getCheckoutSession({ items, userID }: CheckoutSessionParam
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items, userID }),
+        body: JSON.stringify({ items, shipmentOptions, userID }),
     };
     const url = `http://localhost:8080/checkout`;
     const res = await fetch(url, options);
