@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { AddressForm } from "./form";
-import { ShipmentOptions } from "./shipment-options";
+import { ShippingOptions } from "./shipping-options";
 import { FormProps } from "@/types/form-type-props";
 import { SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 
 export default function AddressStep({ onNext }: { onNext: () => void }) {
-    const [showShipmentOptions, setShowShipmentOptions] = useState(false);
+    const [showShippingOptions, setShowShippingOptions] = useState(false);
     const [formData, setFormData] = useState<FormProps>();
 
     const onSubmit: SubmitHandler<FormProps> = (data) => {
-        setShowShipmentOptions(true);
+        setShowShippingOptions(true);
         setFormData(data);
     };
 
@@ -19,11 +19,11 @@ export default function AddressStep({ onNext }: { onNext: () => void }) {
             <div className="flex-1">
                 <AddressForm 
                     onSubmit={onSubmit}
-                    showShipmentOptions={showShipmentOptions}
+                    showShippingOptions={showShippingOptions}
                 />
-                {(showShipmentOptions && formData) && (
-                    <ShipmentOptions 
-                        showShipmentOptions={showShipmentOptions}
+                {(showShippingOptions && formData) && (
+                    <ShippingOptions 
+                        showshippingOptions={showShippingOptions}
                         zipCode={formData?.address.zipCode} 
                     />
                 )}

@@ -1,19 +1,19 @@
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import { ProductCart } from "@/types/product";
-import { PartialShipmentOption } from "@/types/shipping-option"; // Your new type
+import { PartialShippingOption } from "@/types/shipping-option"; // Your new type
 
 interface CheckoutContextType {
     items: ProductCart[];
-    shipmentOptions: PartialShipmentOption[];
+    shippingOptions: PartialShippingOption[];
     setItems: (value: ProductCart[]) => void;
-    setShipmentOptions: (value: PartialShipmentOption[]) => void;
+    setshippingOptions: (value: PartialShippingOption[]) => void;
 }
 
 export const CheckoutContext = createContext<CheckoutContextType>({
     items: [],
-    shipmentOptions: [],
+    shippingOptions: [],
     setItems: () => {},
-    setShipmentOptions: () => {},
+    setshippingOptions: () => {},
 });
 
 interface ProviderProps {
@@ -22,19 +22,19 @@ interface ProviderProps {
 
 export function CheckoutContextProvider({ children }: ProviderProps) {
     const [items, setItems] = useState<ProductCart[]>([]);
-    const [shipmentOptions, setShipmentOptions] = useState<PartialShipmentOption[]>([]);
+    const [shippingOptions, setshippingOptions] = useState<PartialShippingOption[]>([]);
     const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
         // Load cart items and shipment options from localStorage when the component mounts
         const localStorageCartItems = localStorage.getItem("cart-items");
-        const localStorageShipmentOptions = localStorage.getItem("shipment-options");
+        const localStorageshippingOptions = localStorage.getItem("shipping-options");
 
         if (localStorageCartItems) {
             setItems(JSON.parse(localStorageCartItems));
         }
-        if (localStorageShipmentOptions) {
-            setShipmentOptions(JSON.parse(localStorageShipmentOptions));
+        if (localStorageshippingOptions) {
+            setshippingOptions(JSON.parse(localStorageshippingOptions));
         }
 
         setIsInitialized(true);
@@ -44,17 +44,17 @@ export function CheckoutContextProvider({ children }: ProviderProps) {
         // Only save to localStorage if initialization is complete
         if (isInitialized) {
             localStorage.setItem("cart-items", JSON.stringify(items));
-            localStorage.setItem("shipment-options", JSON.stringify(shipmentOptions));
+            localStorage.setItem("shipping-options", JSON.stringify(shippingOptions));
         }
-    }, [items, shipmentOptions, isInitialized]);
+    }, [items, shippingOptions, isInitialized]);
 
     return (
         <CheckoutContext.Provider
             value={{
                 items,
-                shipmentOptions,
+                shippingOptions,
                 setItems,
-                setShipmentOptions,
+                setshippingOptions,
             }}
         >
             {children}

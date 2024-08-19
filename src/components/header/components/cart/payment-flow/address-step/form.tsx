@@ -9,10 +9,10 @@ import { AlertDestructive } from './destructive-alert';
 
 type AddressFormProps = {
     onSubmit: SubmitHandler<FormProps>
-    showShipmentOptions: boolean;
+    showShippingOptions: boolean;
 }
 
-export const AddressForm = ({ onSubmit, showShipmentOptions }: AddressFormProps) => {
+export const AddressForm = ({ onSubmit, showShippingOptions }: AddressFormProps) => {
     const form = useZod();
 
     return (
@@ -73,7 +73,7 @@ export const AddressForm = ({ onSubmit, showShipmentOptions }: AddressFormProps)
                         />
                     </div>
                 </div>
-                <Button disabled={showShipmentOptions} variant="secondary" type="submit">Escolher opção de frete</Button>
+                <Button disabled={showShippingOptions} variant="secondary" type="submit">Escolher opção de frete</Button>
             </form>
         </FormProvider>
     )

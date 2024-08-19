@@ -1,4 +1,4 @@
-export interface ShipmentOption {
+export interface ShippingOption {
     id: number,
     name: string,
     price: number,
@@ -22,7 +22,7 @@ export interface ShipmentOption {
     has_error: boolean
 }
 
-export type PartialShipmentOption = Pick<ShipmentOption, "name" | "price" | "delivery_range">;
+export type PartialShippingOption = Pick<ShippingOption, "name" | "price" | "delivery_range">;
 
 interface Package {
     price: number,
