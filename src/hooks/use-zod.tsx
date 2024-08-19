@@ -1,4 +1,4 @@
-import { HandleCepApi } from "@/services/address"
+import { getAddressByZipcode } from "@/services/address"
 import { AddressProps } from "@/types/address-props"
 import { FormProps } from "@/types/form-type-props"
 import { formSchema } from "@/utils/zod"
@@ -36,8 +36,8 @@ export const useZod = () => {
     }, [form.setValue])
 
     const handleFetchAddress = useCallback(async (zipCode: string) => {
-        const { response } = await HandleCepApi(zipCode);
-        if (response) handleSetData(response!);
+        const { data } = await getAddressByZipcode({zipCode});
+        if (data) handleSetData(data!);
     }, [handleSetData]);
 
     useEffect(() => {
