@@ -18,7 +18,7 @@ export default async function ResultsComponent() {
         sort_by,
     };
 
-    const productsData = await getResults(params);
+    const { data: productsData } = await getResults(params);
 
     return (
         <DefaultPageLayout>

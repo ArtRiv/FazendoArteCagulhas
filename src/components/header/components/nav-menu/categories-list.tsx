@@ -1,35 +1,17 @@
 import { StaggeredDropDown, OptionWithLink } from "@/components/ui/dropdown";
-import { getCategories } from "@/services/categories"
+import { useGetCategories } from "@/hooks/use-categories";
 import { Categories } from "@/types/categories"
 import { DropdownVariants } from "@/types/component-variants/dropdown-variants";
-import { useCallback, useEffect, useState } from "react"
 import { FiChevronDown } from "react-icons/fi";
 
 export const CategoriesList = () => {
-    const [categories, setCategories] = useState<Categories[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    const fetchData = useCallback(async () => {
-        try {
-            const response = await getCategories();
-            setCategories(response);
-        } catch (error) {
-            setError((error as Error).message);
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+    const { data: categories, isLoading, error } = useGetCategories();
 
     return (
         <div className="inline-flex justify-self-end md:p-3">
             {(categories && !isLoading) && (
                 <StaggeredDropDown variant={DropdownVariants.LINK} text="Produtos">
-                    {categories?.map(category => {
+                    {categories.data?.map((category: Categories) => {
                         return (
                             <OptionWithLink key={category.id} text={category.name.toLowerCase()} navigateLink={`/products?category_id=${category.id}`} />
                         )

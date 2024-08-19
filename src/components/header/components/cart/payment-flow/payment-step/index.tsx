@@ -6,22 +6,25 @@ import {
 } from "@stripe/react-stripe-js";
 import { useCallback, useState } from "react";
 import { useFilter } from "@/hooks/use-filter";
+import { getStripeCheckoutSession } from "@/services/checkout";
 
 export default function PaymentStep() {
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-  const { items, shipmentOptions } = useFilter();
+  const { items, shippingOptions } = useFilter();
   const [userID] = useState<string>("teste");
 
   const fetchClientSecret = useCallback(async () => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items, shipmentOptions, userID }),
+    const response = await getStripeCheckoutSession({
+      items,
+      shippingOptions,
+      userID,
     });
-    const data = await res.json();
-    return data.client_secret;
+
+    if(!response.data?.client_secret) {
+      throw new Error('Failed to retrieve client secret');
+    }
+
+    return response.data.client_secret;
   }, [items, userID]);
 
   const options = { fetchClientSecret };

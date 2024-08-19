@@ -1,4 +1,3 @@
-import { DefaultPageLayout } from "@/components/default-page-layout";
 import { ProductsList } from "@/components/products-list";
 import { SwipeCarousel } from "@/app/product/_components/image-carousel";
 import useQueryParams from "@/utils/settings/get-server-settings";
@@ -11,17 +10,17 @@ import { CardVariants } from "@/types/component-variants/card-variants";
 import { ProductReviews } from "@/app/product/_components/product-reviews";
 import { StarsRating } from "@/components/ui/stars-rating";
 import { LiaSearchPlusSolid } from "react-icons/lia";
-import { getReviewsByID } from "@/services/review";
 import { getProductByID, getSimilarProducts } from "@/services/product";
 import { AddToCartButton } from "./_components/add-to-cart-button";
+import { getReviewsByID } from "@/services/review";
 
 export default async function ProductPage() {
     const { productId } = useQueryParams();
     if (!productId) redirect('/');
 
-    const productData = await getProductByID(productId);
-    const productReviews = await getReviewsByID(productId);
-    const similarProducts = await getSimilarProducts(productId);
+    const { data: productData } = await getProductByID({id: productId});
+    const { data: productReviews } = await getReviewsByID({id: productId});
+    const { data: similarProducts } = await getSimilarProducts({id: productId});
 
     const price = formatPrice(productData?.price);
 

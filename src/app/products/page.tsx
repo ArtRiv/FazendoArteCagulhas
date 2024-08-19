@@ -5,7 +5,7 @@ import { FilterBar } from "@/components/filter-bar.tsx";
 import useQueryParams from "@/utils/settings/get-server-settings";
 import { Hero } from "@/app/products/_components/hero";
 import { CardVariants } from "@/types/component-variants/card-variants";
-import { getCollectionData } from "@/services/collection";
+import { getAllCollections } from "@/services/collection";
 
 export default async function ProductsPage() {
 
@@ -16,7 +16,8 @@ export default async function ProductsPage() {
         category_id,
         sort_by,
     };
-    const productsData = await getCollectionData(params);
+
+    const { data: productsData } = await getAllCollections(params);
 
     return (
         <>
