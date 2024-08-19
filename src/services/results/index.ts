@@ -1,18 +1,20 @@
-import { Product } from "@/types/product";
-import { getProductsBySearchParams } from "@/types/product-params";
+"use server";
 
-export async function getResults(params: getProductsBySearchParams): Promise<Product[]>{
-    const options = {
+import { Product } from "@/types/product";
+import { HttpRequest, HttpResponse, RequestData } from "..";
+import { SortByTypes } from "@/types/product-params";
+
+interface getProductsBySearchParams {
+    page: number;
+    search_query: string;
+    sort_by: SortByTypes;
+}
+
+export const getResults = async (p: getProductsBySearchParams): Promise<HttpResponse<Product[]>> => {
+    const requestData: RequestData = {
+        url: `http://localhost:8080/results?search_query=${p.search_query}&sort_by=${p.sort_by}&page=${p.page}`,
         method: 'GET',
     };
-    const url = `http://localhost:8080/results?search_query=${params.search_query}&sort_by=${params.sort_by}&page=${params.page}`;
-    const res = await fetch(url, options);
 
-    if(!res.ok) {
-        console.log('erro');
-    }
-
-    const data = await res.json(); 
-
-    return data;
+    return await HttpRequest<Product[]>(requestData);
 }

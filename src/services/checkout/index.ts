@@ -1,28 +1,29 @@
-import { ProductCart } from "@/types/product";
-import { PartialShipmentOption } from "@/types/shipping-option";
+"use server";
+
 import Stripe from "stripe";
+import { HttpResponse, RequestData, HttpRequest } from "..";
+import { ProductCart } from "@/types/product";
+import { PartialShippingOption } from "@/types/shipping-option";
 
 interface CheckoutSessionParams {
     items: ProductCart[],
-    shipmentOptions: PartialShipmentOption[],
+    shippingOptions: PartialShippingOption[],
     userID: string,
 }
 
-export async function getCheckoutSession({ items, shipmentOptions, userID }: CheckoutSessionParams): Promise<Stripe.Response<Stripe.Checkout.Session>> {
-    
-    const options = {
+export const getStripeCheckoutSession = async ({ items, shippingOptions, userID }: CheckoutSessionParams): Promise<HttpResponse<Stripe.Response<Stripe.Checkout.Session>>> => {
+    const requestData: RequestData = {
+        url: 'http://localhost:8080/checkout',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items, shipmentOptions, userID }),
+        body: JSON.stringify({
+            items,
+            shippingOptions,
+            userID,
+        }),
     };
-    const url = `http://localhost:8080/checkout`;
-    const res = await fetch(url, options);
 
-    if (!res.ok) {
-        throw new Error(`HTTP error: Status ${res.status}`);
-    }
-
-    return await res.json();
+    return await HttpRequest<Stripe.Response<Stripe.Checkout.Session>>(requestData);
 }

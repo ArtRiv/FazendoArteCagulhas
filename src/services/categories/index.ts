@@ -1,18 +1,13 @@
-import { Categories } from "@/types/categories";
+"use server";
 
-export async function getCategories(): Promise<Categories[]>{
-    
-    const options = {
+import { Categories } from "@/types/categories";
+import { HttpResponse, RequestData, HttpRequest } from "..";
+
+export const getCategories = async (): Promise<HttpResponse<Categories[]>> => {
+    const requestData: RequestData = {
+        url: 'http://localhost:8080/category',
         method: 'GET',
     };
-    // const url = `http://localhost:8080/category`; // desktop
-    const url = `http://192.168.3.13:8080/category`; // mobile
-    const res = await fetch(url, options);
 
-    if (!res.ok) {
-        throw new Error(`HTTP error: Status ${res.status}`);
-    }
-    const data = await res.json(); 
-
-    return data;
+    return await HttpRequest<Categories[]>(requestData);
 }

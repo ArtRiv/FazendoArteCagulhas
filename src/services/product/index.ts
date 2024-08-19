@@ -1,33 +1,30 @@
+"use server";
+
 import { Product } from "@/types/product";
+import { HttpRequest, HttpResponse, RequestData } from "..";
 
-export async function getProductByID(id: string): Promise<Product>{
-    const options = {
-        method: 'GET',
-    };
-    const url = `http://localhost:8080/product/${id}`;
-    const res = await fetch(url, options);
-
-    if(!res.ok) {
-        console.log('erro');
-    }
-
-    const data = await res.json(); 
-
-    return data;
+interface getProductByIdParams {
+    id: string,
 }
 
-export async function getSimilarProducts(id: string): Promise<Product[]>{
-    const options = {
+interface getSimilarProductsParams {
+    id: string,
+}
+
+export const getProductByID = async (p: getProductByIdParams): Promise<HttpResponse<Product>> => {
+    const requestData: RequestData = {
+        url: `http://localhost:8080/product/${p.id}`,
         method: 'GET',
     };
-    const url = `http://localhost:8080/product/${id}/similar`;
-    const res = await fetch(url, options);
 
-    if(!res.ok) {
-        console.log('erro');
-    }
+    return await HttpRequest<Product>(requestData);
+}
 
-    const data = await res.json(); 
+export const getSimilarProducts = async (p: getSimilarProductsParams): Promise<HttpResponse<Product[]>> => {
+    const requestData: RequestData = {
+        url: `http://localhost:8080/product/${p.id}/similar`,
+        method: 'GET',
+    };
 
-    return data;
+    return await HttpRequest<Product[]>(requestData);
 }

@@ -1,17 +1,17 @@
-import { ProductReview } from "@/types/product";
+"use server";
 
-export async function getReviewsByID(id: string): Promise<ProductReview[]>{
-    const options = {
+import { ProductReview } from "@/types/product";
+import { HttpResponse, RequestData, HttpRequest } from "..";
+
+interface getReviewsByIDParams {
+    id: string,
+}
+
+export const getReviewsByID = async (p: getReviewsByIDParams): Promise<HttpResponse<ProductReview[]>> => {
+    const requestData: RequestData = {
+        url: `http://localhost:8080/review/${p.id}`,
         method: 'GET',
     };
-    const url = `http://localhost:8080/review/${id}`;
-    const res = await fetch(url, options);
 
-    if(!res.ok) {
-        console.log('erro');
-    }
-
-    const data = await res.json(); 
-
-    return data;
+    return await HttpRequest<ProductReview[]>(requestData);
 }
