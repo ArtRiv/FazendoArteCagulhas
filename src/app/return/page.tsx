@@ -3,12 +3,13 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import Stripe from "stripe";
 
 export default function ReturnPage () {
     const searchParams = useSearchParams();
     const session_id = searchParams.get('session_id')
     const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-    const [customerEmail, setCustomerEmail] = useState();
+    const [customerEmail, setCustomerEmail] = useState<string | null>(null);
 
     const fetchPaymentStatus = useCallback(async () => {
         // Create a Checkout Session
@@ -19,9 +20,10 @@ export default function ReturnPage () {
             },
             body: JSON.stringify({ session_id }),
         });
-        const data = await res.json();
+        const data: Stripe.Checkout.Session = await res.json();
+        if(!data) return; 
         setPaymentStatus(data.payment_status);
-        setCustomerEmail(data.customer_email)
+        setCustomerEmail(data.customer_email);
     }, [session_id]);
 
     useEffect(() => {

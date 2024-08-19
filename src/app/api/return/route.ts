@@ -1,24 +1,18 @@
 import { stripe } from '@/utils/stripe';
-import { NextResponse } from 'next/server';
+import Stripe from 'stripe';
 
-export async function POST(request: Request) {
-
+export async function POST(request: Request): Promise<Stripe.Response<Stripe.Checkout.Session> | Response> {
     try {
         const { session_id } = await request.json();
         const session = await stripe.checkout.sessions.retrieve(session_id);
         
-        if(!session.customer_details) {
-            return NextResponse.json({ message: 'Customer not found'}, { status: 404 });
+        if (!session.customer_details) {
+            return new Response(JSON.stringify({ message: 'Customer not found' }), { status: 404 });
         }
 
-        return NextResponse.json({
-            status: session.status,
-            payment_status: session.payment_status,
-            customer_email: session.customer_details.email,
-        });
-
+        return session; 
     } catch (error: any) {
         console.error(error);
-        return NextResponse.json({ message: error.message }, { status: 500 });
+        return new Response(JSON.stringify({ message: error.message }), { status: 500 });
     }
 }
