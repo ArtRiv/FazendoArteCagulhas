@@ -1,5 +1,5 @@
-import { Categories, SortByTypes } from "@/types/product-params";
-import { usePathname, useSearchParams } from "next/navigation";
+import { SortByTypes } from "@/types/product-params";
+import { useSearchParams } from "next/navigation";
 
 const useCurrentPage = () => {
     const searchParams = useSearchParams();
