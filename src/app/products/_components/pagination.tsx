@@ -9,12 +9,14 @@ import { SortByTypes } from '@/types/product-params';
 
 type ProductsPaginationProps = {
   productsCount: number,
-  pageSize: number,
 }
 
-export const ProductsPagination = ({ productsCount, pageSize }: ProductsPaginationProps) => {
+const DEFAULT_PAGE_SIZE = 16;
+
+export const ProductsPagination = ({ productsCount }: ProductsPaginationProps) => {
   const router = useRouter();
   const pathname = usePathname();
+  const pageSize = DEFAULT_PAGE_SIZE;
   const pages = Math.ceil(productsCount / pageSize);
   const { searchQuery, currentSortBy, currentPage } = useAllSettings();
 
