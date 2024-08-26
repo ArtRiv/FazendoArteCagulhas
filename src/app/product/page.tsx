@@ -1,6 +1,5 @@
 import { ProductsList } from "@/components/products-list";
 import { SwipeCarousel } from "@/app/product/_components/image-carousel";
-import useQueryParams from "@/utils/settings/get-server-settings";
 import { formatPrice } from "@/utils/format-price";
 import MediaWrapper from "@/components/ui/media-modal";
 import { redirect } from "next/navigation";
@@ -14,15 +13,19 @@ import { getProductByID, getSimilarProducts } from "@/services/product";
 import { AddToCartButton } from "./_components/add-to-cart-button";
 import { getReviewsByID } from "@/services/review";
 
-export default async function ProductPage() {
-    const { productId } = useQueryParams();
-    if (!productId) redirect('/');
+export default async function ProductPage({
+    searchParams,
+}: {
+    searchParams: { id: string }
+}) {
 
-    const { data: productData } = await getProductByID({id: productId});
-    const { data: productReviews } = await getReviewsByID({id: productId});
-    const { data: similarProducts } = await getSimilarProducts({id: productId});
+    const productID = (searchParams.id);
 
-    const price = formatPrice(productData?.price);
+    if (!productID) redirect('/');
+
+    const { data: productData } = await getProductByID({id: productID});
+    const { data: productReviews } = await getReviewsByID({id: productID});
+    const { data: similarProducts } = await getSimilarProducts({id: productID});
 
     return (
         <>
@@ -82,7 +85,7 @@ export default async function ProductPage() {
                             </div>
                             <div className="my-2">
                                 <span className="text-big text-font-color/70 font-harmonia leading-line-height-big tracking-letter-space-normal break-words antialiased">
-                                    {price}
+                                    {formatPrice(productData?.price)}
                                 </span>
                             </div>
                             <div className="w-full flex items-center justify-center my-5">

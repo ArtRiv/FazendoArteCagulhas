@@ -1,20 +1,26 @@
-import { getCollectionParams } from "@/types/product-params";
+import { SortByTypes, getCollectionParams } from "@/types/product-params";
 import { ProductsPagination } from "@/app/products/_components/pagination";
 import { ProductsList } from "@/components/products-list";
 import { FilterBar } from "@/components/filter-bar.tsx";
-import useQueryParams from "@/utils/settings/get-server-settings";
 import { Hero } from "@/app/products/_components/hero";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { getAllCollections } from "@/services/collection";
 
-export default async function ProductsPage() {
-
-    const { category_id, sort_by, page, pageSize } = useQueryParams();
+export default async function ProductsPage({
+    searchParams,
+}: {
+    searchParams: 
+    { 
+        category_id: number,
+        sort_by: SortByTypes,
+        page: number,
+    }
+}) {
 
     const params: getCollectionParams = {
-        page,
-        category_id,
-        sort_by,
+        page: (searchParams.page | 1),
+        category_id: (searchParams.category_id | 1),
+        sort_by: (searchParams.sort_by as SortByTypes | SortByTypes.NEWS),
     };
 
     const { data: productsData } = await getAllCollections(params);
@@ -26,9 +32,7 @@ export default async function ProductsPage() {
                     <Hero />
                     <FilterBar />
                     <ProductsList productsData={productsData} cardVariant={CardVariants.NORMAL}/>
-                    <ProductsPagination
-                    productsCount={productsData.length}
-                    pageSize={pageSize} />
+                    <ProductsPagination productsCount={productsData.length}/>
                 </>
             }
             {(!productsData) &&
