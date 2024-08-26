@@ -9,7 +9,7 @@ interface getShippingOptionsParams {
 
 export const getShippingOptions = async (p: getShippingOptionsParams): Promise<HttpResponse<ShippingOption[]>> => {
     const requestData: RequestData = {
-        url: `http://localhost:8080/shipping/${p.zipCode.replace('-','')}`,
+        url: `http://localhost:8080/shipping/calculate/${p.zipCode.replace('-','')}`,
         method: 'GET',
     };
 
