@@ -73,7 +73,14 @@ export const AddressForm = ({ onSubmit, showShippingOptions }: AddressFormProps)
                         />
                     </div>
                 </div>
-                <Button disabled={showShippingOptions} variant="secondary" type="submit">Escolher opção de frete</Button>
+                <Button
+                    className='border-2 border-decoration'
+                    disabled={showShippingOptions} 
+                    variant="ghost" 
+                    type="submit"
+                >
+                    Escolher opção de frete
+                </Button>
             </form>
         </FormProvider>
     )
