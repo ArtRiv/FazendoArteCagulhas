@@ -1,36 +1,13 @@
-"use client"
-
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import Stripe from "stripe";
+import { getPaymentStatus } from "@/services/return";
 
-export default function ReturnPage () {
-    const searchParams = useSearchParams();
-    const session_id = searchParams.get('session_id')
-    const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
-    const [customerEmail, setCustomerEmail] = useState<string | null>(null);
+export default async function ReturnPage({
+    searchParams,
+}: {
+    searchParams: { session_id: string }
+}) {
 
-    const fetchPaymentStatus = useCallback(async () => {
-        // Create a Checkout Session
-        const res = await fetch("/api/return", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ session_id }),
-        });
-        const data: Stripe.Checkout.Session = await res.json();
-        if(!data) return; 
-        setPaymentStatus(data.payment_status);
-        setCustomerEmail(data.customer_email);
-    }, [session_id]);
-
-    useEffect(() => {
-        if (session_id) {
-            fetchPaymentStatus();
-        }
-    }, [session_id, fetchPaymentStatus])
+    const { data: sessionData } = await getPaymentStatus(searchParams);
 
     return (
         <>
@@ -40,13 +17,13 @@ export default function ReturnPage () {
                         Obrigado pela compra!
                     </h1>
                     <p className="w-1/2 text-sm text-font-color/70 text-center">
-                        Seu produto será preparado com carinho e quando for postado para entrega mandaremos o código de rastreio no seu email <span className="italic text-sm text-font-color text-center">{customerEmail}</span> 
+                        Seu produto será preparado com carinho e quando for postado para entrega mandaremos o código de rastreio no seu email <span className="italic text-sm text-font-color text-center">{sessionData?.customer_email}</span>
                     </p>
                     {/* <p>
                         Status de pagamento: {paymentStatus}
                     </p> */}
                 </div>
-                
+
                 <Accordion type="single" collapsible className="w-1/2">
                     <AccordionItem value="item-1">
                         <AccordionTrigger>Como faço para acompanhar a entrega?</AccordionTrigger>
@@ -63,7 +40,7 @@ export default function ReturnPage () {
                     <AccordionItem value="item-3">
                         <AccordionTrigger>Tenho outras dúvidas, como posso contatar?</AccordionTrigger>
                         <AccordionContent>
-                            Mande mensagem no nosso Instagram, <a  className="relative animateBorderBottom text-font-color font-harmonia leading-line-height-small transition-all duration-300 hover:text-decoration" target="_blank" href="https://www.instagram.com/fazendoartecagulhas/">@fazendoartecagulhas</a>!
+                            Mande mensagem no nosso Instagram, <a className="relative animateBorderBottom text-font-color font-harmonia leading-line-height-small transition-all duration-300 hover:text-decoration" target="_blank" href="https://www.instagram.com/fazendoartecagulhas/">@fazendoartecagulhas</a>!
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
