@@ -1,33 +1,27 @@
-"use client";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
-import { useCallback, useState } from "react";
 import { useFilter } from "@/hooks/use-filter";
 import { getStripeCheckoutSession } from "@/services/checkout";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
-export default function PaymentStep() {
+export default async function PaymentStep() {
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
   const { items, shippingOptions } = useFilter();
-  const [userID] = useState<string>("teste");
+  const { user } = useKindeBrowserClient()
 
-  const fetchClientSecret = useCallback(async () => {
-    const response = await getStripeCheckoutSession({
-      items,
-      shippingOptions,
-      userID,
-    });
+  if (!user) return;
 
-    if(!response.data?.client_secret) {
-      throw new Error('Failed to retrieve client secret');
-    }
+  const response = await getStripeCheckoutSession({
+    items,
+    shippingOptions,
+    userID: user.id,
+  })
+  const clientSecret = response.data?.client_secret;
 
-    return response.data.client_secret;
-  }, [items, userID]);
-
-  const options = { fetchClientSecret };
+  const options = { clientSecret };
 
   return (
     <div id="checkout" className="my-4 flex flex-col">
