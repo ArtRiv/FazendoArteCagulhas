@@ -7,14 +7,14 @@ import { formatPrice } from "@/utils/format-price";
 
 interface shippingOptionsInterface {
     showshippingOptions: boolean,
-    zipCode: string,
+    postal_code: string,
 }
 
-export const ShippingOptions = ({ showshippingOptions, zipCode }: shippingOptionsInterface) => {
+export const ShippingOptions = ({ showshippingOptions, postal_code }: shippingOptionsInterface) => {
 
     const { shippingOptions, setshippingOptions, setSelectedShippingOption } = useFilter();
     
-    const { data, isLoading, error } = useGetShippingOptions(zipCode);
+    const { data, isLoading, error } = useGetShippingOptions(postal_code);
     if(data?.data) setshippingOptions(data.data);
 
     const handleShippingOptionSelect = (option: PartialShippingOption) => {

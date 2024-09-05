@@ -22,41 +22,6 @@ export function useBackend() {
         return result;
     }
 
-    // const userUpdateDataMock: UserUpdateData = {
-    //     id: 'teste',
-    //     cart: [
-    //         {
-    //             id: 'produto1',
-    //             image: 'link',
-    //             price: 110.90,
-    //             purchase_count: 2,
-    //             quantity: 3,
-    //             rating: 5,
-    //             title: 'Frieren'
-    //         },
-    //     ],
-    //     transaction: {
-    //         id: 'transação',
-    //         price: 120.90,
-    //         shipping_label: {
-    //             id: 'etiqueta de envio',
-    //             price: 10.00,
-    //             status: ShippingLabelStatus.COMPLETED,
-    //         },
-    //         status: TransactionStatus.COMPLETED,
-    //     },
-    //     address: {
-    //         city: 'paioça',
-    //         complement: '1007 A',
-    //         district: 'Pgani',
-    //         name: 'Arthur',
-    //         number: '280',
-    //         state_abbr: 'SC',
-    //         street: 'Capri',
-    //         zipCode: '88132229',
-    //     }
-    // }
-
     interface UserCartUpdateInterface {
         id: string,
         email: string,
@@ -76,8 +41,35 @@ export function useBackend() {
         return result;
     }
 
+    interface UserAddressUpdateInterface {
+        id:          string
+        email:       string
+        name:        string
+        street:      string
+        number:      string
+        complement:  string
+        district:    string
+        city:        string
+        state_abbr:  string
+        postal_code: string
+    }
+
+    const handleUserAddressUpdate = async (userAddressUpdateData: UserAddressUpdateInterface) => {
+        const requestData: RequestData = {
+            url: `http://localhost:8080/user/address`,
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userAddressUpdateData)
+        };
+        const result = await HttpRequest<UserAddressUpdateInterface>(requestData);
+        return result;
+    }
+
     return {
         handleUserLogin,
         handleUserCartUpdate,
+        handleUserAddressUpdate,
     }
 }

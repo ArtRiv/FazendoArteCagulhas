@@ -3,13 +3,13 @@
 import { AddressProps } from '@/types/address-props';
 import { HttpResponse, RequestData, HttpRequest } from '..';
 
-interface getAddressByZipcodeParams {
-    zipCode: string,
+interface getAddressByPostalCodeParams {
+    postal_code: string,
 }
 
-export const getAddressByZipcode = async (p: getAddressByZipcodeParams): Promise<HttpResponse<AddressProps>> => {
+export const getAddressByPostalCode = async (p: getAddressByPostalCodeParams): Promise<HttpResponse<AddressProps>> => {
     const requestData: RequestData = {
-        url: `https://viacep.com.br/ws/${p.zipCode}/json/`,
+        url: `https://viacep.com.br/ws/${p.postal_code}/json/`,
         method: 'GET',
     };
 

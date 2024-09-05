@@ -1,10 +1,10 @@
-import { getAddressByZipcode } from "@/services/address"
+import { getAddressByPostalCode } from "@/services/address"
 import { AddressProps } from "@/types/address-props"
 import { FormProps } from "@/types/form-type-props"
 import { formSchema } from "@/utils/zod"
-import { zipCode_mask } from "@/utils/zod/mask"
+import { PostalCodeMask } from "@/utils/zod/mask"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 import { useForm } from "react-hook-form"
 
 export const useZod = () => {
@@ -21,12 +21,12 @@ export const useZod = () => {
                 district: '',
                 city: '',
                 state_abbr: '',
-                zipCode: '',
+                postal_code: '',
             }
         }
     });
 
-    const zipCode = form.watch('address.zipCode');
+    const postal_code = form.watch('address.postal_code');
 
     const handleSetData = useCallback((data: AddressProps) => {
         form.setValue('address.city', data.localidade)
@@ -35,16 +35,17 @@ export const useZod = () => {
         form.setValue('address.district', data.bairro)
     }, [form.setValue])
 
-    const handleFetchAddress = useCallback(async (zipCode: string) => {
-        const { data } = await getAddressByZipcode({zipCode});
+    const handleFetchAddress = useCallback(async (postal_code: string) => {
+        const unmaskedPostalCode = postal_code.replace(/\D/g, '')
+        const { data } = await getAddressByPostalCode({postal_code: unmaskedPostalCode});
         if (data) handleSetData(data!);
     }, [handleSetData]);
 
     useEffect(() => {
-        form.setValue('address.zipCode', zipCode_mask(zipCode))
-        if (zipCode.length !== 9) return;
-        handleFetchAddress(zipCode);
-    }, [handleFetchAddress, form.setValue, zipCode]);
+        form.setValue('address.postal_code', PostalCodeMask(postal_code))
+        if (postal_code.length !== 9) return;
+        handleFetchAddress(postal_code);
+    }, [handleFetchAddress, form.setValue, postal_code]);
 
     return form;
 }

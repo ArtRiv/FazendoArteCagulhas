@@ -9,11 +9,12 @@ import { useFilter } from "@/hooks/use-filter";
 export default function AddressStep({ onNext }: { onNext: () => void }) {
     const [showShippingOptions, setShowShippingOptions] = useState(false);
     const [formData, setFormData] = useState<FormProps>();
-    const {selectedShippingOption} = useFilter();
+    const {selectedShippingOption, setAddress} = useFilter();
 
     const onSubmit: SubmitHandler<FormProps> = (data) => {
         setShowShippingOptions(true);
         setFormData(data);
+        setAddress(data.address);
     };
 
     return (
@@ -26,7 +27,7 @@ export default function AddressStep({ onNext }: { onNext: () => void }) {
                 {(showShippingOptions && formData) && (
                     <ShippingOptions 
                         showshippingOptions={showShippingOptions}
-                        zipCode={formData?.address.zipCode} 
+                        postal_code={formData?.address.postal_code} 
                     />
                 )}
             </div>

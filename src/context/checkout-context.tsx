@@ -41,7 +41,7 @@ export function CheckoutContextProvider({ children }: ProviderProps) {
     const [isInitialized, setIsInitialized] = useState(false);
 
     const { getUser } = useKindeBrowserClient();
-    const { handleUserCartUpdate } = useBackend();
+    const { handleUserCartUpdate, handleUserAddressUpdate } = useBackend();
 
     useEffect(() => {
         const localStorageCartItems = localStorage.getItem("cart-items");
@@ -54,18 +54,27 @@ export function CheckoutContextProvider({ children }: ProviderProps) {
 
     useEffect(() => {
         const updateUserCart = async () => {
-            const user = await getUser();  
+            const user = getUser();  
             
             if (user?.email && items.length > 0) {
                 handleUserCartUpdate({ email: user.email, id: user.id, cart: items });
             }
         };
 
+        const updateUserAddress = async () => {
+            const user = getUser();
+
+            if(user?.email && address) {
+                handleUserAddressUpdate({ ...address, email: user.email, id: user.id })
+            }
+        }
+
         if (isInitialized) {
             localStorage.setItem("cart-items", JSON.stringify(items));
             updateUserCart();  // Call the async function to update the cart
+            updateUserAddress();
         }
-    }, [items, isInitialized, getUser]);
+    }, [items, isInitialized, getUser, address]);
 
     return (
         <CheckoutContext.Provider

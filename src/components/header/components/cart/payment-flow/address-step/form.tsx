@@ -24,7 +24,7 @@ export const AddressForm = ({ onSubmit, showShippingOptions }: AddressFormProps)
                     control={form.control}
                 />
                 <FormFieldComponent
-                    name='address.zipCode'
+                    name='address.postal_code'
                     placeholder='CEP'
                     control={form.control}
                     maxLength={9}
