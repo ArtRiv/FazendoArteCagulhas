@@ -7,7 +7,7 @@ export default async function DashboardLayout({
 }: DashboardLayourProps) {
 
     return (
-        <div className="text-stone-950 bg-stone-100">
+        <div className="text-stone-950 bg-stone-100 h-screen flex flex-col">
             {children}
         </div>
     )
