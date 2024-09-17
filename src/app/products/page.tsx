@@ -1,7 +1,7 @@
 import { SortByTypes, getCollectionParams } from "@/types/product-params";
 import { ProductsPagination } from "@/app/products/_components/pagination";
 import { ProductsList } from "@/components/products-list";
-import { FilterBar } from "@/components/filter-bar.tsx";
+import { FilterBar } from "@/components/filter-bar";
 import { Hero } from "@/app/products/_components/hero";
 import { CardVariants } from "@/types/component-variants/card-variants";
 import { getAllCollections } from "@/services/collection";
