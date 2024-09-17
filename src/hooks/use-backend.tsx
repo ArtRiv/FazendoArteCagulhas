@@ -29,6 +29,7 @@ export function useBackend() {
     }
 
     const handleUserCartUpdate = async (userCartUpdateData: UserCartUpdateInterface) => {
+        if(!userCartUpdateData.cart) { return };
         const requestData: RequestData = {
             url: `http://localhost:8080/user/cart`,
             method: 'PUT',
@@ -55,6 +56,8 @@ export function useBackend() {
     }
 
     const handleUserAddressUpdate = async (userAddressUpdateData: UserAddressUpdateInterface) => {
+        const isEmpty = Object.values(userAddressUpdateData).some(x => x !== null && x !== '');
+        if(isEmpty) { return };
         const requestData: RequestData = {
             url: `http://localhost:8080/user/address`,
             method: 'PUT',
