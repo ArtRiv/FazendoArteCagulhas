@@ -26,7 +26,7 @@ export const HttpRequest = async <T>(data: RequestData): Promise<HttpResponse<T>
         })
     } catch (error) {
         const _error = error as AxiosError<{ message: string}>;
-        throw new Error(_error?.response?.data?.message);
+        throw new Error(_error?.message);
     };
 
     return {
