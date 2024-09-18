@@ -1,5 +1,4 @@
-"use client"
-import React, { Dispatch, SetStateAction } from "react";
+import { useRouter } from "next/navigation";
 import { IconType } from "react-icons";
 import {
   FiDollarSign,
@@ -9,19 +8,17 @@ import {
 } from "react-icons/fi";
 import { IoAnalytics } from "react-icons/io5";
 
-interface RouteSelectInterface {
-  selectedRoute: string,
-  setSelectedRoute: Dispatch<SetStateAction<string>>,
-};
-
-export const RouteSelect = ({selectedRoute, setSelectedRoute}: RouteSelectInterface) => {
+export const RouteSelect = ({ selectedRoute } : {selectedRoute: string}) => {
   const routes = [
-    { Icon: IoAnalytics, title: "Analytics" },
-    { Icon: FiPackage, title: "Produtos" },
-    { Icon: FiDollarSign, title: "Transações" },
-    { Icon: FiTag, title: "Etiquetas de envio" },
-    { Icon: FiUsers, title: "Usuários" },
+    { Icon: IoAnalytics, title: "Analytics", route: "analytics" },
+    { Icon: FiPackage, title: "Produtos", route: "products" },
+    { Icon: FiDollarSign, title: "Transações", route: "transactions" },
+    { Icon: FiTag, title: "Etiquetas de envio", route: "shipping" },
+    { Icon: FiUsers, title: "Usuários", route: "users" },
   ];
+  
+  const router = useRouter();
+
   return (
     <div className="space-y-1">
       {routes.map((route) => (
@@ -30,7 +27,7 @@ export const RouteSelect = ({selectedRoute, setSelectedRoute}: RouteSelectInterf
           Icon={route.Icon}
           title={route.title}
           selected={selectedRoute === route.title}
-          onClick={() => setSelectedRoute(route.title)}
+          onClick={() => router.push(`${route.route}`)}
         />
       ))}
     </div>

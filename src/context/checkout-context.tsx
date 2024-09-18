@@ -65,13 +65,24 @@ export function CheckoutContextProvider({ children }: ProviderProps) {
             const user = getUser();
 
             if(user?.email && address) {
-                handleUserAddressUpdate({ ...address, email: user.email, id: user.id })
+                handleUserAddressUpdate({ 
+                    city: address.city,
+                    complement: address.complement,
+                    district: address.district,
+                    name: address.name,
+                    number: address.number,
+                    postal_code: address.postal_code,
+                    state_abbr: address.state_abbr,
+                    street: address.street,
+                    email: user.email, 
+                    id: user.id 
+                })
             }
         }
 
         if (isInitialized) {
             localStorage.setItem("cart-items", JSON.stringify(items));
-            updateUserCart();  // Call the async function to update the cart
+            // updateUserCart();  // Call the async function to update the cart
             updateUserAddress();
         }
     }, [items, isInitialized, getUser, address]);
