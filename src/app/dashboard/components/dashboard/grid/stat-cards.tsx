@@ -165,12 +165,12 @@ const Card = ({
                             alt={product.title}
                           />
                           <span
-                            className={`w-full text-xs flex items-center justify-between gap-1 font-medium px-2 py-1 backdrop-filter rounded ${getIntensityClass(
+                            className={`w-full whitespace-nowrap text-xs flex items-center justify-between gap-1 font-medium px-2 py-1 backdrop-filter rounded ${getIntensityClass(
                               metric === "views" ? product.views : product.cart
                             )}`}
                           >
-                            {metric === "views" ? `${product.views} views` : `${product.cart} in cart`}
                             {product.trend === "up" ? <FiTrendingUp /> : <FiTrendingDown />}
+                            {metric === "views" ? `${product.views} views` : `${product.cart} in cart`}
                           </span>
                         </TooltipTrigger>
                         <TooltipContent className="bg-stone-100">

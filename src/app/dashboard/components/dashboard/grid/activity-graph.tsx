@@ -19,7 +19,7 @@ const data = [
     New: 41,
   },
   {
-    name: "Feb",
+    name: "Fev",
     Returning: 620,
     New: 96,
   },
@@ -29,12 +29,12 @@ const data = [
     New: 192,
   },
   {
-    name: "Apr",
+    name: "Abr",
     Returning: 500,
     New: 50,
   },
   {
-    name: "May",
+    name: "Maio",
     Returning: 355,
     New: 400,
   },
@@ -55,7 +55,7 @@ export const ActivityGraph = () => {
     <div className="w-2/3 overflow-hidden rounded border border-stone-300">
       <div className="p-4">
         <h3 className="flex items-center gap-1.5 font-medium">
-          <FiUser /> Activity
+          <FiUser /> Usuários
         </h3>
       </div>
 

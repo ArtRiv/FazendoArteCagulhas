@@ -51,7 +51,7 @@ export const UsageRadar = () => {
     <div className="w-1/3 overflow-hidden rounded border border-stone-300">
       <div className="p-4">
         <h3 className="flex items-center gap-1.5 font-medium">
-          <FiEye /> Usage
+          <FiEye /> Uso
         </h3>
       </div>
 
