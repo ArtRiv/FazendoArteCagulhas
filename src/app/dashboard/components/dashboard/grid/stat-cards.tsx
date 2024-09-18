@@ -11,7 +11,7 @@ import {
 
 export const StatCards = () => {
   return (
-    <div className="w-full flex gap-3 col-span-3">
+    <>
       <Card
         title="Visualização de produtos"
         total={1318}
@@ -28,7 +28,7 @@ export const StatCards = () => {
         period="Previous 365 days"
         className="w-1/3"
       />
-    </div>
+    </>
   );
 };
 
@@ -137,7 +137,7 @@ const Card = ({
   };
 
   return (
-    <div className={`p-4 rounded border border-stone-300 ${className}`}>
+    <div className={`${className} overflow-hidden p-4 rounded border border-stone-300`}>
       <div className="flex flex-col mb-4 items-start justify-between">
         <div className="w-full flex justify-between">
           <h3 className="text-stone-500 mb-4 text-md">{title}</h3>
@@ -175,8 +175,8 @@ const Card = ({
                         </TooltipTrigger>
                         <TooltipContent className="bg-stone-100">
                           <p className="text-stone-700 text-sm text-center p-1">{product.title}</p>
-                          <p className="text-stone-700 text-sm text-center p-1"> 
-                            {metric === "views" ? `${(Math.round(product.views/total * 100))}% do total` : `${(Math.round(product.cart/total * 100))}% do total`} 
+                          <p className="text-stone-700 text-sm text-center p-1">
+                            {metric === "views" ? `${(Math.round(product.views / total * 100))}% do total` : `${(Math.round(product.cart / total * 100))}% do total`}
                           </p>
                         </TooltipContent>
                       </Tooltip>
