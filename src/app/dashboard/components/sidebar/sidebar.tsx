@@ -1,18 +1,23 @@
-import { Search } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 import { AccountToggle } from "./account-toggle";
 import { Plan } from "./plan";
 import { RouteSelect } from "./route-select";
 
-export const Sidebar = () => {
-  return (
-    <div>
-      <div className="overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)]">
-        <AccountToggle />
-        <Search />
-        <RouteSelect />
-      </div>
+interface SidebarInterface {
+  selectedRoute: string,
+  setSelectedRoute: Dispatch<SetStateAction<string>>,
+};
 
-      <Plan />
-    </div>
+export const Sidebar = ({selectedRoute, setSelectedRoute}: SidebarInterface) => {
+  return (
+    <>
+      <div className="bg-stone-100 overflow-y-scroll flex flex-col justify-between gap-2 h-[865px] w-auto">
+        <div>
+          <AccountToggle />
+          <RouteSelect selectedRoute={selectedRoute} setSelectedRoute={setSelectedRoute} />
+        </div>
+        <Plan />
+      </div>
+    </>
   );
 };
