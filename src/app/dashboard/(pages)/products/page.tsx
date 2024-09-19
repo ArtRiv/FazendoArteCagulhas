@@ -5,7 +5,7 @@ import { Dashboard } from "./components/dashboard";
 export default function ProductsPage() {
 
     return (
-        <div className="bg-white rounded-lg pb-4 shadow absolute top-3 left-56 w-10/12">
+        <div className="flex flex-col items-center justify-center bg-white rounded-lg pb-4 shadow">
             <TopBar hasDatePeriodSelect={false}/>
             <Dashboard/>
         </div>
