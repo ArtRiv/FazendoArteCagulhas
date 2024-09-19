@@ -10,7 +10,7 @@ export const Sidebar = () => {
   
   return (
     <>
-      <div className="bg-stone-100 overflow-y-scroll flex flex-col justify-between gap-2 h-[865px] w-auto">
+      <div className="bg-stone-100 pl-2 overflow-y-scroll flex flex-col justify-between gap-2 h-full w-auto">
         <div>
           <AccountToggle />
           <RouteSelect selectedRoute={selectedRoute}/>
