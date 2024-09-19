@@ -6,7 +6,8 @@ import { Plan } from "./plan";
 import { RouteSelect } from "./route-select";
 
 export const Sidebar = () => {
-  const selectedRoute = usePathname();
+  const selectedRoute = usePathname().split('/')[2]; // /dashboard/route -> ['','dashboard','route'] = [0, 1, 2] -> [2] = route 
+  
   return (
     <>
       <div className="bg-stone-100 overflow-y-scroll flex flex-col justify-between gap-2 h-[865px] w-auto">

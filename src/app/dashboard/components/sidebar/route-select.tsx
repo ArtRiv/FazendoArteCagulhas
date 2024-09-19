@@ -16,6 +16,8 @@ export const RouteSelect = ({ selectedRoute } : {selectedRoute: string}) => {
     { Icon: FiTag, title: "Etiquetas de envio", route: "shipping" },
     { Icon: FiUsers, title: "Usuários", route: "users" },
   ];
+
+  console.log(selectedRoute);
   
   const router = useRouter();
 
@@ -26,7 +28,7 @@ export const RouteSelect = ({ selectedRoute } : {selectedRoute: string}) => {
           key={route.title}
           Icon={route.Icon}
           title={route.title}
-          selected={selectedRoute === route.title}
+          selected={selectedRoute === route.route}
           onClick={() => router.push(`${route.route}`)}
         />
       ))}
