@@ -6,7 +6,7 @@ import { TopBar } from "../../components/topbar/top-bar";
 
 export default function AnalyticsPage() {
     return (
-        <div className="bg-white rounded-lg pb-4 shadow absolute top-3 left-56 w-10/12">
+        <div className="bg-white rounded-lg pb-4 shadow absolute top-3 left-64 w-10/12">
             <TopBar hasDatePeriodSelect/>
             <div className="px-4 grid gap-3 grid-cols-3 w-full">
 
