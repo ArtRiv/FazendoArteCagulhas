@@ -13,7 +13,7 @@ export const TopBar = ({ hasDatePeriodSelect } : { hasDatePeriodSelect: boolean 
   const { currentDay, translatedMonth, currentYear, currentWeekDay, partOfTheDay } = getTime();
 
   return (
-    <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200">
+    <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200 w-full">
       <div className="flex items-center justify-between p-0.5">
         <div>
           <div className="flex gap-2 items-center justify-center">
