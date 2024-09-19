@@ -43,16 +43,16 @@ export const CreatePageDashboard = () => {
             <div className="flex items-center gap-4">
                 <div className="hidden items-center gap-2 md:ml-auto md:flex">
                     <Button variant="outline" size="sm">
-                        Discard
+                        Descartar
                     </Button>
-                    <Button size="sm">Save Product</Button>
+                    <Button size="sm">Salvar Produto</Button>
                 </div>
             </div>
             <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                 <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
                     <Card x-chunk="dashboard-07-chunk-0">
                         <CardHeader>
-                            <CardTitle>Product Details</CardTitle>
+                            <CardTitle>Informações do Produto</CardTitle>
                             <CardDescription>
                                 Lipsum dolor sit amet, consectetur adipiscing elit
                             </CardDescription>
