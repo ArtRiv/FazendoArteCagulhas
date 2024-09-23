@@ -13,7 +13,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
     Select,
@@ -22,27 +21,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
-import { Textarea } from "@/components/ui/textarea"
-import {
-    ToggleGroup,
-    ToggleGroupItem,
-} from "@/components/ui/toggle-group"
+import { ProductForm } from "./form"
 
 export const CreatePageDashboard = () => {
     return (
         <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-        <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+        <div className="mx-auto grid w-full flex-1 auto-rows-max gap-4">
             <div className="flex items-center gap-4">
                 <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                    <Button variant="outline" size="sm">
+                    <Button variant="destructive" size="sm">
                         Descartar
                     </Button>
                     <Button size="sm">Salvar Produto</Button>
@@ -50,36 +37,8 @@ export const CreatePageDashboard = () => {
             </div>
             <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                 <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-                    <Card x-chunk="dashboard-07-chunk-0">
-                        <CardHeader>
-                            <CardTitle>Informações do Produto</CardTitle>
-                            <CardDescription>
-                                Lipsum dolor sit amet, consectetur adipiscing elit
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="grid gap-6">
-                                <div className="grid gap-3">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input
-                                        id="name"
-                                        type="text"
-                                        className="w-full"
-                                        defaultValue="Gamer Gear Pro Controller"
-                                    />
-                                </div>
-                                <div className="grid gap-3">
-                                    <Label htmlFor="description">Description</Label>
-                                    <Textarea
-                                        id="description"
-                                        defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
-                                        className="min-h-32"
-                                    />
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-                    <Card x-chunk="dashboard-07-chunk-1">
+                    <ProductForm/>
+                    {/* <Card x-chunk="dashboard-07-chunk-1">
                         <CardHeader>
                             <CardTitle>Stock</CardTitle>
                             <CardDescription>
@@ -214,8 +173,8 @@ export const CreatePageDashboard = () => {
                                 Add Variant
                             </Button>
                         </CardFooter>
-                    </Card>
-                    <Card x-chunk="dashboard-07-chunk-2">
+                    </Card> */}
+                    {/* <Card x-chunk="dashboard-07-chunk-2">
                         <CardHeader>
                             <CardTitle>Product Category</CardTitle>
                         </CardHeader>
@@ -262,8 +221,8 @@ export const CreatePageDashboard = () => {
                                     </Select>
                                 </div>
                             </div>
-                        </CardContent>
-                    </Card>
+                        </CardContent> 
+                     </Card> */}
                 </div>
                 <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                     <Card x-chunk="dashboard-07-chunk-3">

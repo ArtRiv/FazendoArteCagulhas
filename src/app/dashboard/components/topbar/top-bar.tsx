@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { FiMoon, FiSun, FiSunrise, FiSunset } from "react-icons/fi";
 import { SelectDatePeriod } from "./select";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const TopBar = ({ hasDatePeriodSelect } : { hasDatePeriodSelect: boolean }) => {
 
@@ -16,13 +17,15 @@ export const TopBar = ({ hasDatePeriodSelect } : { hasDatePeriodSelect: boolean 
     <div className="border-b px-4 mb-4 mt-2 pb-4 border-stone-200 w-full">
       <div className="flex items-center justify-between p-0.5">
         <div>
-          <div className="flex gap-2 items-center justify-center">
-            {renderIcon(partOfTheDay)}
-            <span className="text-sm font-bold block">{message}</span>
-          </div>
-          <span className="text-xs block text-stone-500">
-            {currentWeekDay}, {translatedMonth} {currentDay} {currentYear}
-          </span>
+          <Suspense fallback={<Skeleton className="h-[125px] w-[250px] rounded-xl"/>}>
+            <div className="flex gap-2 items-center justify-center">
+              {renderIcon(partOfTheDay)}
+              <span className="text-sm font-bold block">{message}</span>
+            </div>
+            <span className="text-xs block text-stone-500">
+              {currentWeekDay}, {translatedMonth} {currentDay} {currentYear}
+            </span>
+          </Suspense>
         </div>
         {hasDatePeriodSelect &&
           <SelectDatePeriod/>

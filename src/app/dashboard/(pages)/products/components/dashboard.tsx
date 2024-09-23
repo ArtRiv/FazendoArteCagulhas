@@ -5,7 +5,6 @@ import {
     Home,
     LineChart,
     ListFilter,
-    MoreHorizontal,
     Package,
     Package2,
     PanelLeft,
@@ -899,12 +898,14 @@ export function Dashboard() {
                                                 Exportar
                                             </span>
                                         </Button>
-                                        <Button size="sm" className="h-8 gap-1">
-                                            <PlusCircle className="h-3.5 w-3.5" />
-                                            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                                                Adicionar produto
-                                            </span>
-                                        </Button>
+                                        <Link href="products/create">
+                                            <Button size="sm" className="h-8 gap-1">
+                                                <PlusCircle className="h-3.5 w-3.5" />
+                                                <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                                                    Adicionar produto
+                                                </span>
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </CardHeader>
                                 <CardContent>

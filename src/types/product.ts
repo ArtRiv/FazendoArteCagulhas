@@ -8,7 +8,7 @@ export interface Product {
     price: number,
     product_group: string,
     purchase_count: number,
-    rating: number,
+    rating?: number,
     tag: string,
     title: string,
 }
