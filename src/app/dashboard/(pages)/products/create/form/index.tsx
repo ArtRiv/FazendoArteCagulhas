@@ -14,7 +14,7 @@ import { toast } from "@/hooks/use-toast"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CategoriesSheet } from "./categories-sheet"
-import { useGetCategories } from "@/hooks/use-categories"
+import { useCategories } from "@/hooks/use-categories"
 import { Category } from "@/types/categories"
 
 
@@ -54,8 +54,8 @@ export const ProductForm = () => {
         })
     }
 
-    const { data, isLoading, error } = useGetCategories();
-    const categories: Category[] = data?.data ?? [];
+    const { data, isLoading, error } = useCategories();
+    const categories: Category[] = data || [];
 
     return (
         <Card x-chunk="dashboard-07-chunk-0">
@@ -129,7 +129,7 @@ export const ProductForm = () => {
                                         </SelectContent>
                                     </Select>
                                     <FormDescription>
-                                        <CategoriesSheet categories={categories}/>
+                                        <CategoriesSheet />
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>

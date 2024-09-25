@@ -1,13 +1,27 @@
-"use server";
+import axios from 'axios';
+import { Category } from '@/types/categories';
 
-import { Categories } from "@/types/categories";
-import { HttpResponse, RequestData, HttpRequest } from "..";
+const API_URL = 'http://localhost:8080/category';
 
-export const getCategories = async (): Promise<HttpResponse<Categories[]>> => {
-    const requestData: RequestData = {
-        url: 'http://localhost:8080/category',
-        method: 'GET',
-    };
+// Fetch categories
+export const fetchCategories = async (): Promise<Category[]> => {
+  const response = await axios.get<Category[]>(API_URL);
+  return response.data;
+};
 
-    return await HttpRequest<Categories[]>(requestData);
-}
+// Create categories
+export const createCategories = async (categories: Category[]): Promise<Category[]> => {
+  const response = await axios.post<Category[]>(API_URL, categories);
+  return response.data;
+};
+
+// Update categories
+export const updateCategories = async (categories: Category[]): Promise<Category[]> => {
+  const response = await axios.put<Category[]>(API_URL, categories);
+  return response.data;
+};
+
+// Delete categories
+export const deleteCategories = async (categoryIds: number[]): Promise<void> => {
+  await axios.delete(API_URL, { data: { categoryIds } });
+};
