@@ -13,24 +13,28 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "@/hooks/use-toast"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CategoriesSheet } from "./categories-sheet"
+import { CategoriesSheet } from "./categories/categories-sheet"
 import { useCategories } from "@/hooks/use-categories"
 import { Category } from "@/types/categories"
+import { Skeleton } from "@/components/ui/skeleton"
+import { ProductGroupsSheet } from "./product-group/product-group-sheet"
 
 
 const FormSchema = z.object({
     product_name: z.string().min(2, {
-        message: 'Nome deve conter pelo menos 2 caractéres'
-    }),
-    description: z.string().min(2, {
-        message: 'Descrição deve conter pelo menos 2 caractéres'
+        message: 'Nome deve conter pelo menos 2 caractéres.'
     }),
     price: z.number().min(1, {
-        message: 'Preço deve conter pelo menos 1 número'
+        message: 'Preço deve conter pelo menos 1 número.'
     }),
     category: z.string({
         required_error: "Selecione uma categoria.",
-    })
+    }),
+    product_group: z.string({
+        required_error: "Selecione um grupo de produto."
+    }),
+    description: z.string(),
+    tag: z.string()
 });
 
 export const ProductForm = () => {
@@ -40,6 +44,7 @@ export const ProductForm = () => {
             product_name: "",
             description: "",
             price: 0,
+            tag: "",
         }
     })
 
@@ -56,6 +61,8 @@ export const ProductForm = () => {
 
     const { data, isLoading, error } = useCategories();
     const categories: Category[] = data || [];
+
+    // const { data, isLoading, error} = useProductGroup();
 
     return (
         <Card x-chunk="dashboard-07-chunk-0">
@@ -113,7 +120,7 @@ export const ProductForm = () => {
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl>
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Escolha uma categoria para o produto" />
+                                                <SelectValue placeholder="Escolha uma categoria" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
@@ -135,6 +142,41 @@ export const ProductForm = () => {
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                            control={form.control}
+                            name="product_group"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Grupo de produto</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Escolha um grupo de produto" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {isLoading && (
+                                                <Skeleton className="w-[100px] h-[30px]"/>
+                                            )}
+                                            {categories.map((category) => (
+                                                <SelectItem
+                                                    key={category.name}
+                                                    className="cursor-pointer"
+                                                    value={category.name}
+                                                >
+                                                    {category.name.toLowerCase()}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormDescription>
+                                        <ProductGroupsSheet />
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
                     </form>
                 </Form>
             </CardContent>

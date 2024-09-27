@@ -10,7 +10,11 @@ export const fetchCategories = async (): Promise<Category[]> => {
 };
 
 // Create categories
-export const createCategories = async (categories: Category[]): Promise<Category[]> => {
+
+interface createCategoryDto {
+  name: string
+} 
+export const createCategories = async (categories: createCategoryDto[]): Promise<Category[]> => {
   const response = await axios.post<Category[]>(API_URL, categories);
   return response.data;
 };

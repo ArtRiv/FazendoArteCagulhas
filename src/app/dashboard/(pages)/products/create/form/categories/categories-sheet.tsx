@@ -38,6 +38,7 @@ import {
 } from "@/hooks/use-categories";
 import { CategoryInput } from "./category";
 
+
 export const CategoriesSheet = () => {
     const {
         data: fetchedCategories = [],
@@ -134,7 +135,7 @@ export const CategoriesSheet = () => {
 
     const handleSaveChanges = () => {
         if (addedCategories.length > 0) {
-            createMutation.mutate(addedCategories);
+            createMutation.mutate(addedCategories.map((cat) => ({ name: cat.name })));
         }
 
         const categoriesToUpdate = modifiedCategories
@@ -155,8 +156,6 @@ export const CategoriesSheet = () => {
         setAddedCategories([]);
         setDeletedCategories([]);
     };
-
-
 
     return (
         <Sheet>
