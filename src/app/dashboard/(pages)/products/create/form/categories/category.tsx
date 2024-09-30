@@ -10,7 +10,7 @@ interface CategoryInputProps {
     onDelete: (category: Category) => void;
     onRevert: (id: number) => void;
     isModified: boolean;
-  }
+}
 
 export const CategoryInput = memo(({ category, onChange, onDelete, onRevert, isModified }: CategoryInputProps) => {
     return (

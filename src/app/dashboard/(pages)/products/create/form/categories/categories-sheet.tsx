@@ -10,7 +10,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Check, X, ChevronDown } from "lucide-react";
+import { Check, X, ChevronDown, Tags } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
     AlertDialog,
@@ -40,12 +40,7 @@ import { CategoryInput } from "./category";
 
 
 export const CategoriesSheet = () => {
-    const {
-        data: fetchedCategories = [],
-        isLoading,
-        isError,
-        error,
-    } = useCategories();
+    const { data: fetchedCategories = [], isLoading, isError, error } = useCategories();
     const createMutation = useCreateCategories();
     const updateMutation = useUpdateCategories();
     const deleteMutation = useDeleteCategories();
@@ -55,11 +50,10 @@ export const CategoriesSheet = () => {
     const [deletedCategories, setDeletedCategories] = useState<Category[]>([]);
     const [addedCategories, setAddedCategories] = useState<Category[]>([]);
 
-    // Keep track of original categories for comparison
     const originalCategories = useMemo(() => {
         const categoryMap: { [key: string]: string } = {};
         fetchedCategories.forEach((category) => {
-            categoryMap[category.id] = category.name;
+            categoryMap[category.id.toString()] = category.name;
         });
         return categoryMap;
     }, [fetchedCategories]);
@@ -68,64 +62,64 @@ export const CategoriesSheet = () => {
         setCategories(fetchedCategories);
     }, [fetchedCategories]);
 
-    // Handle category deletion
     const handleDelete = (category: Category) => {
-        setCategories((prevCategories) =>
-            prevCategories.filter((cat) => cat.name !== category.name)
-        );
-        if (addedCategories.some((cat) => cat.name === category.name)) {
-            setAddedCategories((prev) =>
-                prev.filter((cat) => cat.name !== category.name)
-            );
+        setCategories((prev) => prev.filter((cat) => cat.id !== category.id));
+        if (addedCategories.some((cat) => cat.id === category.id)) {
+            setAddedCategories((prev) => prev.filter((cat) => cat.id !== category.id));
         } else {
             setDeletedCategories((prev) => [...prev, category]);
         }
+        setModifiedCategories((prev) => prev.filter((id) => id !== category.id));
     };
 
-    // Handle category update
     const handleChange = (id: number, newName: string) => {
-        const originalLabel = originalCategories[id];
-        setCategories((prevCategories) =>
-            prevCategories.map((category) =>
-                category.id === id ? { ...category, name: newName } : category
-            )
-        );
-
-        // Track modified categories by ID
-        if (newName !== originalLabel && !modifiedCategories.includes(id)) {
-            setModifiedCategories((prev) => [...prev, id]);
-        } else if (newName === originalLabel) {
-            setModifiedCategories((prev) =>
-                prev.filter((modifiedId) => modifiedId !== id)
+        const isAdded = addedCategories.some((cat) => cat.id === id);
+        if (isAdded) {
+            setAddedCategories((prev) =>
+                prev.map((cat) => (cat.id === id ? { ...cat, name: newName } : cat))
             );
+            setCategories(prevCat =>
+                prevCat.map(cat =>
+                    cat.id === id ? { ...cat, name: newName } : cat
+                )
+            );
+        } else {
+            const originalName = originalCategories[id.toString()];
+            setCategories((prev) =>
+                prev.map((cat) => (cat.id === id ? { ...cat, name: newName } : cat))
+            );
+
+            if (newName !== originalName && !modifiedCategories.includes(id)) {
+                setModifiedCategories((prev) => [...prev, id]);
+            } else if (newName === originalName) {
+                setModifiedCategories((prev) => prev.filter((modifiedId) => modifiedId !== id));
+            }
         }
     };
 
     const handleRevert = (id: number) => {
-        setCategories((prevCategories) =>
-            prevCategories.map((category) =>
-                category.id === id
-                    ? { ...category, name: originalCategories[id] }
-                    : category
-            )
-        );
-        setModifiedCategories((prev) =>
-            prev.filter((modifiedId) => modifiedId !== id)
-        );
+        const isAdded = addedCategories.some((cat) => cat.id === id);
+        if (isAdded) {
+            setCategories((prev) => prev.filter((cat) => cat.id !== id));
+            setAddedCategories((prev) => prev.filter((cat) => cat.id !== id));
+        } else {
+            setCategories((prev) =>
+                prev.map((cat) => (cat.id === id ? { ...cat, name: originalCategories[id.toString()] } : cat))
+            );
+            setModifiedCategories((prev) => prev.filter((modifiedId) => modifiedId !== id));
+        }
     };
 
-    // Add new category
     const handleAddNewCategory = () => {
         const newCategory: Category = {
-            id: Date.now(), // Temporary ID; replace with proper ID from backend
-            name: `new-${Date.now()}`, // Generate a unique name or handle differently
+            id: Date.now(),
+            name: `new-${Date.now()}`,
             _count: { products: 0 },
         };
         setCategories((prev) => [...prev, newCategory]);
         setAddedCategories((prev) => [...prev, newCategory]);
     };
 
-    // Reset all changes (Discard)
     const handleDiscardChanges = () => {
         setCategories(fetchedCategories);
         setModifiedCategories([]);
@@ -146,7 +140,7 @@ export const CategoriesSheet = () => {
             updateMutation.mutate(categoriesToUpdate);
         }
 
-        const idsToDelete = deletedCategories.map((category) => category.id);
+        const idsToDelete = deletedCategories.map((cat) => cat.id);
 
         if (idsToDelete.length > 0) {
             deleteMutation.mutate(idsToDelete);
@@ -156,18 +150,19 @@ export const CategoriesSheet = () => {
         setAddedCategories([]);
         setDeletedCategories([]);
     };
-
     return (
         <Sheet>
             <SheetTrigger>Para gerenciar as categorias, clique aqui</SheetTrigger>
             <SheetContent className="flex flex-col h-full justify-between">
-                <div className="h-4/5">
-                    <SheetHeader className="h-1/5">
-                        <SheetTitle>Categorias</SheetTitle>
-                        <SheetDescription>Gerencie suas categorias</SheetDescription>
-                    </SheetHeader>
-                    <ScrollArea className="h-3/5 rounded-md grid p-4">
-                        {categories.map((category) => (
+                <SheetHeader>
+                    <SheetTitle>Categorias</SheetTitle>
+                    <SheetDescription>Gerencie suas categorias</SheetDescription>
+                </SheetHeader>
+                <ScrollArea className="h-3/5 rounded-md grid p-4">
+                    {categories.length === 0 ? (
+                        <p className="text-sm text-stone-500"> Nenhuma categoria encontrada. </p>
+                    ) : (
+                        categories.map((category) => (
                             <CategoryInput
                                 key={category.id}
                                 category={category}
@@ -177,30 +172,25 @@ export const CategoriesSheet = () => {
                                 isModified={modifiedCategories.includes(category.id)}
                             />
 
-                        ))}
-                    </ScrollArea>
-                    <Button
-                        className="h-1/5"
-                        variant="outline"
-                        onClick={handleAddNewCategory}
-                    >
-                        + Adicionar Nova Categoria
-                    </Button>
-                </div>
-
-                <SheetFooter className="flex justify-end w-full self-end">
-                    <SheetClose asChild className="self-start">
+                        ))
+                    )}
+                </ScrollArea>
+                <Button variant="outline" onClick={handleAddNewCategory} className="mt-4">
+                    + Adicionar nova categoria
+                </Button>
+                <SheetFooter className="flex justify-end w-full self-end mt-4">
+                    <SheetClose asChild>
                         <Button
                             variant="destructive"
                             onClick={handleDiscardChanges}
-                            className="text-white flex justify-between items-center p-3"
+                            className="text-white flex justify-between items-center p-3 mr-2"
                             disabled={
                                 modifiedCategories.length === 0 &&
                                 addedCategories.length === 0 &&
                                 deletedCategories.length === 0
                             }
                         >
-                            <X className="size-5" />
+                            <X className="size-5 mr-2" />
                             <p>Descartar</p>
                         </Button>
 
@@ -217,7 +207,7 @@ export const CategoriesSheet = () => {
                                         deletedCategories.length === 0
                                     }
                                 >
-                                    <Check className="size-5" />
+                                    <Check className="size-5 mr-2" />
                                     <p>Salvar</p>
                                 </Button>
                             </AlertDialogTrigger>

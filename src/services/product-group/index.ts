@@ -25,7 +25,7 @@ export const createProductGroups = async (
 export const updateProductGroups = async (
   productGroups: ProductGroup[]
 ): Promise<ProductGroup[]> => {
-  const response = await axios.put<ProductGroup[]>(API_URL, productGroups);
+  const response = await axios.patch<ProductGroup[]>(API_URL, productGroups);
   return response.data;
 };
 

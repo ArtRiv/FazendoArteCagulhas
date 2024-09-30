@@ -21,7 +21,7 @@ export const createCategories = async (categories: createCategoryDto[]): Promise
 
 // Update categories
 export const updateCategories = async (categories: Category[]): Promise<Category[]> => {
-  const response = await axios.put<Category[]>(API_URL, categories);
+  const response = await axios.patch<Category[]>(API_URL, categories);
   return response.data;
 };
 

@@ -35,12 +35,7 @@ import { ProductGroupInput } from './product-group';
 
 
 export const ProductGroupsSheet = () => {
-    const {
-        data: fetchedProductGroups = [],
-        isLoading,
-        isError,
-        error,
-    } = useProductGroups();
+    const { data: fetchedProductGroups = [], isLoading, isError, error } = useProductGroups();
     const createMutation = useCreateProductGroups();
     const updateMutation = useUpdateProductGroups();
     const deleteMutation = useDeleteProductGroups();
@@ -52,9 +47,9 @@ export const ProductGroupsSheet = () => {
 
     // Keep track of original product groups for comparison
     const originalProductGroups = useMemo(() => {
-        const productGroupMap: { [key: number]: string } = {};
+        const productGroupMap: { [key: string]: string } = {};
         fetchedProductGroups.forEach((productGroup) => {
-            productGroupMap[productGroup.id] = productGroup.name;
+            productGroupMap[productGroup.id.toString()] = productGroup.name;
         });
         return productGroupMap;
     }, [fetchedProductGroups]);
@@ -65,56 +60,67 @@ export const ProductGroupsSheet = () => {
 
     // Handle product group deletion
     const handleDelete = (productGroup: ProductGroup) => {
-        setProductGroups((prevProductGroups) =>
-            prevProductGroups.filter((pg) => pg.id !== productGroup.id)
-        );
+        setProductGroups((prev) => prev.filter((pg) => pg.id !== productGroup.id));
         if (addedProductGroups.some((pg) => pg.id === productGroup.id)) {
             setAddedProductGroups((prev) => prev.filter((pg) => pg.id !== productGroup.id));
         } else {
             setDeletedProductGroups((prev) => [...prev, productGroup]);
         }
+        setModifiedProductGroups((prev) => prev.filter((id) => id !== productGroup.id));
     };
 
     // Handle product group update
     const handleChange = (id: number, newName: string) => {
-        const originalName = originalProductGroups[id];
-        setProductGroups((prevProductGroups) =>
-            prevProductGroups.map((productGroup) =>
-                productGroup.id === id ? { ...productGroup, name: newName } : productGroup
-            )
-        );
+        const isAdded = addedProductGroups.some((pg) => pg.id === id);
+        if (isAdded) {
+            setAddedProductGroups((prev) =>
+                prev.map(pg => (pg.id === id ? { ...pg, name: newName } : pg))
+            );
+            setProductGroups(prev =>
+                prev.map(pg =>
+                    pg.id === id ? { ...pg, name: newName } : pg
+                )
+            );
+        } else {
+            const originalName = originalProductGroups[id.toString()];
+            setProductGroups((prev) =>
+                prev.map((pg) => (pg.id === id ? { ...pg, name: newName } : pg))
+            );
 
-        // Track modified product groups by ID
-        if (newName !== originalName && !modifiedProductGroups.includes(id)) {
-            setModifiedProductGroups((prev) => [...prev, id]);
-        } else if (newName === originalName) {
-            setModifiedProductGroups((prev) => prev.filter((modifiedId) => modifiedId !== id));
+            if (newName !== originalName && !modifiedProductGroups.includes(id)) {
+                setModifiedProductGroups((prev) => [...prev, id]);
+            } else if (newName === originalName) {
+                setModifiedProductGroups((prev) => prev.filter((modifiedId) => modifiedId !== id));
+            }
         }
     };
 
+    // Handle reverting product group name change
     const handleRevert = (id: number) => {
-        setProductGroups((prevProductGroups) =>
-            prevProductGroups.map((productGroup) =>
-                productGroup.id === id
-                    ? { ...productGroup, name: originalProductGroups[id] }
-                    : productGroup
-            )
-        );
-        setModifiedProductGroups((prev) => prev.filter((modifiedId) => modifiedId !== id));
+        const isAdded = addedProductGroups.some((pg) => pg.id === id);
+        if (isAdded) {
+            setProductGroups((prev) => prev.filter((pg) => pg.id !== id));
+            setAddedProductGroups((prev) => prev.filter((pg) => pg.id !== id));
+        } else {
+            setProductGroups((prev) =>
+                prev.map((pg) => (pg.id === id ? { ...pg, name: originalProductGroups[id.toString()] } : pg))
+            );
+            setModifiedProductGroups((prev) => prev.filter((modifiedId) => modifiedId !== id));
+        }
     };
 
     // Add new product group
     const handleAddNewProductGroup = () => {
         const newProductGroup: ProductGroup = {
-            id: Date.now(), // Temporary ID; replace with proper ID from backend
-            name: `new-${Date.now()}`, // Generate a unique name or handle differently
-            _count: { products: 0 }
+            id: Date.now(),
+            name: `new-${Date.now()}`,
+            _count: { products: 0 },
         };
         setProductGroups((prev) => [...prev, newProductGroup]);
         setAddedProductGroups((prev) => [...prev, newProductGroup]);
     };
 
-    // Reset all changes (Discard)
+    // Discard all changes
     const handleDiscardChanges = () => {
         setProductGroups(fetchedProductGroups);
         setModifiedProductGroups([]);
@@ -122,6 +128,7 @@ export const ProductGroupsSheet = () => {
         setAddedProductGroups([]);
     };
 
+    // Save all changes
     const handleSaveChanges = () => {
         if (addedProductGroups.length > 0) {
             createMutation.mutate(addedProductGroups.map((pg) => ({ name: pg.name })));
@@ -150,13 +157,15 @@ export const ProductGroupsSheet = () => {
         <Sheet>
             <SheetTrigger>Para gerenciar os grupos de produtos, clique aqui</SheetTrigger>
             <SheetContent className="flex flex-col h-full justify-between">
-                <div className="h-4/5">
-                    <SheetHeader className="h-1/5">
-                        <SheetTitle>Grupos de Produtos</SheetTitle>
-                        <SheetDescription>Gerencie seus grupos de produtos</SheetDescription>
-                    </SheetHeader>
-                    <ScrollArea className="h-3/5 rounded-md grid p-4">
-                        {productGroups.map((productGroup) => (
+                <SheetHeader>
+                    <SheetTitle>Grupos de Produtos</SheetTitle>
+                    <SheetDescription>Gerencie seus grupos de produtos</SheetDescription>
+                </SheetHeader>
+                <ScrollArea className="h-3/5 rounded-md grid p-4">
+                    {productGroups.length === 0 ? (
+                        <p className='text-sm text-stone-500'>Nenhum grupo de produto encontrado.</p>
+                    ) : (
+                        productGroups.map((productGroup) => (
                             <ProductGroupInput
                                 key={productGroup.id}
                                 productGroup={productGroup}
@@ -165,30 +174,25 @@ export const ProductGroupsSheet = () => {
                                 onRevert={handleRevert}
                                 isModified={modifiedProductGroups.includes(productGroup.id)}
                             />
-                        ))}
-                    </ScrollArea>
-                    <Button
-                        className="h-1/5"
-                        variant="outline"
-                        onClick={handleAddNewProductGroup}
-                    >
-                        + Adicionar Novo Grupo de Produtos
-                    </Button>
-                </div>
-
-                <SheetFooter className="flex justify-end w-full self-end">
-                    <SheetClose asChild className="self-start">
+                        ))
+                    )}
+                </ScrollArea>
+                <Button variant="outline" onClick={handleAddNewProductGroup} className="mt-4">
+                    + Adicionar novo grupo de produtos
+                </Button>
+                <SheetFooter className="flex justify-end w-full self-end mt-4">
+                    <SheetClose asChild>
                         <Button
                             variant="destructive"
                             onClick={handleDiscardChanges}
-                            className="text-white flex justify-between items-center p-3"
+                            className="text-white flex justify-between items-center p-3 mr-2"
                             disabled={
                                 modifiedProductGroups.length === 0 &&
                                 addedProductGroups.length === 0 &&
                                 deletedProductGroups.length === 0
                             }
                         >
-                            <X className="size-5" />
+                            <X className="size-5 mr-2" />
                             <p>Descartar</p>
                         </Button>
                     </SheetClose>
@@ -204,7 +208,7 @@ export const ProductGroupsSheet = () => {
                                         deletedProductGroups.length === 0
                                     }
                                 >
-                                    <Check className="size-5" />
+                                    <Check className="size-5 mr-2" />
                                     <p>Salvar</p>
                                 </Button>
                             </AlertDialogTrigger>
