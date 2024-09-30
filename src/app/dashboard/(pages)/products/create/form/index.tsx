@@ -16,8 +16,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { CategoriesSheet } from "./categories/categories-sheet"
 import { useCategories } from "@/hooks/use-categories"
 import { Category } from "@/types/categories"
-import { Skeleton } from "@/components/ui/skeleton"
 import { ProductGroupsSheet } from "./product-group/product-group-sheet"
+import { useTags } from "@/hooks/use-tags"
+import { TagField } from "./tags/tag-field"
+import { useProductGroups } from "@/hooks/use-product-group"
 
 
 const FormSchema = z.object({
@@ -34,7 +36,10 @@ const FormSchema = z.object({
         required_error: "Selecione um grupo de produto."
     }),
     description: z.string(),
-    tag: z.string()
+    tag: z.array(z.object({
+        id: z.number(),
+        name: z.string(),
+    }))
 });
 
 export const ProductForm = () => {
@@ -44,7 +49,10 @@ export const ProductForm = () => {
             product_name: "",
             description: "",
             price: 0,
-            tag: "",
+            tag: [{
+                id: 1,
+                name: 'Genshin Impact'
+            }],
         }
     })
 
@@ -59,10 +67,10 @@ export const ProductForm = () => {
         })
     }
 
-    const { data, isLoading, error } = useCategories();
-    const categories: Category[] = data || [];
+    const { data: categories = [], isLoading: categoriesIsLoading, error } = useCategories();
 
-    // const { data, isLoading, error} = useProductGroup();
+    const { data: productGroups = [] } = useProductGroups();
+
 
     return (
         <Card x-chunk="dashboard-07-chunk-0">
@@ -124,6 +132,11 @@ export const ProductForm = () => {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
+                                            {categories.length === 0 && (
+                                                <p className="text-sm text-stone-500">
+                                                    Muito vazio, por que não cria uma categoria?
+                                                </p>
+                                            )}
                                             {categories.map((category) => (
                                                 <SelectItem
                                                     key={category.name}
@@ -155,16 +168,21 @@ export const ProductForm = () => {
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>
-                                            {isLoading && (
-                                                <Skeleton className="w-[100px] h-[30px]"/>
+                                            {/* {isLoading && (
+                                                <Skeleton className="w-[100px] h-[30px]" />
+                                            )} */}
+                                            {productGroups.length === 0 && (
+                                                <p className="text-sm text-stone-500">
+                                                    Muito vazio, por que não cria um grupo de produto?
+                                                </p>
                                             )}
-                                            {categories.map((category) => (
+                                            {productGroups.map((group) => (
                                                 <SelectItem
-                                                    key={category.name}
+                                                    key={group.id}
                                                     className="cursor-pointer"
-                                                    value={category.name}
+                                                    value={group.name}
                                                 >
-                                                    {category.name.toLowerCase()}
+                                                    {group.name.toLowerCase()}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>
@@ -177,6 +195,7 @@ export const ProductForm = () => {
                             )}
                         />
 
+                        <TagField control={form.control} />
                     </form>
                 </Form>
             </CardContent>
