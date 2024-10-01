@@ -56,7 +56,7 @@ export const ProductGroupsSheet = () => {
 
     useEffect(() => {
         setProductGroups(fetchedProductGroups);
-    }, [fetchedProductGroups]);
+    }, []);
 
     // Handle product group deletion
     const handleDelete = (productGroup: ProductGroup) => {

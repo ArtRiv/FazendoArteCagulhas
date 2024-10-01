@@ -60,7 +60,7 @@ export const CategoriesSheet = () => {
 
     useEffect(() => {
         setCategories(fetchedCategories);
-    }, [fetchedCategories]);
+    }, []);
 
     const handleDelete = (category: Category) => {
         setCategories((prev) => prev.filter((cat) => cat.id !== category.id));

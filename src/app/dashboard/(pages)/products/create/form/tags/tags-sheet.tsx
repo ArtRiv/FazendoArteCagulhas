@@ -59,7 +59,7 @@ export const TagManagementSheet = () => {
 
     useEffect(() => {
         setTags(fetchedTags);
-    }, [fetchedTags]);
+    }, []);
 
     // Handle tag deletion
     const handleDelete = (tag: Tag) => {
