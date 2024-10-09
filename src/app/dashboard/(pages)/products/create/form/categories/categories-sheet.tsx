@@ -286,7 +286,7 @@ export const CategoriesSheet = () => {
                                                                 {deletedCategories.map((category) => (
                                                                     <li className="p-1" key={category.name}>
                                                                         {category.name} -{" "}
-                                                                        {category._count.products} produto(s)
+                                                                        {category._count?.products} produto(s)
                                                                         afetado(s)
                                                                     </li>
                                                                 ))}

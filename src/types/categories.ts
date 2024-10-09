@@ -1,7 +1,7 @@
 export interface Category {
     id: number;
     name: string;
-    _count: {
+    _count?: {
         products: number;
     };
 }
