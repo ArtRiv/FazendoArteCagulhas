@@ -1,9 +1,9 @@
 import { useState } from "react";
-import CurrencyInput, { CurrencyInputOnChangeValues } from "react-currency-input-field";
+import CurrencyInput from "react-currency-input-field";
 
 interface CustomCurrencyInputProps {
-    value: string | number | undefined;
-    onChange: (value: string | undefined) => void;
+    value: number | undefined;
+    onChange: (value: number | undefined) => void;
 }
 
 export const CustomCurrencyInput = ({ value, onChange }: CustomCurrencyInputProps) => {
@@ -18,23 +18,31 @@ export const CustomCurrencyInput = ({ value, onChange }: CustomCurrencyInputProp
     ) => {
         if (!newValue) {
             setClassName('');
-            onChange('');
+            onChange(undefined);
             return;
         }
 
+        // Replace commas for dot and parse the value
         const cleanValue = newValue.replace(/,/g, '.');
         const parsedValue = parseFloat(cleanValue);
+
+        if (isNaN(parsedValue)) {
+            setErrorMessage('Invalid number');
+            setClassName('is-invalid');
+            onChange(undefined);
+            return;
+        }
 
         if (parsedValue > LIMIT) {
             setErrorMessage(`Max: ${PREFIX}${LIMIT}`);
             setClassName('is-invalid');
-            onChange(newValue); 
+            onChange(parsedValue); 
             return;
         }
 
         setClassName('is-valid');
         setErrorMessage('');
-        onChange(newValue);
+        onChange(parsedValue);
     };
 
     return (
