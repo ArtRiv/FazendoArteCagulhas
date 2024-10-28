@@ -3,26 +3,18 @@
 import { Product } from "@/types/product";
 import { HttpRequest, HttpResponse, RequestData } from "..";
 
-interface getProductByIdParams {
-    id: string,
-}
-
-interface getSimilarProductsParams {
-    id: string,
-}
-
-export const getProductByID = async (p: getProductByIdParams): Promise<HttpResponse<Product>> => {
+export const getProductByID = async (id: string): Promise<HttpResponse<Product>> => {
     const requestData: RequestData = {
-        url: `http://localhost:8080/product/${p.id}`,
+        url: `http://localhost:8080/collection/${id}`,
         method: 'GET',
     };
 
     return await HttpRequest<Product>(requestData);
 }
 
-export const getSimilarProducts = async (p: getSimilarProductsParams): Promise<HttpResponse<Product[]>> => {
+export const getSimilarProducts = async (id: string): Promise<HttpResponse<Product[]>> => {
     const requestData: RequestData = {
-        url: `http://localhost:8080/product/${p.id}/similar`,
+        url: `http://localhost:8080/product/${id}/similar`,
         method: 'GET',
     };
 

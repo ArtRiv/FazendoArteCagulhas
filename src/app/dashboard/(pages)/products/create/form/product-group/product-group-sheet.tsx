@@ -289,7 +289,7 @@ export const ProductGroupsSheet = () => {
                                                             <ul className="list-disc flex flex-col gap-1">
                                                                 {deletedProductGroups.map((pg) => (
                                                                     <li className="p-1" key={pg.name}>
-                                                                        {pg.name} - {pg._count.products} produto(s) afetado(s)
+                                                                        {pg.name} - {pg._count?.products} produto(s) afetado(s)
                                                                     </li>
                                                                 ))}
                                                                 <p className="border rounded-md text-xs text-center w-1/2">

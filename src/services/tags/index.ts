@@ -10,6 +10,11 @@ export const fetchTags = async (): Promise<Tag[]> => {
   return response.data;
 };
 
+export const fetchTagsByID = async (id: string): Promise<Tag[]> => {
+  const response = await axios.get<Tag[]>(`${API_URL}/${id}`);
+  return response.data;
+}
+
 interface CreateTagDto {
   name: string;
 }
@@ -34,6 +39,5 @@ export const searchTags = async (query: string): Promise<Tag[]> => {
     const response = await axios.get<Tag[]>(SEARCH_API_URL, {
         params: { q: query },
     });
-    console.log(response.data);
     return response.data;
 }

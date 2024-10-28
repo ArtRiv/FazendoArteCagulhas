@@ -9,7 +9,10 @@ export const fetchCategories = async (): Promise<Category[]> => {
   return response.data;
 };
 
-// Create categories
+export const fetchCategoriesByID = async (id: string): Promise<Category[]> => {
+  const response = await axios.get<Category[]>(`${API_URL}/${id}`);
+  return response.data;
+}
 
 interface createCategoryDto {
   name: string

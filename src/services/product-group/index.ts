@@ -9,6 +9,11 @@ export const fetchProductGroups = async (): Promise<ProductGroup[]> => {
   return response.data;
 };
 
+export const fetchProductGroupByID = async (id: string): Promise<ProductGroup> => {
+  const response = await axios.get<ProductGroup>(`${API_URL}/${id}`);
+  return response.data;
+}
+
 // Create product groups
 interface CreateProductGroupDto {
   name: string;

@@ -31,14 +31,12 @@ import { Separator } from '@/components/ui/separator';
 import { Tag } from '@/types/tags';
 import { TagInput } from './tag';
 import {
-    useTags,
     useCreateTags,
     useUpdateTags,
     useDeleteTags,
 } from '@/hooks/use-tags';
 
-export const TagManagementSheet = () => {
-    const { data: fetchedTags = [], isLoading, isError, error } = useTags();
+export const TagManagementSheet = ({ fetchedTags, isLoading }: { fetchedTags: Tag[], isLoading: boolean}) => {
     const createMutation = useCreateTags();
     const updateMutation = useUpdateTags();
     const deleteMutation = useDeleteTags();
@@ -58,8 +56,10 @@ export const TagManagementSheet = () => {
     }, [fetchedTags]);
 
     useEffect(() => {
-        setTags(fetchedTags);
-    }, []);
+        if(!isLoading) {
+            setTags(fetchedTags);
+        }
+    }, [fetchedTags]);
 
     // Handle tag deletion
     const handleDelete = (tag: Tag) => {

@@ -18,12 +18,12 @@ import { Category } from '@/types/categories';
 export interface ProductFormValues {
     title: string;
     price: number;
-    category: Category[];
+    categories: Category[];
     product_group: number;
     description: string;
     tag: Tag[];
     variations: ProductVariation[];
-    status: "published" | "draft" | "archived";
+    status: "active" | "draft" | "archived";
     media: string[];
 }
 
@@ -35,9 +35,6 @@ type TagFieldProps = {
 
 export const TagField = ({ control, watch, setValue }: TagFieldProps) => {
     const { data: tags = [], isLoading: tagsAreLoading, isError, error } = useTags();
-    console.log(tags);
-
-    // Get the selected tags from the form state
     const selectedTags: Tag[] = watch('tag') || [];
 
     return (

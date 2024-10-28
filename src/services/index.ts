@@ -1,6 +1,7 @@
 "use server";
+import 'server-only'
 
-import axios, { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
+import axios, { AxiosError, AxiosResponse, HttpStatusCode, Method } from 'axios';
 
 export interface HttpResponse<T> {
     statusCode: HttpStatusCode;
@@ -9,7 +10,7 @@ export interface HttpResponse<T> {
 
 export interface RequestData {
     url: string;
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    method: Method;
     headers?: any;
     body?: any;
 }
@@ -25,7 +26,8 @@ export const HttpRequest = async <T>(data: RequestData): Promise<HttpResponse<T>
             headers: data.headers,
         })
     } catch (error) {
-        const _error = error as AxiosError<{ message: string}>;
+        console.error(error);
+        const _error = error as AxiosError<{message: string}>;
         throw new Error(_error?.message);
     };
 
