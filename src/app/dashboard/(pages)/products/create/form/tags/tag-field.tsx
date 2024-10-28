@@ -1,5 +1,5 @@
 import React from 'react';
-import { Control, useFormContext } from 'react-hook-form';
+import { Control, UseFormSetValue, UseFormWatch } from 'react-hook-form';
 import {
     FormField,
     FormItem,
@@ -12,25 +12,33 @@ import { Tag } from '@/types/tags';
 import { useTags } from '@/hooks/use-tags';
 import { MultiTagSelector } from './multi-tag-selector';
 import { TagManagementSheet } from './tags-sheet';
+import { ProductVariation } from '@/types/product-variation';
+import { Category } from '@/types/categories';
+
+export interface ProductFormValues {
+    title: string;
+    price: number;
+    category: Category[];
+    product_group: number;
+    description: string;
+    tag: Tag[];
+    variations: ProductVariation[];
+    status: "published" | "draft" | "archived";
+    media: string[];
+}
 
 type TagFieldProps = {
-    control: Control<{
-      tag: Tag[];
-      category: string;
-      product_name: string;
-      price: number;
-      product_group: string;
-      description: string;
-    }>;
-  };
+    control: Control<ProductFormValues>;
+    watch: UseFormWatch<ProductFormValues>;
+    setValue: UseFormSetValue<ProductFormValues>;
+};
 
-export const TagField = ({ control }: TagFieldProps) => {
+export const TagField = ({ control, watch, setValue }: TagFieldProps) => {
     const { data: tags = [], isLoading: tagsAreLoading, isError, error } = useTags();
-
-    const { watch, setValue } = useFormContext();
+    console.log(tags);
 
     // Get the selected tags from the form state
-    const selectedTags: Tag = watch('tags') || [];
+    const selectedTags: Tag[] = watch('tag') || [];
 
     return (
         <FormField
@@ -45,13 +53,16 @@ export const TagField = ({ control }: TagFieldProps) => {
                             selectedTags={field.value || []}
                             onChange={(selected) => field.onChange(selected)}
                             searchPlaceholder="Buscar tag..."
-                            noResultsMsg="Nenhuma tag encontrada"
+                            noResultsMsg="Nenhuma tag encontrada..."
                             selectItemMsg="Selecione uma tag"
-                            className="w-full"
+                            className="w-full h-auto"
                         />
                     </FormControl>
                     <FormDescription>
-                        <TagManagementSheet />
+                        <TagManagementSheet 
+                            fetchedTags={tags}
+                            isLoading={tagsAreLoading}
+                        />
                     </FormDescription>
                     <FormMessage />
                 </FormItem>

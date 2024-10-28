@@ -89,18 +89,18 @@ export const MultiTagSelector = ({
                     className={`w-full justify-between ${className}`}
                     disabled={disabled}
                 >
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex max-h-32 overflow-y-auto flex-wrap gap-2">
                         {selectedTags.length > 0 ? (
                             selectedTags.map(tag => (
                                 <span
                                     key={tag.id}
-                                    className="flex items-center px-2 py-1 bg-gray-200 rounded-full text-sm"
+                                    className="flex items-center gap-1 px-2 bg-green-300 rounded-md text-sm"
                                 >
                                     {tag.name}
                                     <span
                                         role="button"
                                         tabIndex={0}
-                                        className="ml-1 text-gray-500 hover:text-gray-700 cursor-pointer"
+                                        className="ml-1 text-base text-gray-600 hover:text-gray-800 cursor-pointer"
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             handleSelect(tag);
@@ -132,7 +132,7 @@ export const MultiTagSelector = ({
                         onValueChange={setInputValue}
                     />
                     <CommandList>
-                        <CommandEmpty>{noResultsMsg}</CommandEmpty>
+                        <CommandEmpty className='text-sm text-stone-500 p-3'>{noResultsMsg}</CommandEmpty>
                         <CommandGroup>
                             {filteredTags.map(tag => (
                                 <CommandItem
