@@ -5,7 +5,6 @@ const IMGBB_API_KEY = process.env.IMGBB_API_KEY;
 const IMGBB_URL = `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`;
 
 export async function POST(req: Request) {
-  console.log('teste');
   try {
     const formData = await req.formData();
     console.log("req formData: ", formData);
