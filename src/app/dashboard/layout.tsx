@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { Sidebar } from "./components/sidebar/sidebar";
 
 interface DashboardLayourProps {
@@ -12,7 +13,8 @@ export default async function DashboardLayout({
         <div className="text-stone-950 bg-stone-100 py-2 h-screen flex flex-col">
             <main className="grid gap-4 grid-cols-[220px,_1fr] relative w-screen h-full">
                 <Sidebar />
-                {children}
+                    {children}
+                <Toaster />
             </main>
         </div>
     )
